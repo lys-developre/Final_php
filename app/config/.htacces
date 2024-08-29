@@ -1,0 +1,6 @@
+<!--configuramos que archivos no vamos a dejar visibles para el usuario. -->
+
+<Files "config.php">
+    # Sintaxis para apache 2.4
+    Require all denied 
+</Files>
