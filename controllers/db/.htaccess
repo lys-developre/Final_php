@@ -1,0 +1,5 @@
+<!-- denegamos el acceso al archivo .env por parte de los usuarios. -->
+
+<Files ".env.php">
+    Require all denied
+</Files>
