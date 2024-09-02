@@ -1,0 +1,121 @@
+/* Estilos globales */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1b1b1b, #343a40, #212529); /* Degradado oscuro */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #f8f9fa;
+}
+
+/* Contenedor principal del formulario */
+.contenedor-formulario {
+    background-color: rgba(33, 37, 41, 0.9);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 100%;
+}
+
+/* Título del formulario */
+.titulo-formulario {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 1.8em;
+    color: #f8f9fa;
+}
+
+/* Grupos de formulario */
+.campo-formulario {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Etiquetas */
+.etiqueta-campo {
+    display: block;
+    margin-bottom: 5px;
+    color: #f8fafa;
+}
+
+/* Inputs y Selects */
+.entrada-campo,
+.seleccion-campo {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #495057;
+    border-radius: 4px;
+    background-color: rgba(248, 249, 250, 0.1);
+    color: #ffffff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilos para opciones del seleccionador */
+.seleccion-campo option {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+
+
+/* Estilos al enfocar un campo */
+.entrada-campo:focus,
+.seleccion-campo:focus {
+    border-color: #00bc8c;
+    box-shadow: 0 0 10px rgba(0, 188, 140, 0.5);
+    outline: none;
+}
+
+/* Mensajes de error */
+.mensaje-error {
+    color: #ff6b6b;
+    font-size: 0.6em;
+    position: absolute;
+    left: 0;
+    
+}
+
+/* Checkbox de Mostrar Contraseña */
+.mostrar-contrasena {
+    margin-right: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+/* estilos solo para el label mostrar contraseña */
+.etiqueta-campo[for="mostrar-contrasena"] {
+    display: inline-block;
+    color: #c8c8c8;
+    cursor: pointer;
+    vertical-align: middle;
+    font-size: 0.6em;
+}
+
+/* contenedor botón de envío */
+.grupo-boton {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Botón de envío del formulario */
+.boton-formulario {
+    background-color: #009973;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.boton-formulario:hover {
+    background-color: #008c72;
+    transform: translateY(-4px);
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="../publico/css/registro_formulario.css">
+</head>
+<body>
+    <main class="contenedor-formulario">
+        <h1 class="titulo-formulario">Registro de Usuario</h1>
+        <form action="../controladores/UsuarioControlador.php" method="POST" class="formulario-registro" novalidate>
+                
+                <div class="campo-formulario">
+                    <label for="nombre" class="etiqueta-campo">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" class="entrada-campo" required aria-describedby="error-nombre" placeholder="Ingrese su nombre" autocomplete="given-name">
+                    <span class="mensaje-error" id="error-nombre"></span>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="apellidos" class="etiqueta-campo">Apellidos:</label>
+                    <input type="text" id="apellidos" name="apellidos" class="entrada-campo" required aria-describedby="error-apellidos" placeholder="Ingrese sus apellidos" autocomplete="family-name">
+                    <span class="mensaje-error" id="error-apellidos"></span>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="correo" class="etiqueta-campo">Correo Electrónico:</label>
+                    <input type="email" id="correo" name="correo" class="entrada-campo" required aria-describedby="error-correo" placeholder="ejemplo@correo.com" autocomplete="email">
+                    <span class="mensaje-error" id="error-correo"></span>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="telefono" class="etiqueta-campo">Teléfono:</label>
+                    <input type="tel" id="telefono" name="telefono" class="entrada-campo" required aria-describedby="error-telefono" placeholder="+123456789" autocomplete="tel">
+                    <span class="mensaje-error" id="error-telefono"></span>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="fecha_nacimiento" class="etiqueta-campo">Fecha de Nacimiento:</label>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="entrada-campo" required aria-describedby="error-fecha_nacimiento" autocomplete="bday">
+                    <span class="mensaje-error" id="error-fecha_nacimiento"></span>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="direccion" class="etiqueta-campo">Dirección:</label>
+                    <input type="text" id="direccion" name="direccion" class="entrada-campo" required aria-describedby="error-direccion" placeholder="Ingrese su dirección" autocomplete="street-address">
+                    <span class="mensaje-error" id="error-direccion"></span>
+                </div>
+                
+                <div class="campo-formulario">
+                    <label for="sexo" class="etiqueta-campo">Sexo:</label>
+                    <select id="sexo" name="sexo" class="seleccion-campo" required aria-describedby="error-sexo">
+                        <option value="">Seleccione su sexo</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                    <span class="mensaje-error" id="error-sexo"></span>
+                </div>
+          
+                <div class="campo-formulario">
+                    <label for="contrasena" class="etiqueta-campo">Contraseña:</label>
+                    <input type="password" id="contrasena" name="contrasena" class="entrada-campo" required aria-describedby="error-contrasena" placeholder="Ingrese su contraseña" autocomplete="new-password">
+                    <span class="mensaje-error" id="error-contrasena"></span>
+                </div>
+                
+                <div class="campo-formulario">
+                    <input type="checkbox" id="mostrar-contrasena" class="mostrar-contrasena">
+                    <label for="mostrar-contrasena" class="etiqueta-campo">Mostrar Contraseña</label>
+                </div>
+            
+            <div class="grupo-boton">
+                <button type="submit" class="boton-formulario" name="registrarse">Registrarse</button>
+            </div>
+        </form>
+
+    </main>
+
+    <!-- Vinculación con la validación JavaScript -->
+    <script src="../publico/js/validacion_registro.js"></script> 
+</body>
+</html>

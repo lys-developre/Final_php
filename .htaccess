@@ -1,0 +1,4 @@
+<Files ".env.php">
+    # Sintaxis para apache 2.4
+    Require all denied
+</Files>
