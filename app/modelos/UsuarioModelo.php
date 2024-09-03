@@ -1,15 +1,19 @@
 <?php
 // Incluimos la ruta al archivo de conexión con la base de datos y a el de configuracion para mostrar errores .
 require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ .'/../config/errores.php';
+require_once __DIR__ . '/../config/errores.php';
 
 
 //definimos la clase que contendra los metodos de para el controlador de usuarios.
-class UsuarioModelo {
+class UsuarioModelo
+{
 
     // VERIFICACIÓN Y SANITIZACIÓN DE LOS DATOS ----------------------------------------------------
-    public function validarRegistro(&$datos) {  // Uso de '&' para pasar los datos por referencia.
-        
+    public function validarRegistro(&$datos){  // Uso de '&' para pasar los datos por referencia.
+
+        // Array para almacenar los errores.
+        $errores = [];
+
         // Definimos las regex que serán las encargadas de cotejarse con los datos.
         $NOMBRE_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
         $CONTRASENA_REGEX = "/^(?=.*[A-Z])(?=.*\d)(?=.*[.,_\-!@#$%^&*])[a-zA-Z\d.,_\-!@#$%^&*]{4,30}$/";
@@ -19,8 +23,11 @@ class UsuarioModelo {
         $DIRECCION_REGEX = "/^.{5,100}$/";
         $SEXO_REGEX = "/^(Masculino|Femenino|Otro)$/";
 
-        // Array para almacenar los errores.
-        $errores = [];
+        // Sanitizamos los datos antes de procesarlos.
+        foreach ($datos as $campo => $valor) {
+            //convertimos cada dato a entidades html seguras.
+            $datos[$campo] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
+        }
 
         // definimos nuestro array para que cada campo este asociado con un metodo de vaalidacion y un mensaje de error.
         $validaciones = [
@@ -104,7 +111,8 @@ class UsuarioModelo {
     }
 
     // INSERTAR NUEVOS USUARIOS A LA BASE DE DATOS -------------------------------------------------
-    public function insertarUsuario($datos) {
+    public function insertarUsuario($datos)
+    {
 
         //creamos la variable de coneccion.
         $mysqli_conn = connectToDatabase();

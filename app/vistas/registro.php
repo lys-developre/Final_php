@@ -9,7 +9,7 @@
 <body>
     <main class="contenedor-formulario">
         <h1 class="titulo-formulario">Registro de Usuario</h1>
-        <form action="../controladores/UsuarioControlador.php" method="POST" class="formulario-registro" novalidate>
+        <form action="../rutas/rutas.php" method="POST" class="formulario-registro">
                 
                 <div class="campo-formulario">
                     <label for="nombre" class="etiqueta-campo">Nombre:</label>

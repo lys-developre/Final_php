@@ -4,9 +4,10 @@ require_once __DIR__ . '/../modelos/UsuarioModelo.php';
 require_once __DIR__ . '/../config/errores.php';
 
 // Iniciar la sesión para manejar errores y otros datos que puedan ser necesarios.
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-echo '------------------------------los datos llegan hasta aquí!---------------';
 
 // Clase controladora para manejar el registro de usuarios
 class UsuarioControlador
@@ -17,8 +18,6 @@ class UsuarioControlador
         // Verificamos que la solicitud sea POST y que el formulario enviado sea el de registro
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['registrarse'])) {
 
-            // Ver los datos enviados por POST (para depuración)
-            var_dump($_POST);
             
             // Crear una instancia del modelo UsuarioModelo
             $modelo = new UsuarioModelo();
@@ -54,7 +53,3 @@ class UsuarioControlador
         }
     }
 }
-
-// Instanciar el controlador y llamar al método registrarUsuario
-$controlador = new UsuarioControlador();
-$controlador->registrarUsuario();
