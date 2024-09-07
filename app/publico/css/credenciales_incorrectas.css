@@ -1,0 +1,53 @@
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #1b1b1b, #343a40, #212529); /* Degradado oscuro */
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #f8f9fa;
+}
+
+/* Contenedor principal del error */
+.contenedor-error {
+    background-color: rgba(33, 37, 41, 0.9);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Título del error */
+.titulo-error {
+    font-size: 2em;
+    margin: 0;
+    color:  #7b41f0;
+}
+
+/* Mensaje de error */
+.mensaje-error {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+/* Botón para volver al login */
+.boton-inicio {
+    display: inline-block;
+    background-color: #009973;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.boton-inicio:hover {
+    background-color: #008c72;
+    transform: translateY(-2px);
+}

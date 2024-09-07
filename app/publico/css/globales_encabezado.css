@@ -1,0 +1,65 @@
+/* Estilos para el encabezado */
+.encabezado-principal {
+    background-color: rgba(33, 37, 41, 0.3);
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* Hacemos que el encabezado esté por encima del contenido */
+}
+
+.barra-navegacion {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.menu-principal {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.menu-principal li {
+    margin: 0 15px;
+}
+
+.menu-principal li a {
+    color: #f8f9fa;
+    text-decoration: none;
+    font-size: 1.1em;
+    padding: 10px 15px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.menu-principal li a:hover {
+    background-color: #00bc8c;
+    color: #ffffff;
+}
+
+/* pantallas pequeñas */
+@media (max-width: 768px) {
+    .barra-navegacion {
+        flex-direction: column;
+        font-size: 0.8rem;
+    }
+
+    .menu-principal {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-principal li {
+        margin-bottom: 10px;
+    }
+}
+
+/* Ajuste para el contenido para evitar que el encabezado solape el contenido */
+main {
+    margin-top: 80px; /* Aumentar este valor si el encabezado es más grande */
+}

@@ -9,14 +9,15 @@ class UsuarioModelo
 {
 
     // VERIFICACIÓN Y SANITIZACIÓN DE LOS DATOS ----------------------------------------------------
-    public function validarRegistro(&$datos){  // Uso de '&' para pasar los datos por referencia.
+    public function validarRegistro(&$datos)
+    {  // Uso de '&' para pasar los datos por referencia.
 
         // Array para almacenar los errores.
         $errores = [];
 
         // Definimos las regex que serán las encargadas de cotejarse con los datos.
         $NOMBRE_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
-        $CONTRASENA_REGEX = "/^(?=.*[A-Z])(?=.*\d)(?=.*[.,_\-!@#$%^&*])[a-zA-Z\d.,_\-!@#$%^&*]{4,30}$/";
+        $CONTRASENA_REGEX = "/^(?=.*[A-Z])(?=.*\d)(?=.*[.,_\-!@#$%^&*])[a-zA-Z\d.,_\-!@#$%^&*]{4,100}$/";
         $APELLIDOS_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
         $TELEFONO_REGEX = "/^\+?\d{7,15}$/";
         $FECHA_NACIMIENTO_REGEX = "/^\d{4}-\d{2}-\d{2}$/";
@@ -39,7 +40,7 @@ class UsuarioModelo
                 'regex' => $APELLIDOS_REGEX,
                 'error' => "Los apellidos deben contener entre 2 y 45 caracteres alfabéticos y pueden incluir un espacio para apellidos compuestos."
             ],
-            'correo' => [
+            'email' => [
                 'function' => function ($value) {
                     return filter_var($value, FILTER_VALIDATE_EMAIL);
                 },
@@ -110,51 +111,65 @@ class UsuarioModelo
         return $errores;
     }
 
-    // INSERTAR NUEVOS USUARIOS A LA BASE DE DATOS -------------------------------------------------
+    // INSERTAR NUEVOS USUARIOS A LA BASE DE DATOS EN LA TABLA DATA_USER Y DATA_LOGIN --------------
     public function insertarUsuario($datos)
     {
-
-        //creamos la variable de coneccion.
         $mysqli_conn = connectToDatabase();
 
-        //verificamos si la coneccion es nula y si lo es mostramos error.
-        if ($mysqli_conn === null) {
-            return ['error' => 'Error de conexión a la base de datos.'];
-        }
-
-        //creamos la consulta.
-        $query = "INSERT INTO users_data (nombre, apellidos, email, telefono, fecha_nacimiento, direccion, sexo, contrasena) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        //preparamos la consulta que creamos anteriormente.
+        $query = "INSERT INTO users_data (nombre, apellidos, email, telefono, fecha_nacimiento, direccion, sexo)
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
         $stmt = $mysqli_conn->prepare($query);
 
-        //verificamos si la consulta se pudo preparar con exito o no , si no mostramos error.
+
+        // Verificamos si la preparación de la consulta fue exitosa
         if ($stmt === false) {
-            error_log("No se pudo preparar la sentencia: " . $mysqli_conn->error);
-            return ['error' => 'Error en la preparación de la consulta.'];
+            var_dump('Error al preparar la consulta: ' . $mysqli_conn->error);
+            exit();
         }
 
-        // Enlazamos los parámetros a la consulta.
+
+
         $stmt->bind_param(
-            "ssssssss",
+            'sssssss',
             $datos['nombre'],
             $datos['apellidos'],
-            $datos['correo'],
+            $datos['email'],
             $datos['telefono'],
             $datos['fecha_nacimiento'],
             $datos['direccion'],
-            $datos['sexo'],
-            $datos['contrasena'] // esta contraseña en este punto ya esta encriptada antes de insertarla en la base de datos.
+            $datos['sexo']
         );
+        $stmt->execute();
 
-        //verificamos si se pudo ejecutar la consulta , y si es asi la cerramos y devolvemos true. si no mostramos el errror.
-        if ($stmt->execute()) {
-            $stmt->close();
-            return true;
-        } else {
-            error_log("Error en la ejecución de la sentencia: " . $stmt->error);
-            $stmt->close();
-            return ['error' => 'Error en la ejecución de la consulta.'];
-        }
+        // Retornar el ID del usuario insertado
+        return $stmt->insert_id;
     }
+
+    public function insertarLogin($idUsuario, $contrasena, $rol)
+{
+    $mysqli_conn = connectToDatabase();
+
+    // Verificar si el usuario ya tiene un registro en users_login
+    $queryCheck = "SELECT * FROM users_login WHERE id_user = ?";
+    $stmtCheck = $mysqli_conn->prepare($queryCheck);
+    $stmtCheck->bind_param('i', $idUsuario);
+    $stmtCheck->execute();
+    $resultadoCheck = $stmtCheck->get_result();
+
+    if ($resultadoCheck->num_rows > 0) {
+        // Si ya existe un registro para este id_user, puedes lanzar un error o actualizar la contraseña
+        error_log("El usuario con id $idUsuario ya tiene un registro en users_login.");
+        return false;
+    }
+
+    // Encriptar la contraseña
+    $hashedPassword = password_hash($contrasena, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO users_login (id_user, contrasena, rol) VALUES (?, ?, ?)";
+    $stmt = $mysqli_conn->prepare($query);
+    $stmt->bind_param('iss', $idUsuario, $hashedPassword, $rol);
+    return $stmt->execute();
+}
+
+
 }

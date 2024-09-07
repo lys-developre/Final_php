@@ -2,8 +2,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(135deg, #e30197,#60015c, #04012e, #1f0671);
-    background-size: cover; /* Se asegura de que el fondo cubra toda la pantalla */
-    background-attachment: fixed; /* El fondo permanece fijo mientras se hace scroll */
+    background-size: cover;
+    background-attachment: fixed; 
     margin: 0;
     padding: 0;
     display: flex;
@@ -17,15 +17,14 @@ body {
 /* Contenedor principal del formulario */
 .contenedor-formulario {
     background-color: rgba(33, 37, 41, 0.5);
-    margin-top: 9rem;
-    margin-bottom: 7rem;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     max-width: 500px;
     width: 100%;
     box-sizing: border-box;
-    
+    margin-bottom: 7rem;
+    margin-top: 20rem;
 }
 
 /* Título del formulario */
@@ -49,9 +48,8 @@ body {
     color: #f8fafa;
 }
 
-/* Inputs y Selects */
-.entrada-campo,
-.seleccion-campo {
+/* Inputs */
+.entrada-campo {
     width: 100%;
     padding: 10px;
     border: 1px solid #495057;
@@ -61,15 +59,8 @@ body {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Estilos para opciones del seleccionador */
-.seleccion-campo option {
-    background-color: #333333;
-    color: #ffffff;
-}
-
 /* Estilos al enfocar un campo */
-.entrada-campo:focus,
-.seleccion-campo:focus {
+.entrada-campo:focus {
     border-color: #00bc8c;
     box-shadow: 0 0 10px rgba(0, 188, 140, 0.5);
     outline: none;
@@ -126,7 +117,7 @@ body {
     .contenedor-formulario {
         padding: 40px;
         max-width: 90%;
-        margin: 180px auto 20px auto; /* Ajuste para que el formulario quede más abajo */
+       
     }
     
     .titulo-formulario {
@@ -134,8 +125,7 @@ body {
         margin-bottom: 40px;
     }
 
-    .entrada-campo,
-    .seleccion-campo {
+    .entrada-campo {
         padding: 8px;
         font-size: 0.9em;
     }
@@ -158,8 +148,6 @@ body {
     .contenedor-formulario {
         padding: 40px;
         max-width: 600px;
-
-        
     }
     
     .titulo-formulario {

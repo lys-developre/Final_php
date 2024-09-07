@@ -1,0 +1,171 @@
+/* Estilos para el contenedor principal de la página de inicio */
+body {
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(135deg, #e30197,#60015c, #04012e, #1f0671);
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  color: #f8f9fa;
+}
+
+.contenedor-inicio {
+  margin: 5rem 2rem 3rem 2rem;
+  
+}
+
+/* Hero Section */
+.hero {
+  background-color: rgba(33, 37, 41, 0.5);
+  padding: 60px 50px;
+  text-align: center;
+  border-radius: 8px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.hero .boton {
+  padding: 12px 30px;
+  background-color: #009973;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+}
+
+.hero .boton:hover {
+  background-color: #00ae8e;
+}
+
+/* Sección de Novedades */
+.novedades {
+  margin-bottom: 50px;
+}
+
+.novedades h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.grid-novedades {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.novedad {
+  background-color: rgba(33, 37, 41, 0.5);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.novedad h3 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
+
+.novedad p {
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+.novedad .leer-mas {
+  color: #00bc8c;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.novedad .leer-mas:hover {
+  color: #008c72;
+}
+
+.php-elefante {
+  width: 100%;            
+  height: auto;            
+  max-width: 500px;         
+  margin: 10px auto;      
+  display: block;     
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Sección de Contacto */
+.contacto {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.contacto h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.contacto p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.contacto .boton-contacto {
+  padding: 12px 30px;
+  background-color: #009973;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 1.1em;
+  transition: background-color 0.3s ease;
+}
+
+.contacto .boton-contacto:hover {
+  background-color: #008c72;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 768px) {
+  .contenedor-inicio {
+    margin-top: 8rem;
+  }
+
+  .hero h1 {
+    font-size: 1.6em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+
+  .hero .boton {
+    font-size: 1em;
+  }
+
+  .novedades h2,
+  .contacto h2 {
+    font-size: 1.2em;
+  }
+
+  .php-elefante {
+    max-width: 300px;        
+
+  }
+}

@@ -1,0 +1,113 @@
+/* Estilos para el pie de página */
+.contenido {
+    width: 100%;
+    
+}
+
+.pie-de-pagina {
+    background-color: rgba(33, 37, 41, 0.3);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    color: #f8f9fa;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+
+.pie-de-pagina .contenido-pie {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.pie-de-pagina p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #c8c8c8;
+    flex: 1 1 auto;
+}
+
+.pie-de-pagina .enlaces-pie {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+}
+
+.pie-de-pagina .enlaces-pie li {
+    margin: 0 10px;
+}
+
+.pie-de-pagina .enlaces-pie a {
+    color: #00bc8c;
+    text-decoration: none;
+    font-size: 0.85em;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.pie-de-pagina .enlaces-pie a:hover {
+    color: #008c72;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+    .contenido {
+        margin-top: 4rem;
+    }
+
+    .pie-de-pagina .contenido-pie {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .pie-de-pagina .enlaces-pie {
+        margin-top: 10px;
+    }
+
+    .pie-de-pagina .enlaces-pie li {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .pie-de-pagina p {
+        margin-bottom: 10px;
+    }
+}
+
+/* Ajustes adaptativos para pantallas medianas y grandes */
+@media (min-width: 768px) and (max-width: 1440px) {
+    .pie-de-pagina {
+        padding: 30px;
+    }
+
+    .pie-de-pagina p {
+        font-size: 1em;
+    }
+
+    .pie-de-pagina .enlaces-pie a {
+        font-size: 1em;
+    }
+}
+
+@media (min-width: 1440px) {
+    .pie-de-pagina {
+        padding: 40px;
+    }
+
+    .pie-de-pagina p {
+        font-size: 1.1em;
+    }
+
+    .pie-de-pagina .enlaces-pie a {
+        font-size: 1.1em;
+    }
+}

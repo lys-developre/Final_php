@@ -1,16 +1,36 @@
-<!-- este enrutador es el que decidira que controlador y que metodos usaremos. -->
-
 <?php
 
-//llamamos a el controlador de los usuarios para que se encargue de la logica de los datos de el formulario.
+// Incluir los controladores necesarios
 require_once __DIR__ . '/../controladores/UsuarioControlador.php';
+require_once __DIR__ . '/../controladores/LoginControlador.php';
+require_once __DIR__ . '/../config/errores.php';
 
-//si el metodo es post y el post es registrarse lo mandamos al controlador de registro con el modelo registrar usuariopara que lo valide sanitize y mande a la base de datos.
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['registrarse'])) {
+// Verificar si la solicitud es de tipo POST
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    //instanciamos ela clase usuario controlador.
-    $controlador = new UsuarioControlador();
-    //llamamos a el metodo encargado de el registro de la clase usuario controlador.
-    $controlador->registrarUsuario();
+
+    // Instanciar los controladores necesarios
+    $usuarioControlador = new UsuarioControlador();
+    $loginControlador = new LoginControlador();
+
+    // Verificar si la acción es registrar un usuario   
+    if (isset($_POST['registrarse'])) {
+        // Llamar al método que maneja el registro de usuarios
+        $usuarioControlador->registrarUsuario();
+        exit;
+    }
+
+    // Verificar si la acción es iniciar sesión
+    if (isset($_POST['iniciar_sesion'])) {
+        // Llamar al método que maneja el inicio de sesión
+        $loginControlador->iniciarSesion();
+        exit;
+    }
+
 }
+
+// Si la solicitud no es POST o no se reconoce la acción, redirigir a una página de error
+header('Location: http://localhost/Final_php/app/vistas/errores/error_500.php');
+exit;
+
 

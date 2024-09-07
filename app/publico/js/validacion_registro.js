@@ -1,139 +1,94 @@
-document.addEventListener("DOMContentLoaded", function () {
+// Seleccionamos las variables y los inputs del formulario
+const register_form = document.querySelector('.formulario-registro'); // Cambia el selector al de tu formulario
+const userName = document.querySelector("#nombre");
+const userApellidos = document.querySelector("#apellidos");
+const userEmail = document.querySelector("#correo");
+const userTelefono = document.querySelector("#telefono");
+const userFechaNacimiento = document.querySelector("#fecha_nacimiento");
+const userDireccion = document.querySelector("#direccion");
+const userSexo = document.querySelector("#sexo");
+const userPassword = document.querySelector('#contrasena-registro');
 
-    
+// Definimos las funciones que nos permitirán realizar la validación de los inputs
+function validateName(name){
+    let regex = /^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/;
+    return regex.test(name);
+}
 
-    // Definición de constantes para las expresiones regulares utilizadas en la validación
-    const REGEX_NOMBRE = /^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/;
-    const REGEX_APELLIDOS = /^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/;
-    const REGEX_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const REGEX_TELEFONO = /^\+?\d{7,15}$/;
-    const REGEX_CONTRASENA = /^(?=.*[A-Z])(?=.*\d)(?=.*[.,_\-!@#$%^&*])[a-zA-Z\d.,_\-!@#$%^&*]{4,30}$/;
-    const REGEX_FECHA = /^\d{4}-\d{2}-\d{2}$/;
-    const REGEX_DIRECCION = /^.{5,100}$/;
+function validateApellidos(apellidos){
+    let regex = /^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/;
+    return regex.test(apellidos);
+}
 
-    // Referencias a los elementos del formulario
-    const form = document.querySelector(".formulario-registro");
+function validateEmail(email){
+    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
 
-    //almacenamos en un objeto las referencias a los campos de el formulario
-    const campos = {
-        nombre: document.getElementById("nombre"),
-        apellidos: document.getElementById("apellidos"),
-        correo: document.getElementById("correo"),
-        telefono: document.getElementById("telefono"),
-        fecha_nacimiento: document.getElementById("fecha_nacimiento"),
-        direccion: document.getElementById("direccion"),
-        sexo: document.getElementById("sexo"),
-        contrasena: document.getElementById("contrasena"),
-    };
+function validateTelefono(telefono){
+    let regex = /^\+?\d{7,15}$/;
+    return regex.test(telefono);
+}
 
-    // almacenamos en este objeto las referencias a los elementos que mostrarán los mensajes de error
-    const mensajesError = {
-        nombre: document.getElementById("error-nombre"),
-        apellidos: document.getElementById("error-apellidos"),
-        correo: document.getElementById("error-correo"),
-        telefono: document.getElementById("error-telefono"),
-        fecha_nacimiento: document.getElementById("error-fecha_nacimiento"),
-        direccion: document.getElementById("error-direccion"),
-        sexo: document.getElementById("error-sexo"),
-        contrasena: document.getElementById("error-contrasena"),
-    };
+function validateFecha(fecha){
+    let regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(fecha);
+}
 
-    // Con esta funcio validamos el campo usando la reguex , devuelve (true/false).
-    function validarCampo(valor, regex) {
-        return regex.test(valor.trim());
-    }
+function validateDireccion(direccion){
+    return direccion.length >= 5 && direccion.length <= 100;
+}
 
-    /*
-    * Estas funciones validan los valores ingresados en los campos del formulario usando expresiones regulares.   
-    * - Cada función (`validarNombre`, `validarCorreo`, etc.) llama a `validarCampo` para comprobar si el valor cumple con su regex.
-    * - Si el valor es inválido, se muestra un mensaje de error; si es válido, el mensaje de error se limpia.
-    * - esto lo usaremos para verificar si enviamos el formulario  o no y para ver si mostramos mensaje de error en los campos o no.
-    */
+function validatePassword(password){
+    let regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[.,_\-!@#$%^&*])[a-zA-Z\d.,_\-!@#$%^&*]{4,100}$/;
+    return regex.test(password);
+}
 
-    function validarNombre() {
-        const esValido = validarCampo(campos.nombre.value, REGEX_NOMBRE);
-        mensajesError.nombre.textContent = esValido ? "" : "El nombre debe tener entre 2 y 45 caracteres y solo contener letras.";
-        return esValido;
-    }
+function validateSexo(sexo){
+    return sexo !== '';
+}
 
-    function validarApellidos() {
-        const esValido = validarCampo(campos.apellidos.value, REGEX_APELLIDOS);
-        mensajesError.apellidos.textContent = esValido ? "" : "Los apellidos deben tener entre 2 y 45 caracteres y solo contener letras.";
-        return esValido;
-    }
+// Definimos las funciones de validación que se ejecutarán al salir del input
+function validateOnBlur(inputElement, validator){
+    inputElement.addEventListener('blur', function(){
+        let value = inputElement.value;
+        let valid = validator(value);
+        let smallElement = inputElement.nextElementSibling; // Encuentra el siguiente span para el error
 
-    function validarCorreo() {
-        const esValido = validarCampo(campos.correo.value, REGEX_CORREO);
-        mensajesError.correo.textContent = esValido ? "" : "Ingrese un correo electrónico válido.";
-        return esValido;
-    }
-
-    function validarTelefono() {
-        const esValido = validarCampo(campos.telefono.value, REGEX_TELEFONO);
-        mensajesError.telefono.textContent = esValido ? "" : "El número de teléfono debe contener entre 7 y 15 dígitos.";
-        return esValido;
-    }
-
-    function validarFechaNacimiento() {
-        const esValido = validarCampo(campos.fecha_nacimiento.value, REGEX_FECHA);
-        mensajesError.fecha_nacimiento.textContent = esValido ? "" : "Ingrese una fecha válida en formato AAAA-MM-DD.";
-        return esValido;
-    }
-
-    function validarDireccion() {
-        const esValido = validarCampo(campos.direccion.value, REGEX_DIRECCION);
-        mensajesError.direccion.textContent = esValido ? "" : "La dirección debe tener entre 5 y 100 caracteres.";
-        return esValido;
-    }
-
-    function validarSexo() {
-        const esValido = campos.sexo.value !== "";
-        mensajesError.sexo.textContent = esValido ? "" : "Seleccione una opción de sexo.";
-        return esValido;
-    }
-
-    function validarContrasena() {
-        const esValido = validarCampo(campos.contrasena.value, REGEX_CONTRASENA);
-        mensajesError.contrasena.textContent = esValido ? "" : "La contraseña debe tener entre 4 y 10 caracteres, incluyendo una mayúscula, un número y un símbolo.";
-        return esValido;
-    }
-
-    // Asignamos los eventos de validacion cuando el usuario haga blur para mostrar o no si ingreso un campo erroneo.
-    campos.nombre.addEventListener("blur", validarNombre);
-    campos.apellidos.addEventListener("blur", validarApellidos);
-    campos.correo.addEventListener("blur", validarCorreo);
-    campos.telefono.addEventListener("blur", validarTelefono);
-    campos.fecha_nacimiento.addEventListener("blur", validarFechaNacimiento);
-    campos.direccion.addEventListener("blur", validarDireccion);
-    campos.sexo.addEventListener("blur", validarSexo);
-    campos.contrasena.addEventListener("blur", validarContrasena);
-
-
-
-    // Manejamos el envio de el formulario , le agregamos una escucha de evento para que cuando el usuario quiera enviarlo solo pueda si todas las validaciones fueron con respuesta true, y si no es asi no lo enviaremos ademas de evitar que se envie por defecto.
-    form.addEventListener("submit", function (event) {
-
-        
-
-        // Prevenir el envío hasta que todos los campos sean válidos
-        const esFormularioValido = validarNombre() &&
-            validarApellidos() &&
-            validarCorreo() &&
-            validarTelefono() &&
-            validarFechaNacimiento() &&
-            validarDireccion() &&
-            validarSexo() &&
-            validarContrasena();
-
-        if (!esFormularioValido) {
-            
-            event.preventDefault(); // Evita el envío del formulario si hay errores
+        if(!valid){
+            smallElement.textContent = "Error: El contenido introducido no es válido";
+            smallElement.style.color = "red";
+            smallElement.style.visibility = "visible";
+        }else{
+            smallElement.style.visibility = "hidden"; // Escondemos el campo
+            smallElement.textContent = ''; // Limpiamos el campo
         }
-        
     });
+}
 
-    // Mostrar u ocultar la contraseña
-    document.getElementById("mostrar-contrasena").addEventListener("change", function () {
-        campos.contrasena.type = this.checked ? "text" : "password";
-    });
+// Capturamos el evento del envío del formulario para controlar si hay errores.
+register_form.addEventListener('submit', function(e){
+    let isNameValid = validateName(userName.value);
+    let isApellidosValid = validateApellidos(userApellidos.value);
+    let isEmailValid = validateEmail(userEmail.value);
+    let isTelefonoValid = validateTelefono(userTelefono.value);
+    let isFechaValid = validateFecha(userFechaNacimiento.value);
+    let isDireccionValid = validateDireccion(userDireccion.value);
+    let isSexoValid = validateSexo(userSexo.value);
+    let isPasswordValid = validatePassword(userPassword.value);
+
+    if (!isNameValid || !isApellidosValid || !isEmailValid || !isTelefonoValid || !isFechaValid || !isDireccionValid || !isSexoValid || !isPasswordValid){
+        // Prevenimos el envío del formulario si alguna validación falla
+        e.preventDefault();
+        
+    }
 });
+
+// Ejecutamos las funciones de validación en el evento blur
+validateOnBlur(userName, validateName);
+validateOnBlur(userApellidos, validateApellidos);
+validateOnBlur(userEmail, validateEmail);
+validateOnBlur(userTelefono, validateTelefono);
+validateOnBlur(userFechaNacimiento, validateFecha);
+validateOnBlur(userDireccion, validateDireccion);
+validateOnBlur(userPassword, validatePassword);
