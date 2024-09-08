@@ -1,92 +1,133 @@
-/* Estilos para el contenedor principal de la página de inicio */
+/* Estilos del contenedor principal */
 body {
-    font-family: "Roboto", sans-serif;
-    background: linear-gradient(135deg, #e30197,#60015c, #04012e, #1f0671);
-    background-size: cover;
-    background-attachment: fixed;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 100vh;
-    color: #f8f9fa;
-  }
-  
-  /* Contenedor Masonry */
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(135deg, #e30197, #60015c, #04012e, #1f0671);
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  color: #f8f9fa;
+}
+
+/* Estilos generales del contenido principal */
+main h1 {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 1.5rem;
+}
+
+/* Contenedor Masonry */
 .masonry-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-auto-rows: 10px;
-    gap: 20px;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    grid-auto-flow: dense;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  grid-auto-rows: 350px; 
+}
+
+/* Estilos para las noticias */
+.noticia {
+  background-color: rgba(33, 37, 41, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Imágenes dentro de las noticias */
+.noticia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Estilos comunes para textos de las noticias */
+.noticia h2, .noticia p, .noticia small {
+  margin: 10px 15px;
+}
+
+.noticia h2 {
+  font-size: 1.6em;
+}
+
+.noticia p {
+  font-size: 1em;
+}
+
+.noticia small {
+  font-size: 0.9em;
+  color: #adb5bd;
+}
+
+/* Estilos para el botón "ver más" */
+.noticia .ver-mas {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #009973;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  margin: 10px 15px;
+}
+
+.noticia .ver-mas:hover {
+  background-color: #00ae8e;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .masonry-grid {
+    grid-template-columns: 1fr;
   }
-  
-  /* Estilos para las noticias */
-  .noticia {
-    background-color: rgba(33, 37, 41, 0.5);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
+
   .noticia img {
-    width: 100%;
     height: auto;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    object-fit: contain;
   }
-  
-  /* Noticia pequeña */
-  .noticia-pequena {
-    grid-row: span 15;
+}
+
+/* Responsivo para pantallas medianas */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 400px;
   }
-  
-  /* Noticia grande */
-  .noticia-grande {
-    grid-row: span 30;
+
+  .noticia-dos-filas {
+    grid-row: span 2;
+    height: 800px;
   }
-  
-  /* Estilos comunes */
-  .noticia h2 {
-    font-size: 1.6em;
-    margin-bottom: 10px;
+
+  .noticia-dos-columnas {
+    grid-column: span 2;
+    height: 400px;
   }
-  
-  .noticia p {
-    font-size: 1em;
-    margin-bottom: 10px;
+}
+
+/* Responsivo para pantallas grandes */
+@media (min-width: 1025px) {
+  .masonry-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
+    grid-auto-rows: 450px;
   }
-  
-  .noticia small {
-    font-size: 0.9em;
-    color: #adb5bd;
+
+  .noticia-dos-filas {
+    grid-row: span 2;
+    height: 900px;
   }
-  
-  .noticia .ver-mas {
-    align-self: flex-start;
-    padding: 10px 20px;
-    background-color: #009973;
-    color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+
+  .noticia-dos-columnas {
+    grid-column: span 2;
+    height: 450px;
   }
-  
-  .noticia .ver-mas:hover {
-    background-color: #00ae8e;
-  }
-  
-  @media (max-width: 768px) {
-    .masonry-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-  
+}

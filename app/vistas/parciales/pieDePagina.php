@@ -6,7 +6,7 @@
             <li><a href="http://localhost/Final_php/app/index.php">Inicio</a></li>
             <li><a href="http://localhost/Final_php/app/vistas/login.php">Login</a></li>
             <li><a href="http://localhost/Final_php/app/vistas/registro.php">Registro</a></li>
-            <li><a href="http://localhost/Final_php/app/vistas/noticias.php">Noticias</a></li>
+            <li><a href="http://localhost:3000/app/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>
         </ul>
     </div>
 </footer>

@@ -1,63 +1,84 @@
 <?php
 
-// Iniciar la sesión si no está iniciada
+require_once __DIR__ . '/../modelos/LoginModelo.php';  // Incluir el modelo de login
+require_once __DIR__ . '/../config/errores.php';  // Manejo de errores
+
+// Asegurarnos de que la sesión esté iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
-// Incluir los archivos requeridos de el modelo login y la configuracion de erroes.
-require_once __DIR__ . '/../modelos/LoginModelo.php';
-require_once __DIR__ . '/../config/errores.php';
-
-
-
-// Clase controladora para manejar el login de usuarios
 class LoginControlador
 {
-    // Método para iniciar sesión
-    public function iniciarSesion()
+    private $modelo;
 
+    // Constructor que recibe la conexión de la base de datos
+    public function __construct($db_connection)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['iniciar_sesion'])) {
+        $this->modelo = new LoginModelo($db_connection);
+    }
 
-            // Crear una instancia del modelo LoginModelo
-            $modelo = new LoginModelo();
+    // Método para iniciar sesión
+    public function iniciarSesion($email, $password)
+    {
+        // Validar los datos del formulario
+        $errores = $this->validarDatosLogin($email, $password);
 
-            // Validar las credenciales del usuario, utilizando el campo 'email' que está en el formulario
-            $usuario = $modelo->verificarCredenciales($_POST['email'], $_POST['contrasena']);
-
-
-
-            // Si las credenciales son correctas
-            if ($usuario) {
-                // Guardar los datos del usuario en la sesión
-                $_SESSION['usuario_id'] = $usuario['id'];
-                $_SESSION['usuario_rol'] = $usuario['rol'];
-
-                // Redirigir al dashboard o página principal
-                header('Location: ../../../vistas/perfil.php');
-                exit();
-            } else {
-
-                //DEPURACION , LOS ERRORES ME TRAEN HASTA ESTE ELSE!!----------------------////////////////////
-
-                // Si las credenciales son incorrectas, almacenar un error en la sesión y redirigir al formulario de login
-                $_SESSION['errores'] = ['login' => 'Credenciales incorrectas. Por favor, inténtelo de nuevo.'];
-                header('Location: http://localhost:3000/app/vistas/errores/credenciales_incorrectas.php');
-                exit();
-            }
-
-
-
-
-
-
-        } else {
-            // Manejar el caso en que la solicitud no sea POST o el formulario no sea el esperado
-            $_SESSION['errores'] = ['request' => 'Solicitud inválida'];
-            header('Location: http://localhost/Final_php/app/vistas/login.php');
+        if (!empty($errores)) {
+            // Si hay errores, los mostramos al usuario
+            $_SESSION['mensaje_error'] = implode("<br>", $errores);
+            header("Location: ../vistas/login.php");
             exit();
         }
+
+        // Obtener los datos del usuario desde el modelo
+        $usuario = $this->modelo->obtenerUsuarioPorCorreo($email);
+
+
+
+        if ($usuario) {
+
+                // Mostrar los datos que llegan a la variable $usuario
+    echo "<pre>";
+    var_dump($usuario['contrasena']);  // O puedes usar print_r($usuario)
+    echo "</pre>";
+    exit();  // Detenemos la ejecución aquí para ver los datos
+
+            // Verificar si la contraseña ingresada coincide con el hash almacenado
+            if (password_verify($password, $usuario['contrasena'])) {
+                // Iniciar sesión y almacenar los datos del usuario en la sesión
+                $_SESSION['user_data'] = $usuario;
+                header("Location: ../vistas/users/profile.php");
+                exit();
+            } else {
+                // Si la contraseña es incorrecta
+                $_SESSION['mensaje_error'] = "Contraseña incorrecta.";
+                header("Location: ../vistas/contraseñaincorrecta");
+                exit();
+            }
+        } else {
+            // Si no se encuentra el usuario
+            $_SESSION['mensaje_error'] = "No se encontró un usuario con ese correo electrónico.";
+            header("Location: ../vistas/noseencontroelusuario");
+            exit();
+        }
+    }
+
+    // Validar el correo electrónico y la contraseña
+    private function validarDatosLogin($email, $password)
+    {
+        $errores = [];
+
+        // Validar que el correo sea correcto
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errores[] = "El correo electrónico no tiene un formato válido.";
+        }
+
+        // Validar que la contraseña tenga al menos 4 caracteres y cumpla con los requisitos de seguridad
+        if (strlen($password) < 4 || !preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[.,_\-!@#$%^&*])[a-zA-Z\d.,_\-!@#$%^&*]{4,}$/', $password)) {
+            $errores[] = "La contraseña debe tener al menos una mayúscula, un número y un símbolo.";
+        }
+
+        return $errores;
     }
 }

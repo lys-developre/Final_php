@@ -1,4 +1,6 @@
 /* Estilos para el encabezado */
+
+
 .encabezado-principal {
     background-color: rgba(33, 37, 41, 0.3);
     padding: 20px;
@@ -41,9 +43,16 @@
     background-color: #00bc8c;
     color: #ffffff;
 }
+main {
+    margin-top: 80px;
+}
 
 /* pantallas pequeñas */
 @media (max-width: 768px) {
+    main {
+        margin-top: 160px;
+    }
+
     .barra-navegacion {
         flex-direction: column;
         font-size: 0.8rem;
@@ -59,7 +68,3 @@
     }
 }
 
-/* Ajuste para el contenido para evitar que el encabezado solape el contenido */
-main {
-    margin-top: 80px; /* Aumentar este valor si el encabezado es más grande */
-}

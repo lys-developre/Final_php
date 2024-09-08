@@ -16,14 +16,14 @@ $rol = isset($_SESSION['usuario_rol']) ? $_SESSION['usuario_rol'] : 'visitante';
                 <li><a href="http://localhost/Final_php/app/index.php">Inicio</a></li>
                 <li><a href="http://localhost/Final_php/app/vistas/registro.php">Registro</a></li>
                 <li><a href="http://localhost/Final_php/app/vistas/login.php">Iniciar Sesión</a></li>
-                <li><a href="http://localhost/Final_php/app/vistas/noticias.php">Noticias</a></li>
+                <li><a href="http://localhost:3000/app/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>
 
             <?php elseif ($_SESSION['usuario_rol'] === 'user'): // Usuario registrado ?>
 
                 <li><a href="http://localhost/Final_php/app/index.php">Inicio</a></li>
                 <li><a href="http://localhost/Final_php/app/vistas/registro.php">Registro</a></li>
                 <li><a href="http://localhost/Final_php/app/vistas/login.php">Iniciar Sesión</a></li>
-                <li><a href="noticias.php">Noticias</a></li>
+                <li><a href="http://localhost:3000/app/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="logout.php">Cerrar Sesión</a></li>
 
@@ -32,7 +32,7 @@ $rol = isset($_SESSION['usuario_rol']) ? $_SESSION['usuario_rol'] : 'visitante';
                 <li><a href="http://localhost/Final_php/app/index.php">Inicio</a></li>
                 <li><a href="http://localhost/Final_php/app/vistas/registro.php">Registro</a></li>
                 <li><a href="http://localhost/Final_php/app/vistas/login.php">Iniciar Sesión</a></li>
-                <li><a href="noticias.php">Noticias</a></li>>
+                <li><a href="http://localhost:3000/app/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>>
                 <li><a href="admin_dashboard.php">Admin Dashboard</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="logout.php">Cerrar Sesión</a></li>

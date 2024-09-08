@@ -23,21 +23,23 @@ function connectToDatabase()
                 // Registrar el error en el log de Apache si la conexión falla.
                 error_log("Fallo al conectar a la base de datos: " . $mysqli_conn->connect_error);
                 return null;
-
+                
             } else {
 
-                // Mostrar un mensaje si la conexión se realiza con éxito.
-                echo "La conexión ha funcionado correctamente";
+                // En lugar de echo, almacenamos el mensaje en una variable
+                $conexionMensaje = "La conexión ha funcionado correctamente";
+            }
 
+            // Enviar el mensaje a la consola del navegador si la conexión fue exitosa
+            if (isset($conexionMensaje)) {
+                echo "<script>console.log('" . addslashes($conexionMensaje) . "');</script>";
             }
         } catch (Exception $e) {
 
             // Registrar cualquier excepción que ocurra durante la conexión.
             error_log("Error de conexión a la base de datos: " . $e->getMessage());
             return null;
-
         }
-
     }
 
     return $mysqli_conn; // Devolver la conexión establecida o null si falló.
@@ -51,5 +53,4 @@ if ($mysqli_connection === null) {
 
     header('Location: ./views/errors/error500.html');
     exit();
-
 }

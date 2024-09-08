@@ -40,7 +40,7 @@
                     <h3>Titulo de noticias 1</h3>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia optio nisi hic corporis sint atque fugit vero accusantium ex consequatur enim eius sequi iste similique, repudiandae labore neque vel excepturi.p>
                     <img class="php-elefante" src="./publico/images/php-azul.jpg" alt="imagen elefante php color rosa">
-                    <a href="#" class="leer-mas">Leer más</a>
+                    <a href="http://localhost:3000/app/rutas/rutas.php?accion=mostrarNoticias" class="leer-mas">Leer más</a>
                 </article>
 
 
@@ -48,7 +48,7 @@
                     <h3>Titulo de noticias 2</h3>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia optio nisi hic corporis sint atque fugit vero accusantium ex consequatur enim eius sequi iste similique, repudiandae labore neque vel excepturi.</p>
                     <img class="php-elefante" src="./publico/images/php-rosa.jpg" alt="imagen elefante php color azul">
-                    <a href="#" class="leer-mas">Leer más</a>
+                    <a href="http://localhost:3000/app/rutas/rutas.php?accion=mostrarNoticias" class="leer-mas">Leer más</a>
                 </article>
             </div>
         </section>

@@ -1,100 +1,31 @@
 <?php
 
-// Incluir el archivo de conexión a la base de datos y la configuracion de errores.
-require_once __DIR__ . '/../config/config.php';
-require_once __DIR__ . '/../config/errores.php';
-
 class LoginModelo
 {
-    public function verificarCredenciales($email, $contrasena)
+    private $db;
+
+    // Constructor que recibe la conexión de la base de datos
+    public function __construct($db_connection)
     {
-        $mysqli_conn = connectToDatabase();
+        $this->db = $db_connection;
+    }
 
-        if ($mysqli_conn === null) {
-            error_log("Error al conectarse a la base de datos.");
-            return false;
-        }
+    // Método para obtener al usuario por su correo electrónico
+    public function obtenerUsuarioPorCorreo($email)
+    {
+        // Preparar la consulta SQL para obtener los datos del usuario desde la base de datos
+        $query = "SELECT ud.id_user, ud.email, ul.contrasena, ul.rol 
+                  FROM users_data ud 
+                  JOIN users_login ul ON ud.id_user = ul.id_user 
+                  WHERE ud.email = ?";
 
-        // Preparar la consulta SQL para buscar al usuario por correo electrónico en `users_data`
-        $query = "SELECT * FROM users_data WHERE email = ?";
-        $stmt = $mysqli_conn->prepare($query);
-
-        if ($stmt === false) {
-            error_log("No se pudo preparar la sentencia: " . $mysqli_conn->error);
-            return false;
-        }
-
-        $stmt->bind_param('s', $email);
+        // Preparar la consulta y asociar los parámetros
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param("s", $email);
         $stmt->execute();
         $resultado = $stmt->get_result();
 
-
-
- 
-
-
-
-
-
-        if ($resultado->num_rows === 1) {
-            $usuario = $resultado->fetch_assoc();
-            error_log("Usuario encontrado: " . print_r($usuario, true));
-
-            // Preparar la consulta para buscar la contraseña en `users_login`
-            $queryLogin = "SELECT contrasena FROM users_login WHERE id_user = ?";
-            $stmtLogin = $mysqli_conn->prepare($queryLogin);
-            $stmtLogin->bind_param('i', $usuario['id_user']);
-            $stmtLogin->execute();
-            $resultadoLogin = $stmtLogin->get_result();
-
-
-        
-
-            
-            if ($resultadoLogin->num_rows === 1) {
-                $loginData = $resultadoLogin->fetch_assoc();
-
-    // DEPURACIÓN: Verificar la contraseña ingresada y la almacenada
-    var_dump($contrasena); // Contraseña ingresada
-    var_dump($loginData['contrasena']); // Contraseña almacenada en la base de datos
-
-//------------------------ok -------------//------------------------//------------------------//
-
-                // Verificar la contraseña
-                if (password_verify($contrasena, $loginData['contrasena'])) {
-
-                    error_log("Contraseña verificada correctamente para el usuario: " . $usuario['id_user']);
-                    return $usuario; // Retornar los datos del usuario si la contraseña es correcta
-
-
-
-                } else {
-
-
-                    //LLEGAMOS A ESTE PUNTO ----------///------/////
-                    var_dump("Contraseña incorrecta");  //DEPURACION
-                    exit();
-
-                    error_log("Contraseña incorrecta para el usuario: " . $usuario['id_user']);
-                }
-
-
-            } else {
-                error_log("No se encontró la contraseña para el usuario: " . $usuario['id_user']);
-            }
-        } else {
-            error_log("Usuario no encontrado con el correo: " . $email);
-        }
-
-
-
-
-
-
-        // Si las credenciales son incorrectas o el usuario no fue encontrado, retornar false
-        return false;
+        // Retornar el resultado como un array asociativo
+        return $resultado->fetch_assoc();
     }
 }
-
-
-

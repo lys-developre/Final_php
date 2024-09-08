@@ -145,26 +145,39 @@ class UsuarioModelo
         return $stmt->insert_id;
     }
 
+    
     public function insertarLogin($idUsuario, $contrasena, $rol)
 {
-    $mysqli_conn = connectToDatabase();
+    $mysqli_conn = connectToDatabase(); //si es ok nos mostrara mensaje de exito.
 
-    // Verificar si el usuario ya tiene un registro en users_login
+    // Verificamos si el usuario esta registrado en la tabla user_login de la base de datos.
     $queryCheck = "SELECT * FROM users_login WHERE id_user = ?";
     $stmtCheck = $mysqli_conn->prepare($queryCheck);
     $stmtCheck->bind_param('i', $idUsuario);
     $stmtCheck->execute();
     $resultadoCheck = $stmtCheck->get_result();
 
+
+
     if ($resultadoCheck->num_rows > 0) {
-        // Si ya existe un registro para este id_user, puedes lanzar un error o actualizar la contraseña
+        // Si ya existe un registro para este id_user lanzamos un error ya que el usuario ya estaria registrado.
         error_log("El usuario con id $idUsuario ya tiene un registro en users_login.");
         return false;
     }
 
-    // Encriptar la contraseña
-    $hashedPassword = password_hash($contrasena, PASSWORD_DEFAULT);
+    
+    //encryptamos la contraseña y la guardamos en hashedPassword.
+    $hashedPassword = password_hash($contrasena, PASSWORD_BCRYPT);
 
+
+    //--------------DEPURACION
+    //Mostramos la contraseña en cuanto se encripta y la comparamos en esta web: https://bcrypt-generator.com/ 
+    //el resultado aqui es que no tenemos coincidencia entre la contraseña que ingresamos de texto plano , con la contraseña encriptada que se genero apartir de este texto plano , que pasa aca ?  REVEER 08/09/2024
+    echo($hashedPassword);
+    exit();
+
+
+    //la insertamos en nuestra base de datos.
     $query = "INSERT INTO users_login (id_user, contrasena, rol) VALUES (?, ?, ?)";
     $stmt = $mysqli_conn->prepare($query);
     $stmt->bind_param('iss', $idUsuario, $hashedPassword, $rol);

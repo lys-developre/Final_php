@@ -22,48 +22,43 @@
     <!-- encabezado dinamico  -->
     <?php include '../vistas/parciales/encabezado.php'; ?>
 
-    <main>
-        <h1>Noticias destacadas</h1>
+ <main>
+    <h1>Últimas Noticias</h1>
 
+    <div class="masonry-grid">
 
-        <div class="contenedor-noticias">
+        <?php if (isset($noticias) && !empty($noticias)): ?>
+            <?php foreach ($noticias as $index => $noticia): ?>
 
-            <?php if (isset($noticias) && !empty($noticias)): ?>
-                <?php foreach ($noticias as $noticia): ?>
-                    <article class="noticia <?php echo ($noticia['id_noticia'] % 2 == 0) ? 'noticia-grande' : 'noticia-pequena'; ?>">
-                        <h2><?php echo htmlspecialchars($noticia['titulo']); ?></h2>
-                        <p><small>Por <?php echo htmlspecialchars($noticia['nombre']); ?> | Publicado el <?php echo htmlspecialchars($noticia['fecha']); ?></small></p>
-                        <img src="<?php echo htmlspecialchars($noticia['imagen']); ?>" alt="Imagen de la noticia">
-                        <p class="texto-noticia">
-                            <?php
-                            if (strlen($noticia['texto']) > 100) {
-                                echo substr(htmlspecialchars($noticia['texto']), 0, 100) . '...';
-                            } else {
-                                echo htmlspecialchars($noticia['texto']);
-                            }
-                            ?>
-                        </p>
-                        <a href="#" class="ver-mas">Ver más</a>
-                    </article>
-                <?php endforeach; ?>
+                <?php
+                // Alternar entre noticia-pequena y noticia-grande en función del índice
+                $claseNoticia = ($index % 2 === 0) ? 'noticia-grande' : 'noticia-pequena';
+                ?>
 
-            <?php else: ?>
-                
-                <p>No hay noticias disponibles en este momento.</p>
-                
-            <?php endif; ?>
+                <article class="noticia <?php echo $claseNoticia; ?>">
+                    <h2><?php echo htmlspecialchars($noticia['titulo']); ?></h2>
+                    <p><small>Publicado el <?php echo htmlspecialchars($noticia['fecha']); ?></small></p>
 
-        </div>
+                    <!-- Mostrar la imagen -->
+                    <img src="/uploads/noticias_img/<?php echo htmlspecialchars($noticia['imagen']); ?>" alt="Imagen de la noticia">
 
+                    <p><?php echo htmlspecialchars($noticia['texto']); ?></p>
+                </article>
 
-    </main>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p>No hay noticias disponibles en este momento.</p>
+            <p>esto significa que no llegan noticias desde el modeloNoticias.</p>
+        <?php endif; ?>
+
+    </div>
+</main>
 
     <div class="contenido">
         <!-- pie de pagina global.  -->
         <?php include '../vistas/parciales/pieDePagina.php'; ?>
     </div>
 
-    <script src="../publico/js/ver_mas.js"></script> <!-- Cargamos el archivo JS externo -->
 </body>
 
 </html>
