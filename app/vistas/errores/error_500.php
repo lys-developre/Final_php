@@ -11,7 +11,7 @@
         <h1 class="titulo-error">500</h1>
         <p class="mensaje-error">¡Ups! Algo salió mal en el servidor.</p>
         <p class="mensaje-error">Por favor, intenta nuevamente más tarde.</p>
-        <a href="index.html" class="boton-inicio">Volver a la página de inicio</a>
+        <a href="http://localhost/Final_php/app/index.php" class="boton-inicio">Volver a la página de inicio</a>
     </main>
 </body>
 </html>

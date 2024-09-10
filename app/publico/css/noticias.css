@@ -1,4 +1,4 @@
-/* Estilos del contenedor principal */
+/* Estilos generales del body */
 body {
   font-family: "Roboto", sans-serif;
   background: linear-gradient(135deg, #e30197, #60015c, #04012e, #1f0671);
@@ -14,25 +14,25 @@ body {
   color: #f8f9fa;
 }
 
-/* Estilos generales del contenido principal */
+/* Estilos del título principal */
 main h1 {
   text-align: center;
-  font-size: 2.5em;
+  font-size: 2.2em; /* Tamaño más flexible para pantallas pequeñas */
   margin-bottom: 1.5rem;
 }
 
-/* Contenedor Masonry */
-.masonry-grid {
+/* Contenedor de noticias (Grid adaptativo) */
+.contenedor-noticia {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Ajuste de columnas mínimas */
+  gap: 40px; /* Reducción de espacio entre noticias */
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  grid-auto-rows: 350px; 
+  grid-auto-rows: auto; /* Ajuste automático de filas */
 }
 
-/* Estilos para las noticias */
+/* Estilos de las noticias */
 .noticia {
   background-color: rgba(33, 37, 41, 0.5);
   border-radius: 8px;
@@ -40,17 +40,23 @@ main h1 {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Imágenes dentro de las noticias */
+.noticia:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Imagenes dentro de las noticias */
 .noticia img {
   width: 100%;
-  height: 100%;
+  height: auto; /* Ajustar automáticamente para mantener la proporción */
   object-fit: cover;
   border-radius: 8px 8px 0 0;
 }
 
-/* Estilos comunes para textos de las noticias */
+/* Estilos comunes para los textos de las noticias */
 .noticia h2, .noticia p, .noticia small {
   margin: 10px 15px;
 }
@@ -68,66 +74,70 @@ main h1 {
   color: #adb5bd;
 }
 
-/* Estilos para el botón "ver más" */
-.noticia .ver-mas {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #009973;
-  color: #fff;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  margin: 10px 15px;
-}
-
-.noticia .ver-mas:hover {
-  background-color: #00ae8e;
-}
-
-/* Responsivo para pantallas pequeñas */
+/* Responsivo para pantallas pequeñas (menores a 768px) */
 @media (max-width: 768px) {
-  .masonry-grid {
-    grid-template-columns: 1fr;
+  main h1 {
+    font-size: 1.8em; /* Reducir el tamaño del título */
+  }
+
+  .contenedor-noticia {
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 20px; /* Menos espacio entre noticias */
   }
 
   .noticia img {
     height: auto;
     object-fit: contain;
   }
+
+  .noticia h2 {
+    font-size: 1.4em;
+  }
 }
 
-/* Responsivo para pantallas medianas */
+/* Responsivo para pantallas medianas (769px a 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .masonry-grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: 400px;
+  .contenedor-noticia {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Mayor tamaño de columna */
+    gap: 30px;
+    grid-auto-rows: 350px; /* Ajuste de altura de las filas */
   }
 
-  .noticia-dos-filas {
-    grid-row: span 2;
-    height: 800px;
+  .noticia img {
+    height: 100%;
+    object-fit: cover;
   }
 
-  .noticia-dos-columnas {
-    grid-column: span 2;
-    height: 400px;
+  .noticia h2 {
+    font-size: 1.5em;
   }
 }
 
-/* Responsivo para pantallas grandes */
+/* Responsivo para pantallas grandes (1025px en adelante) */
 @media (min-width: 1025px) {
-  .masonry-grid {
+  .contenedor-noticia {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); 
-    grid-auto-rows: 450px;
+    gap: 40px; /* Espacio más amplio entre las noticias */
+    grid-auto-rows: 400px; /* Aumento de la altura de las filas */
   }
 
-  .noticia-dos-filas {
-    grid-row: span 2;
-    height: 900px;
+  .noticia img {
+    height: 100%;
+    object-fit: cover;
   }
 
-  .noticia-dos-columnas {
-    grid-column: span 2;
-    height: 450px;
+  .noticia h2 {
+    font-size: 1.7em;
   }
+}
+
+/* Noticias que ocupan más espacio */
+.noticia-dos-filas {
+  grid-row: span 2;
+  height: 700px; /* Ajuste de la altura */
+}
+
+.noticia-dos-columnas {
+  grid-column: span 2;
+  height: 400px;
 }

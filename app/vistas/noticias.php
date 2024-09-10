@@ -22,37 +22,33 @@
     <!-- encabezado dinamico  -->
     <?php include '../vistas/parciales/encabezado.php'; ?>
 
- <main>
-    <h1>Últimas Noticias</h1>
+    <main>
+        <h1>Últimas Noticias</h1>
 
-    <div class="masonry-grid">
+        <div class="contenedor-noticia">
 
-        <?php if (isset($noticias) && !empty($noticias)): ?>
-            <?php foreach ($noticias as $index => $noticia): ?>
+            <?php if (isset($noticias) && !empty($noticias)): ?>
+                <?php foreach ($noticias as $index => $noticia): ?>
 
-                <?php
-                // Alternar entre noticia-pequena y noticia-grande en función del índice
-                $claseNoticia = ($index % 2 === 0) ? 'noticia-grande' : 'noticia-pequena';
-                ?>
+                    <article class="noticia <?php echo $claseNoticia; ?>">
+                        <h2><?php echo htmlspecialchars($noticia['titulo']); ?></h2>
+                        <p><small>Publicado el <?php echo htmlspecialchars($noticia['fecha']); ?> por <?php echo htmlspecialchars($noticia['nombre']); ?></small></p>
 
-                <article class="noticia <?php echo $claseNoticia; ?>">
-                    <h2><?php echo htmlspecialchars($noticia['titulo']); ?></h2>
-                    <p><small>Publicado el <?php echo htmlspecialchars($noticia['fecha']); ?></small></p>
+                        <!-- Mostrar la imagen -->
+                        <img src="/uploads/noticias_img/<?php echo htmlspecialchars($noticia['imagen']); ?>" alt="Imagen de la noticia">
 
-                    <!-- Mostrar la imagen -->
-                    <img src="/uploads/noticias_img/<?php echo htmlspecialchars($noticia['imagen']); ?>" alt="Imagen de la noticia">
+                        <p><?php echo htmlspecialchars($noticia['texto']); ?></p>
+                    </article>
 
-                    <p><?php echo htmlspecialchars($noticia['texto']); ?></p>
-                </article>
 
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No hay noticias disponibles en este momento.</p>
-            <p>esto significa que no llegan noticias desde el modeloNoticias.</p>
-        <?php endif; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p>No hay noticias disponibles en este momento.</p>
+                <p>esto significa que no llegan noticias desde el modeloNoticias.</p>
+            <?php endif; ?>
 
-    </div>
-</main>
+        </div>
+    </main>
 
     <div class="contenido">
         <!-- pie de pagina global.  -->
