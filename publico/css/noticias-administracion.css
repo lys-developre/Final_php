@@ -1,0 +1,349 @@
+/* Estilos generales del body */
+body {
+    font-family: "Roboto", sans-serif;
+    background: linear-gradient(135deg, #045711, #2b8187, #2600ff, #000000);
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    color: #f8f9fa;
+}
+
+/* Contenedor principal para el panel de administración */
+#panel-noticias-admin {
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: rgba(33, 37, 41, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Estilos del título principal en el panel de administración */
+#panel-noticias-admin h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 2rem;
+    color: #f8f9fa;
+}
+
+/* Estilos del formulario en el panel de administración */
+.formulario-noticia {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.formulario-noticia label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+.formulario-noticia input[type="text"],
+.formulario-noticia input[type="file"],
+.formulario-noticia textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f8f9fa;
+}
+
+.formulario-noticia button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background-color: #009973;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.formulario-noticia button:hover {
+    background-color: #00ae8e;
+}
+
+
+
+/* Estilos de la tabla en el panel de administración */
+.tabla-noticias {
+    margin-bottom: 2rem;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-noticias table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-noticias th,
+.tabla-noticias td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabla-noticias th {
+    background-color: rgba(33, 37, 41, 0.9);
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+.tabla-noticias td {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #f8f9fa;
+}
+
+/* Estilos para los enlaces */
+.tabla-noticias a,
+.tabla-noticias button {
+    color: #00bc8c;
+    background: none;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+
+.tabla-noticias a:hover,
+.tabla-noticias button:hover {
+    color: #00ae8e;
+}
+
+
+.tabla-noticias button {
+    font-size: 1.1rem; 
+    background-color: transparent; 
+    padding: 0; 
+    border: none; 
+    cursor: pointer;
+}
+
+.tabla-noticias button:hover {
+    text-decoration: underline;
+}
+
+
+.tabla-noticias form {
+    display: inline;
+}
+
+.mensaje-error {
+    color: #db4c4c;
+    font-size: 0.8em;
+    position: relative;
+    top: -29px;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+
+
+/* Ajustes en pantallas pequeñas (430x932 y similares) */
+@media (max-width: 768px) {
+    .mensaje-error {
+        top: -20px;
+    }
+
+    .tabla-noticias button {
+        font-size: 0.8rem; 
+       
+    }
+
+    #panel-noticias-admin {
+        padding: 1rem;
+        margin-top: 190px;
+        margin-bottom: 10px;
+        width: 87%;
+    }
+
+    #panel-noticias-admin h1 {
+        font-size: 1.8rem;
+    }
+
+    .formulario-noticia {
+        width: 90%;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .formulario-noticia input[type="text"],
+    .formulario-noticia input[type="file"],
+    .formulario-noticia textarea {
+        width: 100%;
+        max-width: 600px;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #f8f9fa;
+        box-sizing: border-box;
+    }
+
+    .formulario-noticia button {
+        padding: 0.6rem 1rem;
+        width: 100%;
+    }
+
+    .tabla-noticias th,
+    .tabla-noticias td {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .tabla-noticias a {
+        font-size: 0.85rem;
+    }
+}
+
+/* Ajustes para pantallas medianas (769px - 1440px) */
+@media (min-width: 769px) and (max-width: 1440px) {
+    #panel-noticias-admin {
+        padding: 2.5rem;
+        margin-top: 120px;
+        margin-bottom: 80px;
+        width: 75%;
+    }
+
+    #panel-noticias-admin h1 {
+        font-size: 2.3rem;
+    }
+
+    #form {
+        width: 100%;
+    }
+
+    .formulario-noticia {
+        width: 90%;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .formulario-noticia input[type="text"],
+    .formulario-noticia input[type="file"],
+    .formulario-noticia textarea {
+        width: 100%;
+        max-width: 700px;
+        margin-bottom: 1.5rem;
+        padding: 0.75rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #f8f9fa;
+        box-sizing: border-box;
+    }
+
+    .formulario-noticia button {
+        padding: 0.85rem 1.75rem;
+        width: 100%;
+    }
+
+    .tabla-noticias th,
+    .tabla-noticias td {
+        padding: 1.2rem;
+        font-size: 1.05rem;
+    }
+
+    .tabla-noticias a {
+        font-size: 1rem;
+    }
+}
+
+/* Ajustes específicos para pantallas medianas-grandes (1441px en adelante) */
+@media (min-width: 1440px) {
+    #panel-noticias-admin {
+        padding: 3rem;
+        margin-top: 150px;
+        margin-bottom: 120px;
+        width: 70%;
+    }
+
+    #panel-noticias-admin h1 {
+        font-size: 2.7rem;
+    }
+
+    #form {
+        width: 85%;
+    }
+
+    .formulario-noticia {
+        width: 94%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .formulario-noticia input[type="text"],
+    .formulario-noticia input[type="file"],
+    .formulario-noticia textarea {
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #f8f9fa;
+        box-sizing: border-box;
+    }
+
+    .formulario-noticia button {
+        padding: 1rem 2rem;
+        width: 100%;
+
+    }
+
+    .tabla-noticias th,
+    .tabla-noticias td {
+        padding: 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .tabla-noticias a {
+        font-size: 1.1rem;
+    }
+}
+
+/* Ajustes específicos para pantallas grandes (1920px en adelante) */
+@media (min-width: 1920px) {
+
+    #panel-noticias-admin {
+        padding: 3rem;
+        margin-top: 150px;
+        margin-bottom: 120px;
+        width: 55%;
+    }
+
+
+}

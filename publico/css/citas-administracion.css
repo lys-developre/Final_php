@@ -1,0 +1,316 @@
+/* Estilos generales del body */
+body {
+    font-family: "Roboto", sans-serif;
+    background: linear-gradient(135deg, #045711, #2b8187, #2600ff, #000000);
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    color: #f8f9fa;
+}
+
+/* Contenedor principal para el panel de administración de citas */
+#panel-citas-admin {
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    background-color: rgba(33, 37, 41, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos del título principal en el panel de administración */
+#panel-citas-admin h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #f8f9fa;
+}
+
+/* Estilos uniformes para todos los h2 */
+#panel-citas-admin h2 {
+    font-size: 2rem;
+    color: #f8f9fa;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Estilos del formulario de citas en el panel de administración */
+.formulario-cita {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    margin: 0 auto 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Fondo oscuro para las opciones del select */
+.formulario-cita select option {
+    background-color: rgba(52, 52, 52, 0.9);
+    color: #00ae8e;
+}
+
+.formulario-cita label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+.formulario-cita input[type="text"],
+.formulario-cita input[type="date"],
+.formulario-cita textarea,
+.formulario-cita select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f8f9fa;
+    box-sizing: border-box;
+}
+
+.formulario-cita button {
+    padding: 0.8rem 1.5rem;
+    background-color: #009973;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.formulario-cita button:hover {
+    background-color: #00ae8e;
+}
+
+/* Estilos para la selección de usuarios */
+#seleccion-usuario {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    margin: 0 auto 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1000px;
+}
+
+#seleccion-usuario h2 {
+    font-size: 2rem;
+    color: #f8f9fa;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#seleccion-usuario label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+#seleccion-usuario select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f8f9fa;
+}
+
+#seleccion-usuario button {
+    padding: 0.8rem 1.5rem;
+    background-color: #009973;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+#seleccion-usuario button:hover {
+    background-color: #00ae8e;
+}
+
+/* Fondo oscuro para las opciones del select */
+#seleccion-usuario select option {
+    background-color: rgba(52, 52, 52, 0.9);
+    color: #00ae8e;
+}
+
+/* Estilos de la tabla en el panel de administración */
+.tabla-citas {
+    margin-bottom: 2rem;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-citas table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-citas th,
+.tabla-citas td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabla-citas th {
+    background-color: rgba(33, 37, 41, 0.9);
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+.tabla-citas td {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #f8f9fa;
+}
+
+.tabla-citas button {
+    font-size: 1.1rem;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    color: #00bc8c;
+    display: block; /* Mostrar los botones de forma vertical */
+    margin-top: 0.5rem;
+    width: 100%; /* Asegura que el botón ocupe todo el espacio en pantallas pequeñas */
+}
+
+.tabla-citas button:hover {
+    text-decoration: underline;
+    color: #00ae8e;
+}
+
+.tabla-citas form {
+    display: inline;
+}
+
+.mensaje-error {
+    color: #db4c4c;
+    font-size: 0.8em;
+    margin-top: -13px;
+    margin-bottom: 19px;
+    text-align: center;
+}
+
+/* Ajustes para pantallas de 1024x1366 */
+@media (min-width: 768px) and (max-width: 1366px) {
+    #panel-citas-admin {
+        padding: 1.5rem;
+        margin-top: 120px;
+        margin-bottom: 80px;
+        width: 85%;
+    }
+
+    #panel-citas-admin h1 {
+        font-size: 2.2rem;
+    }
+
+    .formulario-cita,
+    #seleccion-usuario {
+        padding: 1.2rem;
+        width: 95%;
+        margin-top: 2rem;
+    }
+
+    .formulario-cita input[type="text"],
+    .formulario-cita input[type="date"],
+    .formulario-cita textarea,
+    .formulario-cita select {
+        padding: 0.7rem;
+    }
+
+    .formulario-cita button,
+    #seleccion-usuario button {
+        padding: 0.7rem;
+        width: 100%;
+    }
+
+    .tabla-citas th,
+    .tabla-citas td {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+/* Ajustes para pantallas de 430x932 */
+/* Ajustes para pantallas de 430x932 */
+@media (max-width: 430px) {
+    #panel-citas-admin {
+        padding: 1rem;
+        margin-top: 220px;
+        margin-bottom: 10px;
+        width: 90%; 
+    }
+
+    #panel-citas-admin h1 {
+        font-size: 1.8rem;
+    }
+
+    .formulario-cita,
+    #seleccion-usuario {
+        padding: 1rem;
+        width: 92%; 
+        margin: 1rem auto;
+    }
+
+    .formulario-cita input[type="text"],
+    .formulario-cita input[type="date"],
+    .formulario-cita textarea,
+    .formulario-cita select {
+        width: 100%;
+        padding: 0.8rem; /* Ajuste de padding para pantallas pequeñas */
+    }
+
+    .formulario-cita button,
+    #seleccion-usuario button {
+        padding: 0.8rem;
+        width: 100%; 
+    }
+
+    .tabla-citas th,
+    .tabla-citas td {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    /* Botones de editar y eliminar en pantallas pequeñas */
+    .tabla-citas button {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+        width: 100%; /* Asegurar que los botones ocupen todo el ancho disponible */
+        text-align: center;
+        margin-top: 0.5rem; /* Espacio entre botones */
+        display: inline-block;
+    }
+
+    /* Asegurarse de que las columnas no se colapsen en pantallas pequeñas */
+    .tabla-citas td {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .tabla-citas th {
+        display: none; /* Ocultamos los encabezados de la tabla para pantallas pequeñas */
+    }
+
+    /* Mostrar los botones de forma adecuada */
+    .tabla-citas tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}

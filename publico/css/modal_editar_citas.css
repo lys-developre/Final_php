@@ -1,0 +1,123 @@
+/* Estilos para el contenedor del modal */
+#modal-editar-cita {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    overflow: auto; /* Permite scroll si es necesario */
+}
+
+/* Estilos para el contenido del modal */
+.modal-contenido {
+    background-color: rgba(119, 119, 119, 0.9);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    margin: auto;
+}
+
+/* Botón de cerrar */
+#cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    color: #f8f9fa;
+    cursor: pointer;
+}
+
+#cerrar-modal:hover {
+    color: #ff6b6b;
+}
+
+/* Formulario del modal */
+.modal-contenido form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.modal-contenido form label {
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+.modal-contenido form input[type="text"],
+.modal-contenido form input[type="date"],
+.modal-contenido form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f8f9fa;
+}
+
+.modal-contenido form button {
+    background-color: #009973;
+    color: white;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-contenido form button:hover {
+    background-color: #00ae8e;
+}
+
+/* Ajustes en pantallas pequeñas (máx. 768px) */
+@media (max-width: 768px) {
+    .modal-contenido {
+        width: 90%;
+        padding: 1rem;
+        max-width: 100%;
+        margin-top: 10rem;
+    }
+
+    #cerrar-modal {
+        font-size: 24px;
+    }
+}
+
+/* Ajustes para pantallas medianas (769px - 1440px) */
+@media (min-width: 769px) and (max-width: 1440px) {
+    .modal-contenido {
+        width: 80%;
+        padding: 2rem;
+        max-width: 700px;
+        margin-top: 10rem;
+    }
+}
+
+/* Ajustes específicos para pantallas medianas-grandes (1441px en adelante) */
+@media (min-width: 1440px) {
+    .modal-contenido {
+        width: 70%;
+        padding: 2.5rem;
+        max-width: 800px;
+    }
+}
+
+/* Ajustes específicos para pantallas grandes (1920px en adelante) */
+@media (min-width: 1920px) {
+    .modal-contenido {
+        width: 60%;
+        padding: 3rem;
+        max-width: 900px;
+        margin-top: 14rem;
+    }
+}
