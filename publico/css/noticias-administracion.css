@@ -82,8 +82,11 @@ body {
     background-color: #00ae8e;
 }
 
+<<<<<<< HEAD:publico/css/noticias-administracion.css
 
 
+=======
+>>>>>>> d4c17eb6b3f5d2d87f3dd415c07b7996927de19a:app/publico/css/noticias-administracion.css
 /* Estilos de la tabla en el panel de administración */
 .tabla-noticias {
     margin-bottom: 2rem;
