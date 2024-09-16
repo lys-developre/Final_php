@@ -1,4 +1,4 @@
-/* Estilos generales del body (heredado) */
+/* Estilos generales del body */
 body {
     font-family: "Roboto", sans-serif;
     background: linear-gradient(135deg, #e30197, #60015c, #04012e, #1f0671);
@@ -12,7 +12,7 @@ body {
     align-items: center;
     min-height: 100vh;
     color: #f8f9fa;
-  }
+}
 
 /* Contenedor principal para el perfil de usuario */
 #perfil-usuario {
@@ -45,7 +45,7 @@ body {
 .datos-usuario {
     margin-bottom: 2rem;
     padding: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(33, 37, 41, 0.5); /* Ajustado para mayor coherencia */
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
@@ -63,24 +63,23 @@ body {
     font-weight: bold;
 }
 
-/* Sección para editar el nombre de usuario */
-.editar-usuario {
-    margin-bottom: 2rem;
-    padding: 1.5rem;
+/* Estilos del formulario de edición de datos personales dentro de .datos-usuario */
+.datos-usuario form {
     background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Estilos del formulario de edición de nombre de usuario */
-.editar-usuario label {
+.datos-usuario form label {
     display: block;
     margin-bottom: 0.5rem;
     color: #f8f9fa;
     font-weight: bold;
 }
 
-.editar-usuario input[type="text"] {
+.datos-usuario form input[type="text"],
+.datos-usuario form input[type="email"] {
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
@@ -91,7 +90,7 @@ body {
     box-sizing: border-box;
 }
 
-.editar-usuario button {
+.datos-usuario form button {
     padding: 0.8rem 1.5rem;
     background-color: #009973;
     color: #fff;
@@ -102,28 +101,25 @@ body {
     width: 100%;
 }
 
-.editar-usuario button:hover {
+.datos-usuario form button:hover {
     background-color: #00ae8e;
 }
 
-/* Mensajes de éxito y error */
-.mensaje-exito, .mensaje-error {
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    border-radius: 5px;
-    visibility: visible; /* Establecer visibilidad por defecto */
-    transition: visibility 0.5s ease-in-out; /* Transición opcional */
-}
-
+/* Mensajes de éxito y error adaptados a los estilos existentes */
 .mensaje-exito {
-    background-color: rgba(0, 153, 115, 0.8);
-    color: #fff;
+    color: #00bc8c;
+    background-color: rgba(255, 255, 255, 0.1); 
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center; 
 }
 
 .mensaje-error {
-    background-color: transparent;
     color: #e03e3e;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center; 
 }
 
 
@@ -144,23 +140,27 @@ body {
         font-size: 1.5rem;
     }
 
-    .editar-usuario,
     .datos-usuario {
         padding: 1.2rem;
         width: 95%;
         margin-top: 2rem;
     }
 
-    .editar-usuario input[type="text"] {
-        padding: 0.7rem;
-    }
-
-    .editar-usuario button {
-        padding: 0.7rem;
-    }
-
     .datos-usuario p {
         font-size: 1rem;
+    }
+
+    .datos-usuario form {
+        padding: 0.7rem;
+    }
+
+    .datos-usuario form input[type="text"],
+    .datos-usuario form input[type="email"] {
+        padding: 0.7rem;
+    }
+
+    .datos-usuario form button {
+        padding: 0.7rem;
     }
 }
 
@@ -176,24 +176,24 @@ body {
         font-size: 1.8rem;
     }
 
-    .editar-usuario,
     .datos-usuario {
         padding: 1rem;
         width: 92%;
         margin: 1rem auto;
     }
 
-    .editar-usuario input[type="text"] {
-        width: 100%;
-        padding: 0.8rem;
-    }
-
-    .editar-usuario button {
-        padding: 0.8rem;
-        width: 100%;
-    }
-
     .datos-usuario p {
         font-size: 0.9rem;
+    }
+
+    .datos-usuario form input[type="text"],
+    .datos-usuario form input[type="email"] {
+        width: 100%;
+        padding: 0.8rem;
+    }
+
+    .datos-usuario form button {
+        padding: 0.8rem;
+        width: 100%;
     }
 }

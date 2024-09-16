@@ -10,8 +10,8 @@ class PerfilControlador
     public function __construct()
     {
         $this->usuarioModelo = new UsuarioModelo();
-    }  
-    
+    }
+
     // Método para mostrar el perfil del usuario
     public function mostrarPerfil()
     {
@@ -20,9 +20,10 @@ class PerfilControlador
             $id_user = $_SESSION['user_data']['id_user'];
             $usuario = $this->usuarioModelo->obtenerUsuarioPorId($id_user);
 
+
             // Si no se encontraron datos del usuario
             if (!$usuario) {
-                header('Location: /MisProyectos/app/vistas/error.php');
+                header('Location: /vistas/error500.php');
                 exit();
             }
 
@@ -30,7 +31,7 @@ class PerfilControlador
             include __DIR__ . '/../vistas/users/perfil.php';
         } else {
             // Redirigir al login si no hay sesión activa
-            header('Location: /MisProyectos/app/vistas/login.php');
+            header('Location: /vistas/login.php');
             exit();
         }
     }
@@ -39,23 +40,27 @@ class PerfilControlador
     public function actualizarPerfil()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $nuevo_usuario = trim($_POST['usuario']);
+            // Obtener los datos del formulario
             $id_user = $_SESSION['user_data']['id_user'];
+            $nombre = trim($_POST['nombre']);
+            $apellidos = trim($_POST['apellidos']);
+            $email = trim($_POST['email']);
+            $telefono = trim($_POST['telefono']);
+            $direccion = trim($_POST['direccion']);
+            $fecha_nacimiento = trim($_POST['fecha_nacimiento']); // Nuevo campo
+            $sexo = trim($_POST['sexo']); // Nuevo campo
 
-            // Validar que el nombre de usuario no esté vacío
-            if (empty($nuevo_usuario)) {
-                header('Location: /rutas/rutas.php?accion=mostrarPerfil&error=usuario_vacio');
+            // Validar que no estén vacíos
+            if (empty($nombre) || empty($apellidos) || empty($email) || empty($telefono) || empty($direccion) || empty($fecha_nacimiento) || empty($sexo)) {
+                header('/rutas/rutas.php?accion=mostrarPerfil&error=campos_vacios');
                 exit();
             }
 
-            // Actualizar el nombre de usuario en la base de datos
-            $resultado = $this->usuarioModelo->actualizarNombreUsuario($id_user, $nuevo_usuario);
+            // Actualizar los datos en la base de datos
+            $resultado = $this->usuarioModelo->actualizarDatosPersonales($id_user, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo);
 
             if ($resultado) {
-                // Actualizar el nombre de usuario en la sesión
-                $_SESSION['user_data']['usuario'] = $nuevo_usuario;
-
-                header('Location: /rutas/rutas.php?accion=mostrarPerfil&mensaje=perfil_actualizado');
+                header('Location: /rutas/rutas.php?accion=mostrarPerfil&mensaje=datos_actualizados');
             } else {
                 header('Location: /rutas/rutas.php?accion=mostrarPerfil&error=actualizacion_fallida');
             }

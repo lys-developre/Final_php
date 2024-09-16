@@ -102,10 +102,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
+
+
+
+
     // Manejar acciones POST relacionadas con el Perfil
-    $perfilControlador = new PerfilControlador();    
-    if (isset($_POST['accion']) && $_POST['accion'] == 'actualizarPerfil') {
-        
+    $perfilControlador = new PerfilControlador();
+    if (isset($_POST['accion']) && $_POST['accion'] == 'actualizarDatosPersonales') {
         $perfilControlador->actualizarPerfil();
         exit();
     }
@@ -171,6 +174,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         header("Location: /index.php");
         exit();
     }
+
+
+
+
+
+
     // Manejar acciones GET relacionadas con el Perfil
     if (isset($_GET['accion']) && $_GET['accion'] == 'mostrarPerfil') {
         $perfilControlador = new PerfilControlador();

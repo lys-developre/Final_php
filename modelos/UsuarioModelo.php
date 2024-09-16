@@ -230,22 +230,24 @@ class UsuarioModelo
     
 
 
-    public function actualizarNombreUsuario($id_user, $nuevo_usuario)
-    {
-        $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
+    public function actualizarDatosPersonales($id_user, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo)
+{
+    $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
 
-        $stmt = $mysqli_conn->prepare("UPDATE users_login SET usuario = ? WHERE id_user = ?");
-        if (!$stmt) {
-            error_log("Error al preparar la consulta: " . $mysqli_conn->error);
-            return false;
-        }
-
-        $stmt->bind_param('si', $nuevo_usuario, $id_user);
-        if (!$stmt->execute()) {
-            error_log("Error al ejecutar la consulta: " . $stmt->error);
-            return false;
-        }
-
-        return true;
+    // Consulta para actualizar los datos personales
+    $stmt = $mysqli_conn->prepare("UPDATE users_data SET nombre = ?, apellidos = ?, email = ?, telefono = ?, direccion = ?, fecha_nacimiento = ?, sexo = ? WHERE id_user = ?");
+    if (!$stmt) {
+        error_log("Error al preparar la consulta: " . $mysqli_conn->error);
+        return false;
     }
+
+    $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo, $id_user);
+    if (!$stmt->execute()) {
+        error_log("Error al ejecutar la consulta: " . $stmt->error);
+        return false;
+    }
+
+    return true;
+}
+
 }

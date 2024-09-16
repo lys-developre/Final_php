@@ -38,7 +38,7 @@ $rol = isset($_SESSION['user_data']['rol']) ? $_SESSION['user_data']['rol'] : 'v
             ?>
 
                 <li><a href="/index.php">Inicio</a></li>
-                <li><a href="/Final_php/app/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>
+                <li><a href="/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>
                 <!-- Opciones de administración -->
                 <li><a href="/rutas/rutas.php?accion=adminNoticias">Administrar Noticias</a></li>
                 <li><a href="/rutas/rutas.php?accion=adminCitas">Administrar Citas</a></li>
