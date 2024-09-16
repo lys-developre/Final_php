@@ -60,11 +60,6 @@ class CitasModelo
     }
 
 
-
-
-
-
-
     // Función para crear una cita
     public function crearCita($id_user, $fecha_cita, $motivo_cita)
     {
@@ -81,12 +76,6 @@ class CitasModelo
 
         return $stmt->execute();
     }
-
-
-
-
-
-
     
     // Función para eliminar una cita
     public function eliminarCita($id_cita)

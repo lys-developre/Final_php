@@ -15,10 +15,6 @@ require_once __DIR__ . '/../config/errores.php';
 // Clase controladora para manejar la validacion y el registro de usuarios.
 class UsuarioControlador
 {
-
-
-
-    
     public function registrarUsuario()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['registrarse'])) {

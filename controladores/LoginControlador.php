@@ -20,61 +20,53 @@ class LoginControlador
     {
         $this->modelo = new LoginModelo($mysqli_connection);
     }
-
     // Método para iniciar sesión
     public function iniciarSesion($usuario, $password)
     {
-
-
-
         // Validar los datos del formulario
         $errores = $this->validarDatosLogin($usuario, $password);
 
         if (!empty($errores)) {
-
             // Si hay errores, los mostramos al usuario
             $_SESSION['mensaje_error'] = implode("<br>", $errores);
             header("Location: ../vistas/login.php");
             exit();
         }
 
-
-
         // Obtener los datos del usuario desde el modelo
         $usuarioData = $this->modelo->obtenerUsuarioPorNombre($usuario);
 
-
-
         if ($usuarioData) {
-
-
-
             // Verificar si la contraseña ingresada coincide con el hash almacenado
             if (password_verify($password, $usuarioData['contrasena'])) {
-
-
-
-
-
-
                 // Iniciar sesión y almacenar los datos del usuario en la sesión
-                $_SESSION['user_data'] = $usuarioData;
-                header("Location: ../vistas/users/profile.php(paginade`perfilEXITO)");
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+
+                // Almacenar solo los datos relevantes en la sesión
+                $_SESSION['user_data'] = [
+                    'id_user' => $usuarioData['id_user'],
+                    'usuario' => $usuarioData['usuario'],
+                    'rol' => $usuarioData['rol']
+                ];
+
+                // Redirigir al inicio u otra página después de loguearse
+                header("Location: /../../index.php");
                 exit();
             } else {
                 // Si la contraseña es incorrecta
                 $_SESSION['mensaje_error'] = "Contraseña incorrecta.";
-                header("Location: ../vistas/login.php(contraseña incorrecta)");
+                header("Location: ../vistas/login.php");
                 exit();
             }
         } else {
             // Si no se encuentra el usuario
             $_SESSION['mensaje_error'] = "No se encontró un usuario con ese nombre.";
-            header("Location: ../vistas/login.php(noseencontroelsuaurioo)");
+            header("Location: ../vistas/login.php");
             exit();
         }
     }
-
     // Validar el nombre de usuario y la contraseña
     private function validarDatosLogin($usuario, $password)
     {

@@ -19,7 +19,7 @@ class UsuarioModelo
         $NOMBRE_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
 
         $CONTRASENA_REGEX = "/^(?=.*[A-Z])(?=.*\d)(?=.*[.,_\-!@#$%^&*])[a-zA-Z\d.,_\-!@#$%^&*]{4,100}$/";
-        
+
         $APELLIDOS_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
         $TELEFONO_REGEX = "/^\+?\d{7,15}$/";
         $FECHA_NACIMIENTO_REGEX = "/^\d{4}-\d{2}-\d{2}$/";
@@ -135,7 +135,6 @@ class UsuarioModelo
         //retornamos los errores ya que solo si no hay errores insertaremos el usuario en la bd.
         return $errores;
     }
-
     // INSERTAR NUEVOS USUARIOS A LA BASE DE DATOS EN LA TABLA DATA_USER Y DATA_LOGIN --------------
     public function insertarUsuario($datos)
     {
@@ -166,42 +165,87 @@ class UsuarioModelo
         // Retornar el ID del usuario insertado
         return $stmt->insert_id;
     }
-
-
-
     public function insertarLogin($idUsuario, $usuario, $contrasenaHasheada, $rol)
-{
-    $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
+    {
+        $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
 
-    // Verificamos si el usuario ya está registrado en la tabla users_login
-    $queryCheck = "SELECT * FROM users_login WHERE id_user = ?";
-    $stmtCheck = $mysqli_conn->prepare($queryCheck);
-    $stmtCheck->bind_param('i', $idUsuario);
-    $stmtCheck->execute();
-    $resultadoCheck = $stmtCheck->get_result();
+        // Verificamos si el usuario ya está registrado en la tabla users_login
+        $queryCheck = "SELECT * FROM users_login WHERE id_user = ?";
+        $stmtCheck = $mysqli_conn->prepare($queryCheck);
+        $stmtCheck->bind_param('i', $idUsuario);
+        $stmtCheck->execute();
+        $resultadoCheck = $stmtCheck->get_result();
+
+
+        if ($resultadoCheck->num_rows > 0) {
+            // Si ya existe un registro para este id_user, lanzamos un error
+            error_log("El usuario con id $idUsuario ya tiene un registro en users_login.");
+            return false;
+        }
+
+
+
+
+
+        // Insertar los datos en la tabla users_login (id_user, contrasena, rol, usuario)
+        $query = "INSERT INTO users_login (id_user, contrasena, rol, usuario) VALUES (?, ?, ?, ?)";
+        $stmt = $mysqli_conn->prepare($query);
+        $stmt->bind_param('isss', $idUsuario, $contrasenaHasheada, $rol, $usuario);
+
+        if (!$stmt->execute()) {
+            error_log("Error al insertar el usuario en users_login: " . $stmt->error);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public function obtenerUsuarioPorId($id_user)
+    {
+        $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
+    
+        // Consulta para obtener los datos del usuario
+        $query = "SELECT ud.*, ul.usuario FROM users_data ud
+                  INNER JOIN users_login ul ON ud.id_user = ul.id_user
+                  WHERE ud.id_user = ?";
+                  
+        $stmt = $mysqli_conn->prepare($query);
+
+        if (!$stmt) {
+            error_log("Error al preparar la consulta: " . $mysqli_conn->error);
+            return null;
+        }
+    
+        $stmt->bind_param('i', $id_user);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+    
+        if ($resultado->num_rows > 0) {
+            return $resultado->fetch_assoc();
+        } else {
+            return null;
+        }
+    }
     
 
-    if ($resultadoCheck->num_rows > 0) {
-        // Si ya existe un registro para este id_user, lanzamos un error
-        error_log("El usuario con id $idUsuario ya tiene un registro en users_login.");
-        return false;
+
+    public function actualizarNombreUsuario($id_user, $nuevo_usuario)
+    {
+        $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
+
+        $stmt = $mysqli_conn->prepare("UPDATE users_login SET usuario = ? WHERE id_user = ?");
+        if (!$stmt) {
+            error_log("Error al preparar la consulta: " . $mysqli_conn->error);
+            return false;
+        }
+
+        $stmt->bind_param('si', $nuevo_usuario, $id_user);
+        if (!$stmt->execute()) {
+            error_log("Error al ejecutar la consulta: " . $stmt->error);
+            return false;
+        }
+
+        return true;
     }
-
-   
-
-
-
-    // Insertar los datos en la tabla users_login (id_user, contrasena, rol, usuario)
-    $query = "INSERT INTO users_login (id_user, contrasena, rol, usuario) VALUES (?, ?, ?, ?)";
-    $stmt = $mysqli_conn->prepare($query);
-    $stmt->bind_param('isss', $idUsuario, $contrasenaHasheada, $rol, $usuario);
-
-    if (!$stmt->execute()) {
-        error_log("Error al insertar el usuario en users_login: " . $stmt->error);
-        return false;
-    }
-
-    return true;
-}
-
 }

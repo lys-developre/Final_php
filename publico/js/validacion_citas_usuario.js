@@ -1,39 +1,32 @@
 // Seleccionamos el formulario y los campos que se van a validar
 const form = document.querySelector('#form');
-const usuarioInput = document.querySelector('#usuario');
 const fechaInput = document.querySelector('#fecha');
 const descripcionInput = document.querySelector('#descripcion');
 
-// Función para validar el campo usuario
-// Verifica que se haya seleccionado un usuario
-function validateUsuario(usuario) {
-    return usuario !== ''; // Verifica que no esté vacío
-}
-
 // Función para validar el campo fecha
-// Verifica que se haya seleccionado una fecha válida
-function validateFecha(fecha) {
-    if (fecha === '') {
-        return false; // El campo está vacío
+
+    function validateFecha(fecha) {
+        if (fecha === '') {
+            return false; // El campo está vacío
+        }
+        const hoy = new Date();
+        const fechaSeleccionada = new Date(fecha);
+
+        // Ajuste para considerar solo la fecha sin tiempo
+        hoy.setHours(0, 0, 0, 0);
+
+        return fechaSeleccionada >= hoy;
     }
-    const hoy = new Date();
-    const fechaSeleccionada = new Date(fecha);
 
-    // Ajuste para considerar solo la fecha sin tiempo
-    hoy.setHours(0, 0, 0, 0);
 
-    return fechaSeleccionada >= hoy;
-}
 
 // Función para validar el campo descripción
-// Verifica que la descripción tenga al menos 10 caracteres
 function validateDescripcion(descripcion) {
     let regex = /^.{10,}$/; // Expresión regular: al menos 10 caracteres
     return regex.test(descripcion);
 }
 
 // Función genérica de validación para cada campo
-// Se ejecuta cuando el usuario pierde el foco de un input ('blur')
 function validateOnBlur(inputElement, validator, errorMessage) {
     inputElement.addEventListener('blur', function () {
         let value = inputElement.value; // Obtenemos el valor del input
@@ -52,7 +45,6 @@ function validateOnBlur(inputElement, validator, errorMessage) {
 }
 
 // Función para limpiar los errores previos
-// Elimina los mensajes de error antes de realizar una nueva validación
 function limpiarErrores() {
     const errores = document.querySelectorAll('.mensaje-error');
     errores.forEach(function (error) {
@@ -62,27 +54,23 @@ function limpiarErrores() {
 }
 
 // Evento para capturar el envío del formulario
-// Valida todos los campos al enviar el formulario
 form.addEventListener('submit', function (e) {
     limpiarErrores(); // Limpiamos los errores previos antes de validar
 
     // Validamos cada campo del formulario
-    let isUsuarioValid = validateUsuario(usuarioInput.value);
     let isFechaValid = validateFecha(fechaInput.value);
     let isDescripcionValid = validateDescripcion(descripcionInput.value);
 
     // Prevenimos el envío del formulario si algún campo no es válido
-    if (!isUsuarioValid || !isFechaValid || !isDescripcionValid) {
+    if (!isFechaValid || !isDescripcionValid) {
         e.preventDefault(); // Detenemos el envío del formulario
 
         // Mostramos los mensajes de error correspondientes
-        if (!isUsuarioValid) {
-            usuarioInput.nextElementSibling.textContent = "Debe seleccionar un usuario.";
-            usuarioInput.nextElementSibling.style.visibility = "visible";
-        }
         if (!isFechaValid) {
+
             fechaInput.nextElementSibling.textContent = "Debe seleccionar una fecha válida que no sea anterior a hoy.";
             fechaInput.nextElementSibling.style.visibility = "visible";
+
         }
         if (!isDescripcionValid) {
             descripcionInput.nextElementSibling.textContent = "La descripción debe tener al menos 10 caracteres.";
@@ -92,6 +80,6 @@ form.addEventListener('submit', function (e) {
 });
 
 // Ejecutamos la validación cuando el usuario pierde el foco ('blur') en los inputs
-validateOnBlur(usuarioInput, validateUsuario, "Debe seleccionar un usuario.");
 validateOnBlur(fechaInput, validateFecha, "Debe seleccionar una fecha válida que no sea anterior a hoy.");
+
 validateOnBlur(descripcionInput, validateDescripcion, "La descripción debe tener al menos 10 caracteres.");

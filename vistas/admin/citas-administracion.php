@@ -66,8 +66,7 @@
                 <p class="mensaje-error" style="visibility: hidden;"></p>
 
                 <label for="fecha">Fecha de la cita:</label>
-                <input type="date" id="fecha" name="fecha" required>
-                <p class="mensaje-error" style="visibility: hidden;"></p>
+                <input type="date" id="fecha" name="fecha" required min="<?php echo date('Y-m-d'); ?>">                <p class="mensaje-error" style="visibility: hidden;"></p>
 
                 <label for="descripcion">Motivo de la Cita</label>
                 <textarea id="descripcion" name="descripcion" rows="5" required></textarea>
