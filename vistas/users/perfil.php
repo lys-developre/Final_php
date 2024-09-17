@@ -62,7 +62,7 @@ if (isset($_GET['error'])) {
         <section class="datos-usuario">
             <h2>Datos Personales</h2>
             <p><strong>ID de Usuario:</strong> <?php echo htmlspecialchars($usuario['id_user']); ?></p>
-            <p><strong>Nombre de Usuario:</strong> <?php echo htmlspecialchars($usuario['usuario']); ?></p> <!-- Solo visualización -->
+            <p><strong>Nombre de Usuario:</strong> <?php echo htmlspecialchars($usuario['usuario']); ?></p>
 
            
             <!-- Formulario para editar los datos personales -->

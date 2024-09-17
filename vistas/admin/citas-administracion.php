@@ -52,7 +52,7 @@
 
         <!-- Formulario para añadir citas -->
         <section id="formulario-cita-admin" class="formulario-cita">
-        <h2>Nueva cita</h2>
+            <h2>Nueva cita</h2>
 
             <form id="form" action="rutas.php?accion=crearCita" method="POST" novalidate>
                 <label for="usuario">Usuario:</label>
@@ -66,7 +66,8 @@
                 <p class="mensaje-error" style="visibility: hidden;"></p>
 
                 <label for="fecha">Fecha de la cita:</label>
-                <input type="date" id="fecha" name="fecha" required min="<?php echo date('Y-m-d'); ?>">                <p class="mensaje-error" style="visibility: hidden;"></p>
+                <input type="date" id="fecha" name="fecha" required min="<?php echo date('Y-m-d'); ?>">
+                <p class="mensaje-error" style="visibility: hidden;"></p>
 
                 <label for="descripcion">Motivo de la Cita</label>
                 <textarea id="descripcion" name="descripcion" rows="5" required></textarea>
@@ -74,104 +75,104 @@
 
                 <button type="submit" name="crear_cita">Crear Cita</button>
             </form>
-            
+
         </section>
 
-       
-<!-- Sección para seleccionar el usuario -->
-<section id="seleccion-usuario">
 
-    <h2>Seleccionar Usuario</h2>
+        <!-- Sección para seleccionar el usuario -->
+        <section id="seleccion-usuario">
 
-    <form method="POST" action="">
+            <h2>Seleccionar Usuario</h2>
 
-        <label for="id_user">Elige un usuario:</label>
-        <select name="id_user" id="id_user">
-            <?php
-            // Capturamos el usuario seleccionado en $_POST
-            $usuarioSeleccionado = isset($_POST['id_user']) ? $_POST['id_user'] : '';
-            
-            foreach ($usuarios as $usuario): ?>
-                <option value="<?php echo htmlspecialchars($usuario['id_user']); ?>" 
-                    <?php echo ($usuario['id_user'] == $usuarioSeleccionado) ? 'selected' : ''; ?>>
-                    <?php echo htmlspecialchars($usuario['nombre']); ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-        <button type="submit">Ver citas del usuario</button>
+            <form method="POST" action="">
 
-    </form>
+                <label for="id_user">Elige un usuario:</label>
+                <select name="id_user" id="id_user">
+                    <?php
+                    // Capturamos el usuario seleccionado en $_POST
+                    $usuarioSeleccionado = isset($_POST['id_user']) ? $_POST['id_user'] : '';
 
-</section>
+                    foreach ($usuarios as $usuario): ?>
+                        <option value="<?php echo htmlspecialchars($usuario['id_user']); ?>"
+                            <?php echo ($usuario['id_user'] == $usuarioSeleccionado) ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($usuario['nombre']); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <button type="submit">Ver citas del usuario</button>
+
+            </form>
+
+        </section>
 
 
-<!-- Tabla de citas asignadas al usuario seleccionado -->
-<section id="tabla-citas-admin" class="tabla-citas">
-    <h2>Citas Asignadas</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Descripción</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (isset($citas) && !empty($citas)): ?>
-                <?php foreach ($citas as $cita): ?>
+        <!-- Tabla de citas asignadas al usuario seleccionado -->
+        <section id="tabla-citas-admin" class="tabla-citas">
+            <h2>Citas Asignadas</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td><?php echo htmlspecialchars($cita['fecha_cita']); ?></td>
-                        <td><?php echo htmlspecialchars($cita['motivo_cita']); ?></td>
-
-                        <td>
-                            <!-- Botón para Editar Cita -->
-                            <button class="btn-editar"
-                                data-id="<?php echo $cita['id_cita']; ?>"
-                                data-fecha="<?php echo htmlspecialchars($cita['fecha_cita']); ?>"
-                                data-descripcion="<?php echo htmlspecialchars($cita['motivo_cita']); ?>">
-                                Editar
-                            </button>
-
-                            <!-- Formulario para Eliminar Cita -->
-                            <form action="rutas.php?accion=eliminarCita" method="POST" style="display:inline;">
-                                <input type="hidden" name="id_cita" value="<?php echo $cita['id_cita']; ?>">
-                                <button type="submit" class="btn-eliminar" name="eliminar_cita" onclick="return confirm('¿Estás seguro de eliminar esta cita?')">Eliminar</button>
-                            </form>
-                        </td>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
                     </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="3">No hay citas asignadas para este usuario.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</section>
+                </thead>
+                <tbody>
+                    <?php if (isset($citas) && !empty($citas)): ?>
+                        <?php foreach ($citas as $cita): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($cita['fecha_cita']); ?></td>
+                                <td><?php echo htmlspecialchars($cita['motivo_cita']); ?></td>
 
-<!-- Modal para editar cita (opcional, si usas un modal) -->
-<div id="modal-editar-cita">
-    <div class="modal-contenido">
-        <span id="cerrar-modal">&times;</span>
-        <h2>Editar Cita</h2>
-        <form id="form-editar" action="rutas.php?accion=editarCita" method="POST">
-            <input type="hidden" name="id_cita" id="id_cita_editar">
+                                <td>
+                                    <!-- Botón para Editar Cita -->
+                                    <button class="btn-editar"
+                                        data-id="<?php echo $cita['id_cita']; ?>"
+                                        data-fecha="<?php echo htmlspecialchars($cita['fecha_cita']); ?>"
+                                        data-descripcion="<?php echo htmlspecialchars($cita['motivo_cita']); ?>">
+                                        Editar
+                                    </button>
 
-            <label for="fecha-editar">Fecha de la cita:</label>
-            <input type="date" name="fecha" id="fecha-editar" required>
+                                    <!-- Formulario para Eliminar Cita -->
+                                    <form action="rutas.php?accion=eliminarCita" method="POST" style="display:inline;">
+                                        <input type="hidden" name="id_cita" value="<?php echo $cita['id_cita']; ?>">
+                                        <button type="submit" class="btn-eliminar" name="eliminar_cita" onclick="return confirm('¿Estás seguro de eliminar esta cita?')">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="3">No hay citas asignadas para este usuario.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </section>
 
-            <label for="descripcion-editar">Descripción:</label>
-            <textarea name="descripcion" id="descripcion-editar" rows="5" required></textarea>
+        <!-- Modal para editar cita (opcional, si usas un modal) -->
+        <div id="modal-editar-cita">
+            <div class="modal-contenido">
+                <span id="cerrar-modal">&times;</span>
+                <h2>Editar Cita</h2>
+                <form id="form-editar" action="rutas.php?accion=editarCita" method="POST">
+                    <input type="hidden" name="id_cita" id="id_cita_editar">
 
-            <button type="submit" name="editar_cita">Guardar Cambios</button>
-        </form>
-    </div>
-</div>
+                    <label for="fecha-editar">Fecha de la cita:</label>
+                    <input type="date" name="fecha" id="fecha-editar" required  min="<?php echo date('Y-m-d'); ?>" >
+
+                    <label for="descripcion-editar">Descripción:</label>
+                    <textarea name="descripcion" id="descripcion-editar" rows="5" required></textarea>
+
+                    <button type="submit" name="editar_cita">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
 
 
     </main>
 
-    
+
 
     <!-- Pie de página -->
     <div class="contenido">
@@ -182,6 +183,8 @@
     <script src="/publico/js/modal_editar_citas.js"></script>
     <!-- script para la validación de citas -->
     <script src="/publico/js/validacion_citas.js"></script>
+
+
 </body>
 
 </html>

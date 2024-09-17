@@ -6,7 +6,7 @@ function ocultarMensaje(elemento) {
     if (elemento) {
         setTimeout(function() {
             elemento.style.visibility = 'hidden'; // Ocultar el mensaje
-        }, 4000); // 4000 ms = 4 segundos
+        }, 3000); // 3000 ms = 3 segundos
     }
 }
 

@@ -44,6 +44,7 @@
             <div class="grupo-boton">
                 <button type="submit" class="boton-formulario" name="iniciar_sesion">Iniciar Sesión</button>
             </div>
+            <a href="/vistas/registro.php">Registrarse</a>
         </form>
 
 

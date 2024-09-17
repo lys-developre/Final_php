@@ -1,0 +1,325 @@
+body {
+    font-family: "Roboto", sans-serif;
+    background: linear-gradient(135deg, #045711, #2b8187, #2600ff, #000000);    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    color: #f8f9fa;
+}
+
+
+/* Contenedor principal para el panel de administración de usuarios */
+#panel-usuarios-admin {
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 100px auto;
+    background-color: rgba(33, 37, 41, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Estilos del título principal en el panel de administración */
+#panel-usuarios-admin h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #f8f9fa;
+}
+
+/* nombre de usuario dinamico */
+.nombre-usuario{
+    color: #f97030;
+    font-size: 2.2rem;
+    font-family: cursive ;}
+
+/* Estilos uniformes para todos los h2 */
+#panel-usuarios-admin h2 {
+    font-size: 2rem;
+    color: #f8f9fa;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Estilos del formulario en el panel de administración */
+.formulario-registro {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    margin: 0 auto 2rem auto;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1000px;
+}
+
+.campo-formulario{
+    margin-bottom: 1rem;
+}
+
+.formulario-registro label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+.formulario-registro input[type="text"],
+.formulario-registro input[type="email"],
+.formulario-registro input[type="password"],
+.formulario-registro input[type="tel"],
+.formulario-registro input[type="date"],
+.formulario-registro textarea,
+.formulario-registro select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #f8f9fa;
+    box-sizing: border-box;
+}
+
+
+.mostrar-contrasena{
+    margin-bottom: 1rem;
+}
+
+.formulario-registro button {
+    padding: 0.8rem 1.5rem;
+    background-color: #009973;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.formulario-registro button:hover {
+    background-color: #00ae8e;
+}
+
+/* Fondo oscuro para las opciones del select */
+.formulario-registro select option {
+    background-color: rgba(52, 52, 52, 0.9);
+    color: #00ae8e;
+}
+
+/* Estilos de la tabla en el panel de administración */
+.tabla-usuarios {
+    margin-bottom: 2rem;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-usuarios table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-usuarios th,
+.tabla-usuarios td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabla-usuarios th {
+    background-color: rgba(33, 37, 41, 0.9);
+    color: #f8f9fa;
+    font-weight: bold;
+}
+
+.tabla-usuarios td {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #f8f9fa;
+}
+
+.tabla-usuarios button {
+    font-size: 1.1rem;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    color: #00bc8c;
+    display: block;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.tabla-usuarios button:hover {
+    text-decoration: underline;
+    color: #00ae8e;
+}
+
+.tabla-usuarios form {
+    display: inline;
+}
+
+/* Mensajes de éxito y error */
+.mensaje-exito {
+    
+    color:#28a745 ;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.mensaje-error {
+    
+    color: #dc3545;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Habilita scroll si es necesario */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    display: flex; /* Utiliza Flexbox para centrar */
+}
+
+/* Estilos para el contenido del modal */
+.modal-contenido {
+    background-color: rgba(33, 37, 41, 0.95); /* Fondo oscuro semi-transparente para armonizar con el diseño existente */
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px; /* Ancho máximo */
+    position: relative; /* Para posicionar el botón de cerrar */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Estilos para el botón de cerrar */
+.cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #f8f9fa;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.cerrar-modal:hover {
+    color: #ff4d4d;
+}
+
+
+
+/* Ajustes para pantallas de 1024x1366 */
+@media (min-width: 768px) and (max-width: 1366px) {
+    #panel-usuarios-admin {
+        padding: 1.5rem;
+        margin-top: 120px;
+        margin-bottom: 80px;
+        width: 85%;
+    }
+
+    #panel-usuarios-admin h1 {
+        font-size: 2.2rem;
+    }
+
+    .formulario-registro {
+        padding: 1.2rem;
+        width: 95%;
+        margin-top: 2rem;
+    }
+
+    .formulario-registro input,
+    .formulario-registro select {
+        padding: 0.7rem;
+    }
+
+    .formulario-registro button {
+        padding: 0.7rem;
+        width: 100%;
+    }
+
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+/* Ajustes para pantallas de 430x932 */
+@media (max-width: 430px) {
+    #panel-usuarios-admin {
+        padding: 1rem;
+        margin-top: 220px;
+        margin-bottom: 10px;
+        width: 90%;
+    }
+
+    #panel-usuarios-admin h1 {
+        font-size: 1.8rem;
+    }
+
+    .formulario-registro {
+        padding: 1rem;
+        width: 92%;
+        margin: 1rem auto;
+    }
+
+    .formulario-registro input,
+    .formulario-registro select {
+        width: 100%;
+        padding: 0.8rem;
+    }
+
+    .formulario-registro button {
+        padding: 0.8rem;
+        width: 100%;
+    }
+
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    /* Botones de editar y eliminar en pantallas pequeñas */
+    .tabla-usuarios button {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+        display: inline-block;
+    }
+
+    /* Asegurarse de que las columnas no se colapsen en pantallas pequeñas */
+    .tabla-usuarios td {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .tabla-usuarios th {
+        display: none;
+    }
+
+    /* Mostrar los botones de forma adecuada */
+    .tabla-usuarios tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}

@@ -70,11 +70,10 @@ function validateOnBlur(inputElement, validator) {
 
     if (!valid) {
       smallElement.textContent = "Error: El contenido introducido no es válido";
-      smallElement.style.color = "red";
       smallElement.style.visibility = "visible";
     } else {
-      smallElement.style.visibility = "hidden"; // Escondemos el campo
-      smallElement.textContent = ""; // Limpiamos el campo
+      smallElement.style.visibility = "hidden";
+      smallElement.textContent = ""; 
     }
   });
 }

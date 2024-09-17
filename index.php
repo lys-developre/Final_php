@@ -56,8 +56,8 @@
         <!-- Sección de Contacto -->
         <section class="contacto">
             <h2>Contáctanos</h2>
-            <p>¿Tienes alguna pregunta? No dudes en escribirnos a través de nuestro formulario de contacto.</p>
-            <a href="./vistas/contacto.php" class="boton-contacto">Contáctanos</a>
+            <p>¿Tienes alguna pregunta? No dudes en escribirnos .</p>
+            <a href="./vistas/registro.php" class="boton-contacto">Contáctanos</a>
         </section>
     </main>
 

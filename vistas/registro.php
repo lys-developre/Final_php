@@ -104,6 +104,8 @@
             <div class="grupo-boton">
             <button type="submit" name="registrarse" class="boton-formulario">Registrarse</button>
             </div>
+
+            <a href="/vistas/login.php">Iniciar Sesión</a>
         </form>
 
 

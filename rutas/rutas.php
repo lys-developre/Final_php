@@ -23,6 +23,8 @@ require_once __DIR__ . '/../controladores/users/citasUsersControlador.php';
 require_once __DIR__ . '/../controladores/PerfilControlador.php';
 
 
+
+
 // Obtener la conexión a la base de datos
 $mysqli_connection = connectToDatabase();
 
@@ -50,6 +52,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $loginControlador->iniciarSesion($usuario, $password);
         exit;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    // Manejar las solicitudes POST relacionadas con el usuario desde admin
+    $usuarioControlador = new UsuarioControlador();
+    if (isset($_POST['registrar_desde_admin'])) {
+        $usuarioControlador->registrarUsuarioDesdeAdmin();
+        exit;
+    }
+
+
+
+    if (isset($_POST['editar_usuario'])) {
+        $usuarioControlador->editarUsuario();
+        exit();
+    }
+    
+    if (isset($_POST['eliminar_usuario'])) {
+        $usuarioControlador->eliminarUsuario();
+        exit();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Manejar acciones POST relacionadas con Noticias
     $noticiasCrudControlador = new NoticiasCrud();
@@ -101,6 +152,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $citasUsersControlador->editarCita();
         exit;
     }
+
+
+
+
+
+
+
+
+    
+   
+
+
+
+
 
 
 
@@ -174,18 +239,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         header("Location: /index.php");
         exit();
     }
-
-
-
-
-
-
     // Manejar acciones GET relacionadas con el Perfil
     if (isset($_GET['accion']) && $_GET['accion'] == 'mostrarPerfil') {
         $perfilControlador = new PerfilControlador();
         $perfilControlador->mostrarPerfil();
         exit();
     }
+
+
+
+
+
+    if (isset($_GET['accion']) && $_GET['accion'] == 'adminUsuarios') {
+        $usuarioControlador = new UsuarioControlador();
+        $usuarioControlador->mostrarUsuarios();
+        exit();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 // Si no se reconoce la solicitud, redirigir a error

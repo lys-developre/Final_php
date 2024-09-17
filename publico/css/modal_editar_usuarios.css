@@ -1,19 +1,3 @@
-/* Estilos para el contenedor del modal */
-#modal-editar-noticia {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: auto; 
-}
-
 /* Estilos para el contenido del modal */
 .modal-contenido {
     background-color: rgba(119, 119, 119, 0.904);
@@ -24,11 +8,11 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     position: relative;
     transition: all 0.3s ease-in-out;
-    margin:auto;
+    margin: auto;
 }
 
 /* Botón de cerrar */
-#cerrar-modal {
+#cerrar-modal-usuario {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -37,25 +21,27 @@
     cursor: pointer;
 }
 
-#cerrar-modal:hover {
+#cerrar-modal-usuario:hover {
     color: #ff6b6b;
 }
 
-/* Formulario del modal */
-.modal-contenido form {
+/* Estilos de los campos del formulario */
+#form-editar-usuario {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.modal-contenido form label {
+#form-editar-usuario label {
     color: #f8f9fa;
     font-weight: bold;
 }
 
-.modal-contenido form input[type="text"],
-.modal-contenido form textarea,
-.modal-contenido form input[type="file"] {
+#form-editar-usuario input[type="text"],
+#form-editar-usuario input[type="email"],
+#form-editar-usuario input[type="tel"],
+#form-editar-usuario input[type="date"],
+#form-editar-usuario select {
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 0.5rem;
@@ -65,7 +51,8 @@
     color: #f8f9fa;
 }
 
-.modal-contenido form button {
+/* Estilos del botón de submit */
+#form-editar-usuario button {
     background-color: #009973;
     color: white;
     padding: 0.8rem;
@@ -75,44 +62,34 @@
     transition: background-color 0.3s ease;
 }
 
-.modal-contenido form button:hover {
+#form-editar-usuario button:hover {
     background-color: #00ae8e;
 }
 
-/* Ajustes en pantallas pequeñas (430x932 y similares) */
+/* Animación de aparición del modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal {
+    animation: fadeIn 0.3s;
+}
+
+/* Ajustes de responsividad */
 @media (max-width: 768px) {
     .modal-contenido {
         width: 90%;
         padding: 1rem;
         max-width: 100%;
-        margin-top: 10rem;
     }
 
-    #cerrar-modal {
+    #cerrar-modal-usuario {
         font-size: 24px;
     }
 }
 
-/* Ajustes para pantallas medianas (769px - 1440px) */
-@media (min-width: 769px) and (max-width: 1440px) {
-    .modal-contenido {
-        width: 80%;
-        padding: 2rem;
-        max-width: 700px;
-        margin-top: 10rem;
-    }
-}
-
-/* Ajustes específicos para pantallas medianas-grandes (1441px en adelante) */
-@media (min-width: 1440px) {
-    .modal-contenido {
-        width: 70%;
-        padding: 2.5rem;
-        max-width: 800px;
-    }
-}
-
-/* Ajustes específicos para pantallas grandes (1920px en adelante) */
+/* Ajustes para pantallas grandes */
 @media (min-width: 1920px) {
     .modal-contenido {
         width: 60%;
