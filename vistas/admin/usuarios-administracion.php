@@ -209,6 +209,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
             <div class="modal-contenido">
                 <span id="cerrar-modal-usuario" class="cerrar-modal">&times;</span>
                 <h2>Editar Usuario</h2>
+
                 <form id="form-editar-usuario" action="/rutas/rutas.php" method="POST">
                     <input type="hidden" name="id_user" id="id_usuario_editar">
 
@@ -246,8 +247,14 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                         <option value="admin">Administrador</option>
                     </select>
 
+                    <!-- Opción para actualizar la contraseña -->
+                    <label for="contrasena-editar">Nueva Contraseña (Opcional):</label>
+                    <input type="password" name="contrasena" id="contrasena-editar">
+
                     <button type="submit" name="editar_usuario">Guardar Cambios</button>
                 </form>
+
+
             </div>
         </div>
 

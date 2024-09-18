@@ -48,7 +48,6 @@ class NoticiasCrud
             header('Location: rutas.php?accion=adminNoticias&error=faltan_datos');
         }
     }
-
     public function eliminarNoticia()
     {
         if (isset($_POST['id_noticia'])) {
@@ -70,8 +69,6 @@ class NoticiasCrud
             header('Location: rutas.php?accion=adminNoticias&error=faltan_datos');
         }
     }
-
-
     public function editarNoticia()
     {
         if (isset($_POST['id_noticia']) && isset($_POST['titulo']) && isset($_POST['texto'])) {
@@ -95,8 +92,6 @@ class NoticiasCrud
             header('Location: rutas.php?accion=adminNoticias&error=faltan_datos');
         }
     }
-
-
     // Método para validar los datos de una noticia
     private function validarDatosNoticia($titulo, $texto, $imagen)
     {

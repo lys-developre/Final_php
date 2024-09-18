@@ -77,7 +77,12 @@ body {
     color: #f8f9fa;
     font-weight: bold;
 }
-
+#sexo{
+    margin-bottom: 1rem;
+}
+#contrasena{
+    margin-bottom: 1rem;
+}
 .datos-usuario form input[type="text"],
 .datos-usuario form input[type="email"] {
     width: 100%;

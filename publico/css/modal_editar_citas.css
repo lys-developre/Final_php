@@ -26,6 +26,10 @@
     transition: all 0.3s ease-in-out;
     margin: auto;
 }
+.seleccion-campo option {
+    background-color: #333333;
+    color: #ffffff;
+}
 
 /* Botón de cerrar */
 #cerrar-modal {

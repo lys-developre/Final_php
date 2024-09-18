@@ -21,7 +21,6 @@ class CitasCrudControlador
             }
         }
     }
-
     // Método para eliminar una cita
     public function eliminarCita()
     {
@@ -38,7 +37,6 @@ class CitasCrudControlador
             }
         }
     }
-
     // Método para editar una cita
     public function editarCita()
     {
@@ -58,4 +56,3 @@ class CitasCrudControlador
         }
     }
 }
-

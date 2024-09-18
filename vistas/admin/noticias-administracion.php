@@ -29,25 +29,36 @@
         <!-- Sección de mensajes de éxito o error -->
         <?php if (isset($_GET['mensaje'])): ?>
             <div class="mensaje-exito">
-                ¡La noticia se ha creado exitosamente!
-            </div>
-        <?php elseif (isset($_GET['error'])): ?>
-            <div class="mensaje-error">
-                <?php if ($_GET['error'] == 'fallo_creacion'): ?>
-                    Ocurrió un error al crear la noticia. Por favor, intenta nuevamente.
-                <?php elseif ($_GET['error'] == 'errores_validacion'): ?>
-                    Ocurrieron los siguientes errores en la validación:
-                    <ul>
-                        <?php
-                        $detalles = json_decode($_GET['detalles'], true);
-                        foreach ($detalles as $error): ?>
-                            <li><?php echo htmlspecialchars($error); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php elseif ($_GET['error'] == 'faltan_datos'): ?>
-                    Faltan datos para crear la noticia. Por favor, completa todos los campos.
-                <?php endif; ?>
-            </div>
+        <?php if ($_GET['mensaje'] == 'noticia_creada'): ?>
+            ¡La noticia se ha creado exitosamente!
+        <?php elseif ($_GET['mensaje'] == 'noticia_eliminada'): ?>
+            ¡La noticia ha sido eliminada exitosamente!
+        <?php elseif ($_GET['mensaje'] == 'noticia_actualizada'): ?>
+            ¡La noticia ha sido actualizada exitosamente!
+        <?php endif; ?>
+    </div>
+<?php elseif (isset($_GET['error'])): ?>
+    <div class="mensaje-error">
+        <?php if ($_GET['error'] == 'fallo_creacion'): ?>
+            Ocurrió un error al crear la noticia. Por favor, intenta nuevamente.
+        <?php elseif ($_GET['error'] == 'fallo_eliminacion'): ?>
+            Ocurrió un error al eliminar la noticia. Por favor, intenta nuevamente.
+        <?php elseif ($_GET['error'] == 'fallo_actualizacion'): ?>
+            Ocurrió un error al actualizar la noticia. Por favor, intenta nuevamente.
+        <?php elseif ($_GET['error'] == 'errores_validacion'): ?>
+            Ocurrieron los siguientes errores en la validación:
+            <ul>
+                <?php
+                // Decodificar los detalles de los errores en la validación
+                $detalles = json_decode($_GET['detalles'], true);
+                foreach ($detalles as $error): ?>
+                    <li><?php echo htmlspecialchars($error); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php elseif ($_GET['error'] == 'faltan_datos'): ?>
+            Faltan datos para realizar la operación. Por favor, completa todos los campos.
+        <?php endif; ?>
+    </div>
         <?php endif; ?>
 
         <!-- Formulario para añadir noticias -->
@@ -70,7 +81,6 @@
             </form>
 
         </section>
-
         <!-- Tabla de noticias publicadas -->
         <section id="tabla-noticias-admin" class="tabla-noticias">
             <h2>Noticias Publicadas</h2>
@@ -138,7 +148,6 @@
             </form>
         </div>
     </div>
-
     <!-- Pie de página global -->
     <div class="contenido">
         <?php include __DIR__ . '/../../vistas/parciales/pieDePagina.php'; ?>
@@ -146,6 +155,8 @@
 
     <script src="/publico/js/validacion_noticias.js"></script>
     <script src="/publico/js/modal_editar_noticias.js"></script>
+     <!-- script para ocultar mensaje -->
+     <script src="/publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

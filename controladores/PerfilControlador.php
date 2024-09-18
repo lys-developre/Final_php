@@ -11,7 +11,6 @@ class PerfilControlador
     {
         $this->usuarioModelo = new UsuarioModelo();
     }
-
     // Método para mostrar el perfil del usuario
     public function mostrarPerfil()
     {
@@ -35,7 +34,6 @@ class PerfilControlador
             exit();
         }
     }
-
     // Método para actualizar el nombre de usuario
     public function actualizarPerfil()
     {
@@ -47,17 +45,24 @@ class PerfilControlador
             $email = trim($_POST['email']);
             $telefono = trim($_POST['telefono']);
             $direccion = trim($_POST['direccion']);
-            $fecha_nacimiento = trim($_POST['fecha_nacimiento']); // Nuevo campo
-            $sexo = trim($_POST['sexo']); // Nuevo campo
+            $fecha_nacimiento = trim($_POST['fecha_nacimiento']);
+            $sexo = trim($_POST['sexo']);
+            $contrasena = !empty($_POST['contrasena']) ? trim($_POST['contrasena']) : null;
 
             // Validar que no estén vacíos
             if (empty($nombre) || empty($apellidos) || empty($email) || empty($telefono) || empty($direccion) || empty($fecha_nacimiento) || empty($sexo)) {
-                header('/rutas/rutas.php?accion=mostrarPerfil&error=campos_vacios');
+                header('Location: /rutas/rutas.php?accion=mostrarPerfil&error=campos_vacios');
                 exit();
             }
 
-            // Actualizar los datos en la base de datos
-            $resultado = $this->usuarioModelo->actualizarDatosPersonales($id_user, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo);
+            // Si se ha proporcionado una nueva contraseña, la encriptamos
+            $contrasenaHash = null;
+            if (!is_null($contrasena)) {
+                $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
+            }
+
+            // Actualizar los datos en la base de datos, incluyendo la contraseña si se ha proporcionado
+            $resultado = $this->usuarioModelo->actualizarDatosPersonales($id_user, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo, $contrasenaHash);
 
             if ($resultado) {
                 header('Location: /rutas/rutas.php?accion=mostrarPerfil&mensaje=datos_actualizados');

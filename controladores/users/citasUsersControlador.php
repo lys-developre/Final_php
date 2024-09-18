@@ -8,12 +8,13 @@ require_once __DIR__ . '/../../modelos/citasModelo.php';
 
 class CitasUsersControlador
 {
-    public function mostrarCitasDeUsuario() {
+    public function mostrarCitasDeUsuario()
+    {
         // Comprobar si la sesión está iniciada
         if (session_status() === PHP_SESSION_NONE) {
             session_start(); // Iniciamos la sesión si aún no está iniciada
         }
-    
+
         // Comprobar si la sesión contiene los datos de usuario
         if (isset($_SESSION['user_data']['id_user'])) {
             $id_user = $_SESSION['user_data']['id_user'];
@@ -23,15 +24,14 @@ class CitasUsersControlador
             header('Location: ../vistas/login.php');
             exit();
         }
-    
+
         // Obtener las citas del usuario
         $citasModelo = new CitasModelo();
         $citas = $citasModelo->obtenerCitasPorUsuario($id_user);
-    
+
         // Pasar las variables a la vista
         include __DIR__ . '/../../vistas/users/citaciones.php';
     }
-
     // Método para crear una cita
     public function crearCita()
     {
@@ -58,7 +58,6 @@ class CitasUsersControlador
             }
         }
     }
-
     // Método para eliminar una cita
     public function eliminarCita()
     {
@@ -100,7 +99,6 @@ class CitasUsersControlador
             }
         }
     }
-
     // Método para editar una cita
     public function editarCita()
     {

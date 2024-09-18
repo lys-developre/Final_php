@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-09-2024 a las 19:51:45
+-- Tiempo de generación: 18-09-2024 a las 18:42:30
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -77,8 +77,9 @@ CREATE TABLE `users_data` (
 CREATE TABLE `users_login` (
   `id_login` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
-  `contrasena` varchar(100) DEFAULT NULL,
-  `rol` enum('admin','user') NOT NULL
+  `contrasena` varchar(255) NOT NULL,
+  `rol` enum('admin','user') NOT NULL,
+  `usuario` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -90,8 +91,7 @@ CREATE TABLE `users_login` (
 --
 ALTER TABLE `citas`
   ADD PRIMARY KEY (`id_cita`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `fecha_cita` (`fecha_cita`);
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `noticias`
@@ -99,8 +99,7 @@ ALTER TABLE `citas`
 ALTER TABLE `noticias`
   ADD PRIMARY KEY (`id_noticia`),
   ADD UNIQUE KEY `titulo` (`titulo`),
-  ADD KEY `id_user` (`id_user`),
-  ADD KEY `fecha` (`fecha`);
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indices de la tabla `users_data`
@@ -114,7 +113,8 @@ ALTER TABLE `users_data`
 --
 ALTER TABLE `users_login`
   ADD PRIMARY KEY (`id_login`),
-  ADD UNIQUE KEY `id_user` (`id_user`);
+  ADD UNIQUE KEY `id_user` (`id_user`),
+  ADD UNIQUE KEY `usuario` (`usuario`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

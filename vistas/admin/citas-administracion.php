@@ -29,23 +29,22 @@
         <!-- Sección de mensajes de éxito o error -->
         <?php if (isset($_GET['mensaje'])): ?>
             <div class="mensaje-exito">
-                ¡La cita se ha creado exitosamente!
+                <?php if ($_GET['mensaje'] == 'cita_creada'): ?>
+                    ¡La cita se ha creado exitosamente!
+                <?php elseif ($_GET['mensaje'] == 'cita_eliminada'): ?>
+                    ¡La cita ha sido eliminada exitosamente!
+                <?php elseif ($_GET['mensaje'] == 'cita_actualizada'): ?>
+                    ¡La cita ha sido actualizada exitosamente!
+                <?php endif; ?>
             </div>
         <?php elseif (isset($_GET['error'])): ?>
             <div class="mensaje-error">
                 <?php if ($_GET['error'] == 'fallo_creacion'): ?>
                     Ocurrió un error al crear la cita. Por favor, intenta nuevamente.
-                <?php elseif ($_GET['error'] == 'errores_validacion'): ?>
-                    Ocurrieron los siguientes errores en la validación:
-                    <ul>
-                        <?php
-                        $detalles = json_decode($_GET['detalles'], true);
-                        foreach ($detalles as $error): ?>
-                            <li><?php echo htmlspecialchars($error); ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php elseif ($_GET['error'] == 'faltan_datos'): ?>
-                    Faltan datos para crear la cita. Por favor, completa todos los campos.
+                <?php elseif ($_GET['error'] == 'fallo_eliminacion'): ?>
+                    Ocurrió un error al eliminar la cita. Por favor, intenta nuevamente.
+                <?php elseif ($_GET['error'] == 'fallo_actualizacion'): ?>
+                    Ocurrió un error al actualizar la cita. Por favor, intenta nuevamente.
                 <?php endif; ?>
             </div>
         <?php endif; ?>
@@ -77,8 +76,6 @@
             </form>
 
         </section>
-
-
         <!-- Sección para seleccionar el usuario -->
         <section id="seleccion-usuario">
 
@@ -104,8 +101,6 @@
             </form>
 
         </section>
-
-
         <!-- Tabla de citas asignadas al usuario seleccionado -->
         <section id="tabla-citas-admin" class="tabla-citas">
             <h2>Citas Asignadas</h2>
@@ -149,7 +144,6 @@
                 </tbody>
             </table>
         </section>
-
         <!-- Modal para editar cita (opcional, si usas un modal) -->
         <div id="modal-editar-cita">
             <div class="modal-contenido">
@@ -159,7 +153,7 @@
                     <input type="hidden" name="id_cita" id="id_cita_editar">
 
                     <label for="fecha-editar">Fecha de la cita:</label>
-                    <input type="date" name="fecha" id="fecha-editar" required  min="<?php echo date('Y-m-d'); ?>" >
+                    <input type="date" name="fecha" id="fecha-editar" required min="<?php echo date('Y-m-d'); ?>">
 
                     <label for="descripcion-editar">Descripción:</label>
                     <textarea name="descripcion" id="descripcion-editar" rows="5" required></textarea>
@@ -183,6 +177,8 @@
     <script src="/publico/js/modal_editar_citas.js"></script>
     <!-- script para la validación de citas -->
     <script src="/publico/js/validacion_citas.js"></script>
+    <!-- script para ocultar mensaje -->
+    <script src="/publico/js/ocultar_mensaje.js"></script>
 
 
 </body>

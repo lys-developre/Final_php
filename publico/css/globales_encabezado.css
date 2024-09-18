@@ -1,4 +1,9 @@
 /* Estilos para el encabezado */
+/* Estilo para el enlace activo */
+.menu-principal a.activo {
+    font-weight: bold;
+    color: #40ff00; /* Cambiar el color a lo que prefieras */
+}
 
 
 .encabezado-principal {

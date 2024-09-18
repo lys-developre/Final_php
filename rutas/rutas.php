@@ -52,56 +52,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $loginControlador->iniciarSesion($usuario, $password);
         exit;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     // Manejar las solicitudes POST relacionadas con el usuario desde admin
     $usuarioControlador = new UsuarioControlador();
     if (isset($_POST['registrar_desde_admin'])) {
         $usuarioControlador->registrarUsuarioDesdeAdmin();
         exit;
     }
-
-
-
     if (isset($_POST['editar_usuario'])) {
         $usuarioControlador->editarUsuario();
         exit();
     }
-    
     if (isset($_POST['eliminar_usuario'])) {
         $usuarioControlador->eliminarUsuario();
         exit();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Manejar acciones POST relacionadas con Noticias
     $noticiasCrudControlador = new NoticiasCrud();
     if (isset($_POST['crear_noticia'])) {
@@ -116,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $noticiasCrudControlador->editarNoticia();
         exit;
     }
-
     // Manejar acciones POST relacionadas con Citas admin.
     $citasCrudControlador = new CitasCrudControlador();
     if (isset($_POST['crear_cita'])) {
@@ -136,8 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $citasAdminControlador->mostrarCitasDeUsuario();
         exit;
     }
-
-
     // Manejar acciones POST relacionadas con Citas user.
     $citasUsersControlador = new CitasUsersControlador();
     if (isset($_POST['crear_cita_usuario'])) {
@@ -152,25 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $citasUsersControlador->editarCita();
         exit;
     }
-
-
-
-
-
-
-
-
-    
-   
-
-
-
-
-
-
-
-
-
     // Manejar acciones POST relacionadas con el Perfil
     $perfilControlador = new PerfilControlador();
     if (isset($_POST['accion']) && $_POST['accion'] == 'actualizarDatosPersonales') {
@@ -245,30 +187,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $perfilControlador->mostrarPerfil();
         exit();
     }
-
-
-
-
-
     if (isset($_GET['accion']) && $_GET['accion'] == 'adminUsuarios') {
         $usuarioControlador = new UsuarioControlador();
         $usuarioControlador->mostrarUsuarios();
         exit();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 // Si no se reconoce la solicitud, redirigir a error

@@ -75,19 +75,16 @@ body {
     outline: none;
 }
 
-/* Mensajes de error */
-.mensaje-error {
-    color: #ff6b6b;
-    font-size: 0.8em;
-    position: absolute;
-    left: 0;
-}
 
 /* Checkbox de Mostrar Contraseña */
 .mostrar-contrasena {
     margin-right: 10px;
     margin-top: 15px;
     cursor: pointer;
+}
+.seleccion-campo option {
+    background-color: #333333;
+    color: #ffffff;
 }
 
 /* Estilos para el label de mostrar contraseña */
@@ -120,6 +117,25 @@ body {
     background-color: #008c72;
     transform: translateY(-4px);
 }
+
+
+/* Mensajes de éxito y error */
+.mensaje-exito {
+    
+    color:#28a745 ;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.mensaje-error {
+    
+    color: #dc3545;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
 
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 480px) {

@@ -20,7 +20,6 @@ class CitasModelo
 
         return [];
     }
-
     // Función para obtener las citas de un usuario
     public function obtenerCitasPorUsuario($id_user)
     {
@@ -58,8 +57,6 @@ class CitasModelo
             return [];
         }
     }
-
-
     // Función para crear una cita
     public function crearCita($id_user, $fecha_cita, $motivo_cita)
     {
@@ -75,8 +72,7 @@ class CitasModelo
         $stmt->bind_param('iss', $id_user, $fecha_cita, $motivo_cita);
 
         return $stmt->execute();
-    }
-    
+    }    
     // Función para eliminar una cita
     public function eliminarCita($id_cita)
     {
@@ -91,7 +87,6 @@ class CitasModelo
 
         return $stmt->execute();
     }
-
     // Función para editar una cita
     public function editarCita($id_cita, $fecha_cita, $motivo_cita)
     {

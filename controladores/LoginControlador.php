@@ -57,13 +57,13 @@ class LoginControlador
             } else {
                 // Si la contraseña es incorrecta
                 $_SESSION['mensaje_error'] = "Contraseña incorrecta.";
-                header("Location: ../vistas/login.php");
+                header('Location: /vistas/login.php?mensaje=contrasena-incorrecta');
                 exit();
             }
         } else {
             // Si no se encuentra el usuario
             $_SESSION['mensaje_error'] = "No se encontró un usuario con ese nombre.";
-            header("Location: ../vistas/login.php");
+            header('Location: /vistas/login.php?mensaje=no-encontrado');
             exit();
         }
     }

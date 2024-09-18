@@ -1,3 +1,12 @@
+<?php
+// Iniciar la sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -20,13 +29,36 @@
 
     <main class="contenedor-formulario">
         <h1 class="titulo-formulario">Iniciar Sesión</h1>
+
+
+
+        <?php
+
+
+// Mostrar el mensaje de confirmación si el registro fue exitoso
+if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'registro_exitoso') {
+    echo '<div class="mensaje-exito">Registro exitoso. Ahora puedes iniciar sesión.</div>';
+}
+
+// Mostrar el mensaje de error si la contraseña es incorrecta o el usuario no existe
+if (isset($_GET['mensaje'])) {
+    if ($_GET['mensaje'] === 'contrasena-incorrecta') {
+        echo '<div class="mensaje-error">Contraseña incorrecta. Por favor, inténtalo de nuevo.</div>';
+    } elseif ($_GET['mensaje'] === 'no-encontrado') {
+        echo '<div class="mensaje-error">No se encontró un usuario con ese nombre. Por favor, verifica tus datos.</div>';
+    }
+}
+?>
+
+
+
         <form action="../rutas/rutas.php" method="POST" class="formulario-login" novalidate>
 
-        <div class="campo-formulario">
-    <label for="usuario" class="etiqueta-campo">Nombre de Usuario:</label>
-    <input type="text" id="usuario" name="usuario" class="entrada-campo" required placeholder="Ingrese su nombre de usuario">
-    <span id="error-usuario" class="mensaje-error"></span>
-</div>
+            <div class="campo-formulario">
+                <label for="usuario" class="etiqueta-campo">Nombre de Usuario:</label>
+                <input type="text" id="usuario" name="usuario" class="entrada-campo" required placeholder="Ingrese su nombre de usuario">
+                <span id="error-usuario" class="mensaje-error"></span>
+            </div>
 
 
             <div class="campo-formulario">
@@ -51,8 +83,8 @@
     </main>
 
     <div class="contenido">
-            <!-- pie de pagina global.  -->
-            <?php include '../vistas/parciales/pieDePagina.php'; ?>
+        <!-- pie de pagina global.  -->
+        <?php include '../vistas/parciales/pieDePagina.php'; ?>
     </div>
 
 
@@ -61,6 +93,8 @@
     <script src="../publico/js/mostrar_contrasena.js"></script>
     <!-- Incluimos el archivo js de validacion de login. -->
     <script src="../publico/js/validacion_login.js"></script>
+    <!-- script ocultar mensaje -->
+    <script src="../publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

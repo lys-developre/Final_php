@@ -85,7 +85,7 @@ class UsuarioModelo
                 'error' => "La contraseña debe contener entre 4 y 30 caracteres, incluyendo al menos una letra mayúscula, un número y un símbolo."
             ]
 
-            
+
         ];
 
 
@@ -139,151 +139,241 @@ class UsuarioModelo
     }
     //VALÑIDACION EN LA EDICION DE EL ADMIN
     public function validarEdicionUsuario(&$datos)
-{
-    // Array para almacenar los errores.
-    $errores = [];
+    {
+        // Array para almacenar los errores.
+        $errores = [];
 
-    // Definimos las regex que serán las encargadas de cotejarse con los datos.
-    $NOMBRE_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
-    $APELLIDOS_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
-    $USUARIO_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
-    $TELEFONO_REGEX = "/^\+?\d{7,15}$/";
-    $FECHA_NACIMIENTO_REGEX = "/^\d{4}-\d{2}-\d{2}$/";
-    $DIRECCION_REGEX = "/^.{5,100}$/";
-    $SEXO_REGEX = "/^(Masculino|Femenino|Otro)$/";
+        // Definimos las regex que serán las encargadas de cotejarse con los datos.
+        $NOMBRE_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
+        $APELLIDOS_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
+        $USUARIO_REGEX = "/^[a-zA-ZÁÉÍÓÚÑáéíóúñ ]{2,45}$/";
+        $TELEFONO_REGEX = "/^\+?\d{7,15}$/";
+        $FECHA_NACIMIENTO_REGEX = "/^\d{4}-\d{2}-\d{2}$/";
+        $DIRECCION_REGEX = "/^.{5,100}$/";
+        $SEXO_REGEX = "/^(Masculino|Femenino|Otro)$/";
+        $ROL_REGEX = "/^(user|admin)$/";
+        $CONTRASENA_REGEX = "/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*.,_-])[A-Za-z\d!@#$%^&*.,_-]{4,100}$/";
 
-    // Sanitizamos los datos antes de procesarlos.
-    foreach ($datos as $campo => $valor) {
-        // Convertimos cada dato a entidades HTML seguras.
-        $datos[$campo] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
-    }
-
-    // Definimos las validaciones para cada campo del formulario.
-    $validaciones = [
-        'nombre' => [
-            'regex' => $NOMBRE_REGEX,
-            'error' => "El nombre debe contener entre 2 y 45 caracteres alfabéticos."
-        ],
-        'apellidos' => [
-            'regex' => $APELLIDOS_REGEX,
-            'error' => "Los apellidos deben contener entre 2 y 45 caracteres alfabéticos."
-        ],
-        'email' => [
-            'function' => function ($value) {
-                return filter_var($value, FILTER_VALIDATE_EMAIL);
-            },
-            'error' => "El formato del correo electrónico no es válido."
-        ],
-        'usuario' => [
-            'regex' => $USUARIO_REGEX,
-            'error' => "El nombre de usuario debe contener entre 2 y 45 caracteres alfanuméricos."
-        ],
-        'telefono' => [
-            'regex' => $TELEFONO_REGEX,
-            'error' => "El número de teléfono debe contener entre 7 y 15 dígitos."
-        ],
-        'fecha_nacimiento' => [
-            'regex' => $FECHA_NACIMIENTO_REGEX,
-            'error' => "La fecha de nacimiento debe estar en el formato AAAA-MM-DD.",
-            'chequeo_de_formato' => function ($value) {
-                $fecha = DateTime::createFromFormat('Y-m-d', $value);
-                return $fecha && $fecha->format('Y-m-d') === $value;
-            },
-            'error_de_formato' => "La fecha de nacimiento no es válida."
-        ],
-        'direccion' => [
-            'regex' => $DIRECCION_REGEX,
-            'error' => "La dirección debe contener entre 5 y 100 caracteres."
-        ],
-        'sexo' => [
-            'regex' => $SEXO_REGEX,
-            'error' => "El sexo debe ser uno de los siguientes valores: Masculino, Femenino, Otro."
-        ],
-        'rol' => [
-            'regex' => "/^(user|admin)$/",
-            'error' => "El rol debe ser 'Usuario' o 'Administrador'."
-        ]
-    ];
-
-    // Procesamos cada campo según las validaciones definidas.
-    foreach ($validaciones as $campo => $validacion) {
-        if (!isset($datos[$campo]) || empty($datos[$campo])) {
-            $errores[$campo] = "El campo $campo es obligatorio.";
-        } elseif (isset($validacion['regex']) && !preg_match($validacion['regex'], $datos[$campo])) {
-            $errores[$campo] = $validacion['error'];
-        } elseif (isset($validacion['function']) && !$validacion['function']($datos[$campo])) {
-            $errores[$campo] = $validacion['error'];
-        } elseif (isset($validacion['chequeo_de_formato']) && !$validacion['chequeo_de_formato']($datos[$campo])) {
-            $errores[$campo] = $validacion['error_de_formato'];
+        // Sanitizamos los datos antes de procesarlos.
+        foreach ($datos as $campo => $valor) {
+            // Convertimos cada dato a entidades HTML seguras.
+            $datos[$campo] = htmlspecialchars($valor, ENT_QUOTES, 'UTF-8');
         }
-    }
 
-    // Devolvemos los errores, si existen.
-    return $errores;
-}
+        // Definimos las validaciones para cada campo del formulario.
+        $validaciones = [
+            'nombre' => [
+                'regex' => $NOMBRE_REGEX,
+                'error' => "El nombre debe contener entre 2 y 45 caracteres alfabéticos."
+            ],
+            'apellidos' => [
+                'regex' => $APELLIDOS_REGEX,
+                'error' => "Los apellidos deben contener entre 2 y 45 caracteres alfabéticos."
+            ],
+            'email' => [
+                'function' => function ($value) {
+                    return filter_var($value, FILTER_VALIDATE_EMAIL);
+                },
+                'error' => "El formato del correo electrónico no es válido."
+            ],
+            'usuario' => [
+                'regex' => $USUARIO_REGEX,
+                'error' => "El nombre de usuario debe contener entre 2 y 45 caracteres alfanuméricos."
+            ],
+            'telefono' => [
+                'regex' => $TELEFONO_REGEX,
+                'error' => "El número de teléfono debe contener entre 7 y 15 dígitos."
+            ],
+            'fecha_nacimiento' => [
+                'regex' => $FECHA_NACIMIENTO_REGEX,
+                'error' => "La fecha de nacimiento debe estar en el formato AAAA-MM-DD.",
+                'chequeo_de_formato' => function ($value) {
+                    $fecha = DateTime::createFromFormat('Y-m-d', $value);
+                    return $fecha && $fecha->format('Y-m-d') === $value;
+                },
+                'error_de_formato' => "La fecha de nacimiento no es válida."
+            ],
+            'direccion' => [
+                'regex' => $DIRECCION_REGEX,
+                'error' => "La dirección debe contener entre 5 y 100 caracteres."
+            ],
+            'sexo' => [
+                'regex' => $SEXO_REGEX,
+                'error' => "El sexo debe ser uno de los siguientes valores: Masculino, Femenino, Otro."
+            ],
+            'rol' => [
+                'regex' => $ROL_REGEX,
+                'error' => "El rol debe ser 'Usuario' o 'Administrador'."
+            ],
+            // Validación opcional para la contraseña (solo si se proporciona)
+            'contrasena' => [
+                'regex' => $CONTRASENA_REGEX,
+                'error' => "La contraseña debe contener entre 4 y 100 caracteres, incluyendo al menos una letra mayúscula, un número y un carácter especial.",
+                'opcional' => true // Esto indica que el campo es opcional
+            ]
+        ];
+
+        // Procesamos cada campo según las validaciones definidas.
+        foreach ($validaciones as $campo => $validacion) {
+            // Verificar si el campo es opcional y está vacío
+            if (isset($validacion['opcional']) && $validacion['opcional'] && empty($datos[$campo])) {
+                continue; // Si es opcional y está vacío, omitimos la validación
+            }
+
+            if (!isset($datos[$campo]) || empty($datos[$campo])) {
+                $errores[$campo] = "El campo $campo es obligatorio.";
+            } elseif (isset($validacion['regex']) && !preg_match($validacion['regex'], $datos[$campo])) {
+                $errores[$campo] = $validacion['error'];
+            } elseif (isset($validacion['function']) && !$validacion['function']($datos[$campo])) {
+                $errores[$campo] = $validacion['error'];
+            } elseif (isset($validacion['chequeo_de_formato']) && !$validacion['chequeo_de_formato']($datos[$campo])) {
+                $errores[$campo] = $validacion['error_de_formato'];
+            }
+        }
+
+        // Devolvemos los errores, si existen.
+        return $errores;
+    }
     // INSERTAR NUEVOS USUARIOS A LA BASE DE DATOS EN LA TABLA DATA_USER Y DATA_LOGIN --------------
     public function insertarUsuario($datos)
     {
         $mysqli_conn = connectToDatabase();
 
-        $query = "INSERT INTO users_data (nombre, apellidos, email, telefono, fecha_nacimiento, direccion, sexo)
-              VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $stmt = $mysqli_conn->prepare($query);
+        try {
+            $query = "INSERT INTO users_data (nombre, apellidos, email, telefono, fecha_nacimiento, direccion, sexo)
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $mysqli_conn->prepare($query);
 
-        // Verificamos si la preparación de la consulta fue exitosa
-        if ($stmt === false) {
-            var_dump('Error al preparar la consulta: ' . $mysqli_conn->error);
-            exit();
+            if ($stmt === false) {
+                throw new Exception('Error al preparar la consulta: ' . $mysqli_conn->error);
+            }
+
+            $stmt->bind_param(
+                'sssssss',
+                $datos['nombre'],
+                $datos['apellidos'],
+                $datos['email'],
+                $datos['telefono'],
+                $datos['fecha_nacimiento'],
+                $datos['direccion'],
+                $datos['sexo']
+            );
+
+            $stmt->execute();
+            return ['success' => $stmt->insert_id]; // Devolver el ID del usuario
+
+        } catch (mysqli_sql_exception $e) {
+            // Verificamos si es un error de entrada duplicada
+            if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                return ['error' => 'usuario_duplicado'];
+            } else {
+                return ['error' => 'Error al insertar usuario: ' . $e->getMessage()];
+            }
         }
-
-        $stmt->bind_param(
-            'sssssss',
-            $datos['nombre'],
-            $datos['apellidos'],
-            $datos['email'],
-            $datos['telefono'],
-            $datos['fecha_nacimiento'],
-            $datos['direccion'],
-            $datos['sexo']
-        );
-        $stmt->execute();
-
-        // Retornar el ID del usuario insertado
-        return $stmt->insert_id;
     }
     public function insertarLogin($idUsuario, $usuario, $contrasenaHasheada, $rol)
     {
         $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
 
-        // Verificamos si el usuario ya está registrado en la tabla users_login
-        $queryCheck = "SELECT * FROM users_login WHERE id_user = ?";
-        $stmtCheck = $mysqli_conn->prepare($queryCheck);
-        $stmtCheck->bind_param('i', $idUsuario);
-        $stmtCheck->execute();
-        $resultadoCheck = $stmtCheck->get_result();
+        try {
+            // Verificamos si el nombre de usuario ya está registrado
+            $queryCheckUser = "SELECT * FROM users_login WHERE usuario = ?";
+            $stmtCheckUser = $mysqli_conn->prepare($queryCheckUser);
+            $stmtCheckUser->bind_param('s', $usuario);
+            $stmtCheckUser->execute();
+            $resultadoCheckUser = $stmtCheckUser->get_result();
 
+            if ($resultadoCheckUser->num_rows > 0) {
+                // Si ya existe un usuario con este nombre, devolvemos un error
+                return ['error' => 'usuario_duplicado'];
+            }
 
-        if ($resultadoCheck->num_rows > 0) {
-            // Si ya existe un registro para este id_user, lanzamos un error
-            error_log("El usuario con id $idUsuario ya tiene un registro en users_login.");
-            return false;
+            // Insertar los datos en la tabla users_login
+            $query = "INSERT INTO users_login (id_user, contrasena, rol, usuario) VALUES (?, ?, ?, ?)";
+            $stmt = $mysqli_conn->prepare($query);
+            $stmt->bind_param('isss', $idUsuario, $contrasenaHasheada, $rol, $usuario);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Error al insertar el usuario en users_login: " . $stmt->error);
+            }
+
+            return ['success' => true]; // Inserción exitosa
+
+        } catch (mysqli_sql_exception $e) {
+            if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                return ['error' => 'usuario_duplicado'];
+            } else {
+                return ['error' => 'Error al crear credenciales de inicio de sesión.'];
+            }
         }
+    }
+    public function insertarUsuarioDesdeAdmin($datos)
+    {
+        $mysqli_conn = connectToDatabase();
 
+        try {
+            // Insertar datos en la tabla users_data
+            $query = "INSERT INTO users_data (nombre, apellidos, email, telefono, fecha_nacimiento, direccion, sexo)
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $stmt = $mysqli_conn->prepare($query);
 
+            if ($stmt === false) {
+                throw new Exception('Error al preparar la consulta: ' . $mysqli_conn->error);
+            }
 
+            $stmt->bind_param(
+                'sssssss',
+                $datos['nombre'],
+                $datos['apellidos'],
+                $datos['email'],
+                $datos['telefono'],
+                $datos['fecha_nacimiento'],
+                $datos['direccion'],
+                $datos['sexo']
+            );
 
+            $stmt->execute();
+            return $stmt->insert_id; // Devolver el ID del usuario recién insertado
 
-        // Insertar los datos en la tabla users_login (id_user, contrasena, rol, usuario)
-        $query = "INSERT INTO users_login (id_user, contrasena, rol, usuario) VALUES (?, ?, ?, ?)";
-        $stmt = $mysqli_conn->prepare($query);
-        $stmt->bind_param('isss', $idUsuario, $contrasenaHasheada, $rol, $usuario);
-
-        if (!$stmt->execute()) {
-            error_log("Error al insertar el usuario en users_login: " . $stmt->error);
-            return false;
+        } catch (mysqli_sql_exception $e) {
+            // Verificamos si es un error de entrada duplicada
+            if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+                return false; // Usuario duplicado
+            } else {
+                return false; // Otro tipo de error
+            }
         }
+    }
+    public function insertarLoginDesdeAdmin($idUsuario, $usuario, $contrasenaHasheada, $rol)
+    {
+        $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
 
-        return true;
+        try {
+            // Verificamos si el nombre de usuario ya está registrado
+            $queryCheckUser = "SELECT * FROM users_login WHERE usuario = ?";
+            $stmtCheckUser = $mysqli_conn->prepare($queryCheckUser);
+            $stmtCheckUser->bind_param('s', $usuario);
+            $stmtCheckUser->execute();
+            $resultadoCheckUser = $stmtCheckUser->get_result();
+
+            if ($resultadoCheckUser->num_rows > 0) {
+                return false; // Usuario duplicado
+            }
+
+            // Insertar los datos en la tabla users_login
+            $query = "INSERT INTO users_login (id_user, contrasena, rol, usuario) VALUES (?, ?, ?, ?)";
+            $stmt = $mysqli_conn->prepare($query);
+            $stmt->bind_param('isss', $idUsuario, $contrasenaHasheada, $rol, $usuario);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Error al insertar el usuario en users_login: " . $stmt->error);
+            }
+
+            return true; // Inserción exitosa
+
+        } catch (mysqli_sql_exception $e) {
+            return false; // Otro tipo de error
+        }
     }
     public function obtenerUsuarioPorId($id_user)
     {
@@ -311,79 +401,102 @@ class UsuarioModelo
             return null;
         }
     }
-    public function actualizarDatosPersonales($id_user, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo)
+    public function actualizarDatosPersonales($id_user, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo, $contrasenaHash = null)
     {
         $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
 
-        // Consulta para actualizar los datos personales
+        // Actualizar los datos personales en la tabla 'users_data'
         $stmt = $mysqli_conn->prepare("UPDATE users_data SET nombre = ?, apellidos = ?, email = ?, telefono = ?, direccion = ?, fecha_nacimiento = ?, sexo = ? WHERE id_user = ?");
         if (!$stmt) {
             error_log("Error al preparar la consulta: " . $mysqli_conn->error);
             return false;
         }
-
         $stmt->bind_param('sssssssi', $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo, $id_user);
         if (!$stmt->execute()) {
             error_log("Error al ejecutar la consulta: " . $stmt->error);
             return false;
         }
 
+
+
+
+
+
+        // Si se proporciona una nueva contraseña, actualizamos en la tabla 'users_login'
+        if ($contrasenaHash) {
+
+
+            $stmt = $mysqli_conn->prepare("UPDATE users_login SET contrasena = ? WHERE id_user = ?");
+            if (!$stmt) {
+                error_log("Error al preparar la consulta de contraseña: " . $mysqli_conn->error);
+                return false;
+            }
+
+
+            $stmt->bind_param('si', $contrasenaHash, $id_user);
+            if (!$stmt->execute()) {
+                error_log("Error al ejecutar la consulta de actualización de contraseña: " . $stmt->error);
+                return false;
+            }
+        }
+
         return true;
     }
-    public function obtenerTodosLosUsuarios() {
+    public function obtenerTodosLosUsuarios()
+    {
         $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
-    
+
         // Consulta para obtener los datos de los usuarios
         $query = "SELECT ud.*, ul.usuario, ul.rol FROM users_data ud
                   INNER JOIN users_login ul ON ud.id_user = ul.id_user";
-    
+
         $result = $mysqli_conn->query($query);
-    
+
         if ($result && $result->num_rows > 0) {
             $usuarios = $result->fetch_all(MYSQLI_ASSOC);
             return $usuarios;
         } else {
             return [];
         }
-    }
-
-    
-
-
-
-
-    public function actualizarUsuario($datos) {
+    }    public function actualizarUsuario($datos)
+    {
         $mysqli_conn = connectToDatabase();
-    
+
         // Iniciar una transacción
         $mysqli_conn->begin_transaction();
-    
+
         try {
             // Actualizar en users_data
             $stmt = $mysqli_conn->prepare("UPDATE users_data SET nombre = ?, apellidos = ?, email = ?, telefono = ?, fecha_nacimiento = ?, direccion = ?, sexo = ? WHERE id_user = ?");
             $stmt->bind_param('sssssssi', $datos['nombre'], $datos['apellidos'], $datos['email'], $datos['telefono'], $datos['fecha_nacimiento'], $datos['direccion'], $datos['sexo'], $datos['id_user']);
             $stmt->execute();
-    
-            // Actualizar en users_login
+
+            // Actualizar en users_login (usuario y rol)
             $stmt = $mysqli_conn->prepare("UPDATE users_login SET usuario = ?, rol = ? WHERE id_user = ?");
             $stmt->bind_param('ssi', $datos['usuario'], $datos['rol'], $datos['id_user']);
             $stmt->execute();
-    
+
+            // Si se proporciona una nueva contraseña, actualizarla
+            if (!empty($datos['contrasena'])) {
+                $stmt = $mysqli_conn->prepare("UPDATE users_login SET contrasena = ? WHERE id_user = ?");
+                $stmt->bind_param('si', $datos['contrasena'], $datos['id_user']);
+                $stmt->execute();
+            }
+
             // Confirmar la transacción
             $mysqli_conn->commit();
             return true;
         } catch (Exception $e) {
-            // Revertir la transacción
+            // Revertir la transacción en caso de error
             $mysqli_conn->rollback();
             error_log("Error al actualizar el usuario: " . $e->getMessage());
             return false;
         }
-    }
-    
-    public function eliminarUsuario($id_user) {
+    }    public function eliminarUsuario($id_user)
+    {
         $mysqli_conn = connectToDatabase();
 
-    
+
         try {
             // Eliminar de users_login
             $stmt = $mysqli_conn->prepare("DELETE FROM users_login WHERE id_user = ?");
@@ -393,65 +506,57 @@ class UsuarioModelo
                 error_log("Error al eliminar el usuario: " . $stmt->error);
                 return false;
             }
-    
+
             // Eliminar de users_data
             $stmt = $mysqli_conn->prepare("DELETE FROM users_data WHERE id_user = ?");
             $stmt->bind_param('i', $id_user);
-            
+
             if (!$stmt->execute()) {
                 error_log("Error al eliminar los datos de login: " . $stmt->error);
                 return false;
             }
-    
+
             // Confirmar la transacción
             $mysqli_conn->commit();
             return true;
-
-
         } catch (Exception $e) {
             // Revertir la transacción
             $mysqli_conn->rollback();
             error_log("Error al eliminar el usuario: " . $e->getMessage());
             return false;
         }
-    }
-    public function crearUsuarioDesdeAdmin($nombre, $apellidos, $email, $usuario, $contrasena, $telefono, $fecha_nacimiento, $direccion, $sexo, $rol) {
+    }    public function crearUsuarioDesdeAdmin($nombre, $apellidos, $email, $usuario, $contrasena, $telefono, $fecha_nacimiento, $direccion, $sexo, $rol)
+    {
         // Conexión a la base de datos
         $mysqli_conn = connectToDatabase(); // Conectar a la base de datos
-    
+
         // Encriptar la contraseña
         $contrasena_hash = password_hash($contrasena, PASSWORD_BCRYPT);
-    
+
         // Iniciar una transacción para asegurar la integridad de los datos
         $mysqli_conn->begin_transaction();
-    
+
         try {
             // Insertar en la tabla users_data
             $stmt = $mysqli_conn->prepare("INSERT INTO users_data (nombre, apellidos, email, telefono, fecha_nacimiento, direccion, sexo) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param("sssssss", $nombre, $apellidos, $email, $telefono, $fecha_nacimiento, $direccion, $sexo);
             $stmt->execute();
-    
+
             // Obtener el ID del usuario recién creado
             $id_user = $mysqli_conn->insert_id;
-    
+
             // Insertar en la tabla users_login
             $stmt = $mysqli_conn->prepare("INSERT INTO users_login (id_user, contrasena, rol, usuario) VALUES (?, ?, ?, ?)");
             $stmt->bind_param("isss", $id_user, $contrasena_hash, $rol, $usuario);
             $stmt->execute();
-    
+
             // Confirmar la transacción
             $mysqli_conn->commit();
             return true;
-    
         } catch (Exception $e) {
             // Revertir la transacción en caso de error
             $mysqli_conn->rollback();
             return false;
         }
     }
-
-
-
-
-    
 }

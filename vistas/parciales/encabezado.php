@@ -1,5 +1,4 @@
 <?php
-
 // Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -8,6 +7,9 @@ if (session_status() === PHP_SESSION_NONE) {
 // Verificamos cuál es el rol del usuario y mostramos sus opciones de acceso dependiendo de su rol.
 // Nota: El rol se almacena en $_SESSION['user_data']['rol'] según lo que vimos antes.
 $rol = isset($_SESSION['user_data']['rol']) ? $_SESSION['user_data']['rol'] : 'visitante';
+
+// Obtener la URL actual
+$url_actual = $_SERVER['REQUEST_URI'];
 ?>
 
 <header class="encabezado-principal">
@@ -16,41 +18,30 @@ $rol = isset($_SESSION['user_data']['rol']) ? $_SESSION['user_data']['rol'] : 'v
             <?php if ($rol === 'visitante'): // Visitante 
             ?>
 
-                <li><a href="/index.php">Inicio</a></li>
-                <li><a href="/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>
-                <li><a href="/vistas/registro.php">Registro</a></li>
-                <li><a href="/vistas/login.php">Login</a></li>
-                
-
+                <li><a href="/index.php" class="<?= ($url_actual == '/index.php') ? 'activo' : ''; ?>">Inicio</a></li>
+                <li><a href="/rutas/rutas.php?accion=mostrarNoticias" class="<?= (strpos($url_actual, 'mostrarNoticias') !== false) ? 'activo' : ''; ?>">Noticias</a></li>
+                <li><a href="/vistas/registro.php" class="<?= ($url_actual == '/vistas/registro.php') ? 'activo' : ''; ?>">Registro</a></li>
+                <li><a href="/vistas/login.php" class="<?= ($url_actual == '/vistas/login.php') ? 'activo' : ''; ?>">Login</a></li>
 
             <?php elseif ($rol === 'user'): // Usuario registrado 
             ?>
 
-                <li><a href="/index.php">Inicio</a></li>
-                <li><a href="/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>                             
-                <li><a href="/rutas/rutas.php?accion=mostrarCitasUsuario">Citaciones</a></li>
-                <li><a href="/rutas/rutas.php?accion=mostrarPerfil">Perfil</a></li>   
+                <li><a href="/index.php" class="<?= ($url_actual == '/index.php') ? 'activo' : ''; ?>">Inicio</a></li>
+                <li><a href="/rutas/rutas.php?accion=mostrarNoticias" class="<?= (strpos($url_actual, 'mostrarNoticias') !== false) ? 'activo' : ''; ?>">Noticias</a></li>
+                <li><a href="/rutas/rutas.php?accion=mostrarCitasUsuario" class="<?= (strpos($url_actual, 'mostrarCitasUsuario') !== false) ? 'activo' : ''; ?>">Citaciones</a></li>
+                <li><a href="/rutas/rutas.php?accion=mostrarPerfil" class="<?= (strpos($url_actual, 'mostrarPerfil') !== false) ? 'activo' : ''; ?>">Perfil</a></li>
                 <li><a href="/rutas/rutas.php?accion=logout">Cerrar Sesión</a></li>
-
 
             <?php elseif ($rol === 'admin'): // Administrador 
             ?>
 
-                <li><a href="/index.php">Inicio</a></li>
-                <li><a href="/rutas/rutas.php?accion=mostrarNoticias">Noticias</a></li>
-
-                <!-- Opciones de administración -->
-                
-<li><a href="/rutas/rutas.php?accion=adminUsuarios">Usuarios-Administración</a></li>  
-                <li><a href="/rutas/rutas.php?accion=adminCitas">Citaciones-Administración</a></li>   
-<li><a href="/rutas/rutas.php?accion=adminNoticias">Noticias-Administración</a></li>
-                     
-
-                <li><a href="/rutas/rutas.php?accion=mostrarPerfil">Perfil</a></li>                
-
+                <li><a href="/index.php" class="<?= ($url_actual == '/index.php') ? 'activo' : ''; ?>">Inicio</a></li>
+                <li><a href="/rutas/rutas.php?accion=mostrarNoticias" class="<?= (strpos($url_actual, 'mostrarNoticias') !== false) ? 'activo' : ''; ?>">Noticias</a></li>
+                <li><a href="/rutas/rutas.php?accion=adminUsuarios" class="<?= (strpos($url_actual, 'adminUsuarios') !== false) ? 'activo' : ''; ?>">Usuarios-Administración</a></li>
+                <li><a href="/rutas/rutas.php?accion=adminCitas" class="<?= (strpos($url_actual, 'adminCitas') !== false) ? 'activo' : ''; ?>">Citaciones-Administración</a></li>
+                <li><a href="/rutas/rutas.php?accion=adminNoticias" class="<?= (strpos($url_actual, 'adminNoticias') !== false) ? 'activo' : ''; ?>">Noticias-Administración</a></li>
+                <li><a href="/rutas/rutas.php?accion=mostrarPerfil" class="<?= (strpos($url_actual, 'mostrarPerfil') !== false) ? 'activo' : ''; ?>">Perfil</a></li>
                 <li><a href="/rutas/rutas.php?accion=logout">Cerrar Sesión</a></li>
-
-
 
             <?php endif; ?>
         </ul>

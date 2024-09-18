@@ -153,12 +153,20 @@ body {
     display: inline;
 }
 
+/* Mensajes de éxito y error */
+.mensaje-exito {
+    
+    color:#28a745 ;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
 .mensaje-error {
-    color: #db4c4c;
-    font-size: 0.8em;
-    position: relative;
-    top: -29px;
-    margin-bottom: 0px;
+    
+    color: #dc3545;
+    padding: 1rem;
+    margin-bottom: 1rem;
     text-align: center;
 }
 

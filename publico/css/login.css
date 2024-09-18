@@ -66,12 +66,21 @@ body {
     outline: none;
 }
 
-/* Mensajes de error */
+/* Mensajes de éxito y error */
+.mensaje-exito {
+    
+    color:#28a745 ;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
 .mensaje-error {
-    color: #ff6b6b;
-    font-size: 0.8em;
-    position: absolute;
-    left: 0;
+    
+    color: #dc3545;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 /* Checkbox de Mostrar Contraseña */

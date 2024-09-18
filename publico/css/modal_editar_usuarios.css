@@ -8,7 +8,7 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     position: relative;
     transition: all 0.3s ease-in-out;
-    margin: auto;
+    margin: 5rem auto;
 }
 
 /* Botón de cerrar */
@@ -19,6 +19,10 @@
     font-size: 28px;
     color: #f8f9fa;
     cursor: pointer;
+}
+.seleccion-campo option {
+    background-color: #333333;
+    color: #ffffff;
 }
 
 #cerrar-modal-usuario:hover {

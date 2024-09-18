@@ -144,7 +144,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                     <input type="hidden" name="id_cita" id="id_cita_editar">
 
                     <label for="fecha-editar">Fecha de la cita:</label>
-                    <input type="date" name="fecha" id="fecha-editar" required>
+                    <input type="date" name="fecha" id="fecha-editar" required min="<?php echo date('Y-m-d'); ?>">
 
                     <label for="descripcion-editar">Descripción:</label>
                     <textarea name="descripcion" id="descripcion-editar" rows="5" required></textarea>
