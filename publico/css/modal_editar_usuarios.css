@@ -29,6 +29,17 @@
     color: #ff6b6b;
 }
 
+#sexo-editar option {
+    background-color: #333333;
+    color: #009973;
+}
+
+#rol-editar option {
+    background-color: #333333;
+    color: #009973;
+}
+
+
 /* Estilos de los campos del formulario */
 #form-editar-usuario {
     display: flex;

@@ -1,0 +1,14 @@
+# Proyecto Final: Gestión de Usuarios y Noticias en PHP
+
+## Descripción
+
+Este proyecto consiste en la creación de un sitio web utilizando las tecnologías HTML5, CSS3, JavaScript, SQL y PHP. El sitio gestiona usuarios con diferentes roles (visitante, usuario, administrador) y ofrece funcionalidades como el registro de usuarios, login, gestión de noticias y citas.
+
+## vercion de XAMPP instalada
+XAMPP for Windows 8.2.12
+## vercion PHP
+Versión : 8.2.12
+
+
+
+

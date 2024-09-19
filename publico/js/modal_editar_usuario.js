@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const telefono = this.dataset.telefono;
             const fechaNacimiento = this.dataset['fecha-nacimiento'];
             const direccion = this.dataset.direccion;
-            const sexo = this.dataset.sexo;
+            const sexo = this.dataset.sexo; // Valor actual del sexo del usuario
             const rol = this.dataset.rol;
 
             // Rellenar los campos del modal con los valores correspondientes
@@ -30,10 +30,24 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('email-editar').value = email;
             document.getElementById('usuario-editar').value = usuario;
             document.getElementById('telefono-editar').value = telefono;
+
+            // Formatear la fecha de nacimiento correctamente si es necesario
             document.getElementById('fecha_nacimiento-editar').value = fechaNacimiento;
             document.getElementById('direccion-editar').value = direccion;
-            document.getElementById('sexo-editar').value = sexo;
-            document.getElementById('rol-editar').value = rol;
+
+            // Establecer el valor del campo "sexo"
+            const sexoSelect = document.getElementById('sexo-editar');
+            
+            // Buscar la opción que coincide con el valor del sexo del usuario
+            Array.from(sexoSelect.options).forEach(function(option) {
+                if (option.value === sexo) {
+                    option.selected = true; 
+                }
+            });
+
+            // Establecer el valor del campo "rol"
+            const rolSelect = document.getElementById('rol-editar');
+            rolSelect.value = rol;
 
             // Mostrar el modal
             modal.style.display = 'block';

@@ -113,7 +113,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                 <div class="campo-formulario">
                     <label for="sexo" class="etiqueta-campo">Sexo:</label>
                     <select id="sexo" name="sexo" class="seleccion-campo" required aria-describedby="error-sexo">
-                        <option value="">Seleccione su sexo</option>
+                    
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Otro">Otro</option>
@@ -136,7 +136,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                 <div class="campo-formulario">
                     <label for="rol" class="etiqueta-campo">Rol:</label>
                     <select id="rol" name="rol" class="seleccion-campo" required aria-describedby="error-rol">
-                        <option value="">Seleccione un rol</option>
+                        
                         <option value="user">Usuario</option>
                         <option value="admin">Administrador</option>
                     </select>
@@ -234,6 +234,9 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                     <label for="direccion-editar">Dirección:</label>
                     <input type="text" name="direccion" id="direccion-editar" required>
 
+
+
+
                     <label for="sexo-editar">Sexo:</label>
                     <select name="sexo" id="sexo-editar" required>
                         <option value="Masculino">Masculino</option>
@@ -241,6 +244,10 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                         <option value="Otro">Otro</option>
                     </select>
 
+
+
+
+                    
                     <label for="rol-editar">Rol:</label>
                     <select name="rol" id="rol-editar" required>
                         <option value="user">Usuario</option>

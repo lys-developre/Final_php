@@ -151,10 +151,11 @@ class UsuarioControlador
         $errores = $usuarioModelo->validarEdicionUsuario($datos);
 
         if (!empty($errores)) {
+            
             // Guardar los errores en la sesión
             $_SESSION['errores'] = $errores;
             $_SESSION['datos_formulario'] = $datos;
-            header('Location: /../../vistas/errores/error_500ccc.php');
+            header('Location: /../../vistas/errores/error_500.php');
             exit();
         }
 
