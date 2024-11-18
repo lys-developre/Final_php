@@ -22,6 +22,5 @@ if (ini_get("session.use_cookies")) {
 // Finalmente, destruir la sesión
 session_destroy();
 
-// Redirigir al usuario a la página de inicio o de login
-header("Location: " . BASE_URL . "vistas/login.php");
+
 exit();

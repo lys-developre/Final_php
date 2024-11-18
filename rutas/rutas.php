@@ -22,6 +22,9 @@ require_once __DIR__ . '/../controladores/users/citasUsersControlador.php';
 //controlador de el perfil de el usuario
 require_once __DIR__ . '/../controladores/PerfilControlador.php';
 
+//configuracion de BASE_URL
+require_once __DIR__ . '/../config/base_config.php';
+
 
 
 
@@ -177,8 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         // Finalmente, destruir la sesión
         session_destroy();
 
-        // Redirigir al usuario a la página de login
-        header("Location: /index.php");
+        // Redirigir al usuario a la página de login 
+        header("Location: " . BASE_URL . "index.php"); exit();
         exit();
     }
     // Manejar acciones GET relacionadas con el Perfil
