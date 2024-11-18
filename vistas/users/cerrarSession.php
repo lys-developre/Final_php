@@ -1,4 +1,7 @@
 <?php
+require_once __DIR__ . '../../../config/base_config.php'; // Incluyendo base_config.php
+
+
 // Iniciar la sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -20,5 +23,5 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirigir al usuario a la página de inicio o de login
-header("Location: /MisProyectos/app/vistas/login.php");
+header("Location: " . BASE_URL . "vistas/login.php");
 exit();

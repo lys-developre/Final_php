@@ -1,5 +1,7 @@
 <?php
 
+// Incluir los archivos requeridos: el modelo de usuario y la configuración de manejo de errores.
+require_once __DIR__ . '/../config/base_config.php'; // Incluyendo base_config.php
 require_once __DIR__ . '/../modelos/UsuarioModelo.php';
 
 class PerfilControlador
@@ -11,6 +13,7 @@ class PerfilControlador
     {
         $this->usuarioModelo = new UsuarioModelo();
     }
+
     // Método para mostrar el perfil del usuario
     public function mostrarPerfil()
     {
@@ -19,10 +22,9 @@ class PerfilControlador
             $id_user = $_SESSION['user_data']['id_user'];
             $usuario = $this->usuarioModelo->obtenerUsuarioPorId($id_user);
 
-
             // Si no se encontraron datos del usuario
             if (!$usuario) {
-                header('Location: /vistas/error500.php');
+                header('Location: ' . BASE_URL . 'vistas/error500.php');
                 exit();
             }
 
@@ -30,10 +32,11 @@ class PerfilControlador
             include __DIR__ . '/../vistas/users/perfil.php';
         } else {
             // Redirigir al login si no hay sesión activa
-            header('Location: /vistas/login.php');
+            header('Location: ' . BASE_URL . 'vistas/login.php');
             exit();
         }
     }
+
     // Método para actualizar el nombre de usuario
     public function actualizarPerfil()
     {
@@ -51,7 +54,7 @@ class PerfilControlador
 
             // Validar que no estén vacíos
             if (empty($nombre) || empty($apellidos) || empty($email) || empty($telefono) || empty($direccion) || empty($fecha_nacimiento) || empty($sexo)) {
-                header('Location: /rutas/rutas.php?accion=mostrarPerfil&error=campos_vacios');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarPerfil&error=campos_vacios');
                 exit();
             }
 
@@ -65,9 +68,9 @@ class PerfilControlador
             $resultado = $this->usuarioModelo->actualizarDatosPersonales($id_user, $nombre, $apellidos, $email, $telefono, $direccion, $fecha_nacimiento, $sexo, $contrasenaHash);
 
             if ($resultado) {
-                header('Location: /rutas/rutas.php?accion=mostrarPerfil&mensaje=datos_actualizados');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarPerfil&mensaje=datos_actualizados');
             } else {
-                header('Location: /rutas/rutas.php?accion=mostrarPerfil&error=actualizacion_fallida');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarPerfil&error=actualizacion_fallida');
             }
         }
     }

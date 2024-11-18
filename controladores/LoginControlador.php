@@ -1,5 +1,6 @@
 <?php
 // Incluimos el modelo de login
+require_once __DIR__ . '/../config/base_config.php'; // Incluyendo base_config.php
 require_once __DIR__ . '/../modelos/LoginModelo.php';
 
 // Incluimos la conexión a la base de datos y la muestra de errores
@@ -20,6 +21,7 @@ class LoginControlador
     {
         $this->modelo = new LoginModelo($mysqli_connection);
     }
+
     // Método para iniciar sesión
     public function iniciarSesion($usuario, $password)
     {
@@ -29,7 +31,7 @@ class LoginControlador
         if (!empty($errores)) {
             // Si hay errores, los mostramos al usuario
             $_SESSION['mensaje_error'] = implode("<br>", $errores);
-            header("Location: ../vistas/login.php");
+            header("Location: " . BASE_URL . "vistas/login.php");
             exit();
         }
 
@@ -52,21 +54,22 @@ class LoginControlador
                 ];
 
                 // Redirigir al inicio u otra página después de loguearse
-                header("Location: /../../index.php");
+                header("Location: " . BASE_URL . "index.php");
                 exit();
             } else {
                 // Si la contraseña es incorrecta
                 $_SESSION['mensaje_error'] = "Contraseña incorrecta.";
-                header('Location: /vistas/login.php?mensaje=contrasena-incorrecta');
+                header('Location: ' . BASE_URL . 'vistas/login.php?mensaje=contrasena-incorrecta');
                 exit();
             }
         } else {
             // Si no se encuentra el usuario
             $_SESSION['mensaje_error'] = "No se encontró un usuario con ese nombre.";
-            header('Location: /vistas/login.php?mensaje=no-encontrado');
+            header('Location: ' . BASE_URL . 'vistas/login.php?mensaje=no-encontrado');
             exit();
         }
     }
+
     // Validar el nombre de usuario y la contraseña
     private function validarDatosLogin($usuario, $password)
     {

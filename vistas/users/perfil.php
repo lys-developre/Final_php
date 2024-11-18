@@ -1,21 +1,24 @@
 <?php
+
+require_once __DIR__ . '../../../config/base_config.php'; // Incluyendo base_config.php
+
+
 // Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+
+
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['user_data'])) {
-    header('Location: /MisProyectos/app/vistas/login.php');
+    header('Location: ' . BASE_URL . 'vistas/login.php');
     exit();
 }
 
 
+
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -24,11 +27,11 @@ if (!isset($_SESSION['user_data'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Estilos globales encabezado y pie de página-->
-    <link rel="stylesheet" href="/publico/css/globales_encabezado.css">
-    <link rel="stylesheet" href="/publico/css/globales_pie_de_pagina.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_encabezado.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_pie_de_pagina.css">
 
-    <!-- earilos de el perfil -->
-    <link rel="stylesheet" href="/publico/css/perfil.css">
+    <!-- Estilos del perfil -->
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/perfil.css">
 
     <title>Perfil de Usuario</title>
 </head>
@@ -57,15 +60,12 @@ if (!isset($_SESSION['user_data'])) {
         }
         ?>
 
-
-
         <section class="datos-usuario">
             <h2>Datos Personales</h2>
             <p><strong>ID de Usuario:</strong> <?php echo htmlspecialchars($usuario['id_user']); ?></p>
             <p><strong>Nombre de Usuario:</strong> <?php echo htmlspecialchars($usuario['usuario']); ?></p>
 
-
-            <form action="/rutas/rutas.php" method="POST">
+            <form action="<?= BASE_URL ?>rutas/rutas.php" method="POST">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($usuario['nombre']); ?>" required>
 
@@ -100,22 +100,14 @@ if (!isset($_SESSION['user_data'])) {
 
                 <button type="submit" value="actualizarDatosPersonales">Actualizar Datos</button>
             </form>
-
-
         </section>
-
-
-
-
-
-
     </main>
 
     <!-- Incluir el pie de página -->
     <?php include __DIR__ . '/../parciales/pieDePagina.php'; ?>
 
     <!-- script para ocultar mensajes de éxito/error -->
-    <script src="/publico/js/ocultar_mensaje.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

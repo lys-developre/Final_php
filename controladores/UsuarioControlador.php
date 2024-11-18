@@ -4,15 +4,12 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
-// Incluir los archivos requeridos: el modelo de usuario y la configuración de manejo de errores.
+// Incluir los archivos requeridos: el modelo de usuario, la configuración de manejo de errores y base_config.php.
+require_once __DIR__ . '/../config/base_config.php';
 require_once __DIR__ . '/../modelos/UsuarioModelo.php';
 require_once __DIR__ . '/../config/errores.php';
 
-
-
-
-// Clase controladora para manejar la validacion y el registro de usuarios.
+// Clase controladora para manejar la validación y el registro de usuarios.
 class UsuarioControlador
 {
     public function registrarUsuario()
@@ -27,11 +24,10 @@ class UsuarioControlador
 
                 if (isset($resultadoUsuario['error'])) {
                     if ($resultadoUsuario['error'] == 'usuario_duplicado') {
-
-                        header('Location: /vistas/registro.php?mensaje=usuario_duplicado');
+                        header('Location: ' . BASE_URL . 'vistas/registro.php?mensaje=usuario_duplicado');
                     } else {
                         $_SESSION['errores'] = ['insert' => 'Error al crear usuario.'];
-                        header('Location: /vistas/errores/error_500.php');
+                        header('Location: ' . BASE_URL . 'vistas/errores/error_500.php');
                     }
                     exit();
                 }
@@ -42,25 +38,25 @@ class UsuarioControlador
 
                 if (isset($resultadoLogin['error'])) {
                     if ($resultadoLogin['error'] == 'usuario_duplicado') {
-                        header('Location: /vistas/registro.php?mensaje=usuario_duplicado');
+                        header('Location: ' . BASE_URL . 'vistas/registro.php?mensaje=usuario_duplicado');
                     } else {
                         $_SESSION['errores'] = ['insert' => 'Error al crear credenciales de inicio de sesión'];
-                        header('Location: /vistas/errores/credenciales_incorrectas.php');
+                        header('Location: ' . BASE_URL . 'vistas/errores/credenciales_incorrectas.php');
                     }
                     exit();
                 }
 
                 // Si todo fue exitoso
-                header('Location: /vistas/login.php');
-                header('Location: /vistas/login.php?mensaje=registro-exitoso');
+                header('Location: ' . BASE_URL . 'vistas/login.php?mensaje=registro-exitoso');
                 exit();
             } else {
                 $_SESSION['errores'] = $errores;
-                header('Location: /vistas/errores/error_500.php');
+                header('Location: ' . BASE_URL . 'vistas/errores/error_500.php');
                 exit();
             }
         }
     }
+
     public function registrarUsuarioDesdeAdmin()
     {
         // Obtener los datos del formulario
@@ -85,7 +81,7 @@ class UsuarioControlador
 
         if (!empty($errores)) {
             // Si hay errores, redirigir al formulario con los errores
-            header("Location: /vistas/admin/usuarios.php?error=errores_validacion");
+            header("Location: " . BASE_URL . "vistas/admin/usuarios.php?error=errores_validacion");
             exit();
         }
 
@@ -101,19 +97,20 @@ class UsuarioControlador
 
             if ($resultadoLogin) {
                 // Usuario creado exitosamente
-                header('Location: /rutas/rutas.php?accion=adminUsuarios&mensaje=exito-crear-usuario');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminUsuarios&mensaje=exito-crear-usuario');
                 exit();
             } else {
                 // Error al insertar en users_login
-                header('Location: /rutas/rutas.php?accion=adminUsuarios&mensaje=error-crear-usuario');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminUsuarios&mensaje=error-crear-usuario');
                 exit();
             }
         } else {
             // Error al insertar en users_data
-            header('Location: /rutas/rutas.php?accion=adminUsuarios&mensaje=error-crear-usuario');
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminUsuarios&mensaje=error-crear-usuario');
             exit();
         }
     }
+
     public function mostrarUsuarios()
     {
         // Crear instancia del modelo
@@ -125,6 +122,7 @@ class UsuarioControlador
         // Incluir la vista y pasarle los datos
         require_once __DIR__ . '/../vistas/admin/usuarios-administracion.php';
     }
+
     public function editarUsuario()
     {
         // Obtener los datos del formulario
@@ -151,11 +149,10 @@ class UsuarioControlador
         $errores = $usuarioModelo->validarEdicionUsuario($datos);
 
         if (!empty($errores)) {
-            
             // Guardar los errores en la sesión
             $_SESSION['errores'] = $errores;
             $_SESSION['datos_formulario'] = $datos;
-            header('Location: /../../vistas/errores/error_500.php');
+            header('Location: ' . BASE_URL . 'vistas/errores/error_500.php');
             exit();
         }
 
@@ -165,19 +162,18 @@ class UsuarioControlador
         if ($resultado) {
             // Guardar mensaje de éxito en la sesión
             $_SESSION['mensaje_exito'] = 'Usuario actualizado correctamente.';
-            header('Location: /rutas/rutas.php?accion=adminUsuarios&mensaje=exito-actualizar-usuario');
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminUsuarios&mensaje=exito-actualizar-usuario');
             exit();
         } else {
             // Guardar mensaje de error en la sesión
             $_SESSION['mensaje_error'] = 'Error al actualizar el usuario.';
-            header('Location: /rutas/rutas.php?accion=adminUsuarios&mensaje=error-actualizar-usuario');
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminUsuarios&mensaje=error-actualizar-usuario');
             exit();
         }
     }
+
     public function eliminarUsuario()
     {
-
-
         $id_user = $_POST['id_user'];
 
         // Crear instancia del modelo
@@ -189,13 +185,12 @@ class UsuarioControlador
         if ($resultado) {
             // Guardar mensaje de éxito en la sesión
             $_SESSION['mensaje_exito'] = 'Usuario eliminado correctamente.';
-            header('Location: /rutas/rutas.php?accion=adminUsuarios&mensaje=usuario_eliminado');
-
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminUsuarios&mensaje=usuario_eliminado');
             exit();
         } else {
             // Guardar mensaje de error en la sesión
             $_SESSION['mensaje_error'] = 'Error al eliminar el usuario.';
-            header('Location: /rutas/rutas.php?accion=adminUsuarios&error=error_eliminacion');
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminUsuarios&error=error_eliminacion');
             exit();
         }
     }

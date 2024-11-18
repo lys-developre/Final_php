@@ -4,6 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+require_once __DIR__ . '/../../config/base_config.php'; // Incluyendo base_config.php
 require_once __DIR__ . '/../../modelos/citasModelo.php';
 
 class CitasUsersControlador
@@ -21,7 +22,7 @@ class CitasUsersControlador
             $nombre_usuario = $_SESSION['user_data']['usuario'];
         } else {
             // Redirigir al login si no hay sesión activa
-            header('Location: ../vistas/login.php');
+            header('Location: ' . BASE_URL . 'vistas/login.php');
             exit();
         }
 
@@ -32,6 +33,7 @@ class CitasUsersControlador
         // Pasar las variables a la vista
         include __DIR__ . '/../../vistas/users/citaciones.php';
     }
+
     // Método para crear una cita
     public function crearCita()
     {
@@ -49,15 +51,16 @@ class CitasUsersControlador
 
             if ($resultado) {
                 // Redirigir a través del controlador
-                header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&mensaje=cita_creada');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&mensaje=cita_creada');
                 exit();
             } else {
                 // Redirigir con mensaje de error
-                header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&error=fallo_creacion');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&error=fallo_creacion');
                 exit();
             }
         }
     }
+
     // Método para eliminar una cita
     public function eliminarCita()
     {
@@ -85,20 +88,21 @@ class CitasUsersControlador
                 $resultado = $citasModelo->eliminarCita($id_cita);
                 if ($resultado) {
                     // Redirigir a través del controlador
-                    header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&mensaje=cita_eliminada');
+                    header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&mensaje=cita_eliminada');
                     exit();
                 } else {
                     // Redirigir con mensaje de error
-                    header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&error=fallo_eliminacion');
+                    header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&error=fallo_eliminacion');
                     exit();
                 }
             } else {
                 // Redirigir con mensaje de no autorizado
-                header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&error=no_autorizado');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&error=no_autorizado');
                 exit();
             }
         }
     }
+
     // Método para editar una cita
     public function editarCita()
     {
@@ -128,16 +132,16 @@ class CitasUsersControlador
                 $resultado = $citasModelo->editarCita($id_cita, $fecha_cita, $motivo_cita);
                 if ($resultado) {
                     // Redirigir a través del controlador
-                    header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&mensaje=cita_actualizada');
+                    header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&mensaje=cita_actualizada');
                     exit();
                 } else {
                     // Redirigir con mensaje de error
-                    header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&error=fallo_actualizacion');
+                    header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&error=fallo_actualizacion');
                     exit();
                 }
             } else {
                 // Redirigir con mensaje de no autorizado
-                header('Location: /rutas/rutas.php?accion=mostrarCitasUsuario&error=no_autorizado');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=mostrarCitasUsuario&error=no_autorizado');
                 exit();
             }
         }

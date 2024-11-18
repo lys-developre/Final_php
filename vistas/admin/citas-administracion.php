@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Estilos del panel de administración -->
-    <link rel="stylesheet" href="../publico/css/citas-administracion.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/citas-administracion.css">
 
     <!-- Estilos para el modal de edición -->
-    <link rel="stylesheet" href="../publico/css/modal_editar_citas.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/modal_editar_citas.css">
 
     <!-- estilos globales encabezado y pie de pagina-->
-    <link rel="stylesheet" href="../publico/css/globales_encabezado.css">
-    <link rel="stylesheet" href="../publico/css/globales_pie_de_pagina.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_encabezado.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_pie_de_pagina.css">
 
     <title>Administración de Citas</title>
 </head>
@@ -53,7 +54,7 @@
         <section id="formulario-cita-admin" class="formulario-cita">
             <h2>Nueva cita</h2>
 
-            <form id="form" action="rutas.php?accion=crearCita" method="POST" novalidate>
+            <form id="form" action="<?= BASE_URL ?>rutas/rutas.php?accion=crearCita" method="POST" novalidate>
                 <label for="usuario">Usuario:</label>
                 <select id="usuario" name="id_user" required>
                     <?php foreach ($usuarios as $usuario): ?>
@@ -74,15 +75,13 @@
 
                 <button type="submit" name="crear_cita">Crear Cita</button>
             </form>
-
         </section>
+
         <!-- Sección para seleccionar el usuario -->
         <section id="seleccion-usuario">
-
             <h2>Seleccionar Usuario</h2>
 
             <form method="POST" action="">
-
                 <label for="id_user">Elige un usuario:</label>
                 <select name="id_user" id="id_user">
                     <?php
@@ -97,10 +96,9 @@
                     <?php endforeach; ?>
                 </select>
                 <button type="submit">Ver citas del usuario</button>
-
             </form>
-
         </section>
+
         <!-- Tabla de citas asignadas al usuario seleccionado -->
         <section id="tabla-citas-admin" class="tabla-citas">
             <h2>Citas Asignadas</h2>
@@ -129,7 +127,7 @@
                                     </button>
 
                                     <!-- Formulario para Eliminar Cita -->
-                                    <form action="rutas.php?accion=eliminarCita" method="POST" style="display:inline;">
+                                    <form action="<?= BASE_URL ?>rutas/rutas.php?accion=eliminarCita" method="POST" style="display:inline;">
                                         <input type="hidden" name="id_cita" value="<?php echo $cita['id_cita']; ?>">
                                         <button type="submit" class="btn-eliminar" name="eliminar_cita" onclick="return confirm('¿Estás seguro de eliminar esta cita?')">Eliminar</button>
                                     </form>
@@ -144,12 +142,13 @@
                 </tbody>
             </table>
         </section>
-        <!-- Modal para editar cita (opcional, si usas un modal) -->
+
+        <!-- Modal para editar cita -->
         <div id="modal-editar-cita">
             <div class="modal-contenido">
                 <span id="cerrar-modal">&times;</span>
                 <h2>Editar Cita</h2>
-                <form id="form-editar" action="rutas.php?accion=editarCita" method="POST">
+                <form id="form-editar" action="<?= BASE_URL ?>rutas/rutas.php?accion=editarCita" method="POST">
                     <input type="hidden" name="id_cita" id="id_cita_editar">
 
                     <label for="fecha-editar">Fecha de la cita:</label>
@@ -162,11 +161,7 @@
                 </form>
             </div>
         </div>
-
-
     </main>
-
-
 
     <!-- Pie de página -->
     <div class="contenido">
@@ -174,13 +169,11 @@
     </div>
 
     <!-- script para el modal citas -->
-    <script src="/publico/js/modal_editar_citas.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/modal_editar_citas.js"></script>
     <!-- script para la validación de citas -->
-    <script src="/publico/js/validacion_citas.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/validacion_citas.js"></script>
     <!-- script para ocultar mensaje -->
-    <script src="/publico/js/ocultar_mensaje.js"></script>
-
-
+    <script src="<?= BASE_URL ?>publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

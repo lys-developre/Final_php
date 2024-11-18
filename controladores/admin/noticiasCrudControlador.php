@@ -1,17 +1,16 @@
 <?php
 
-//requerimos el modelo para el crud.
+// Incluir el modelo para el CRUD.
+require_once __DIR__ . '/../../config/base_config.php'; // Incluyendo base_config.php
 require_once __DIR__ . '/../../modelos/admin/noticiasCrudModelo.php';
 
 class NoticiasCrud
 {
-
     // Método para crear una noticia
     public function crearNoticia()
     {
         // Verificamos que se han recibido los datos necesarios
         if (isset($_POST['titulo']) && isset($_POST['texto']) && isset($_FILES['imagen'])) {
-
             $titulo = $_POST['titulo'];
             $texto = $_POST['texto'];
             $imagen = $_FILES['imagen'];
@@ -22,7 +21,7 @@ class NoticiasCrud
             if (empty($errores)) {
                 // Guardamos la imagen en la carpeta correspondiente
                 $nombreImagen = $imagen['name'];
-                $rutaImagen = '/uploads/noticias_img/' . basename($nombreImagen);
+                $rutaImagen = __DIR__ . '/../../uploads/noticias_img/' . basename($nombreImagen);
                 move_uploaded_file($imagen['tmp_name'], $rutaImagen);
 
                 // Obtenemos el id del usuario desde la sesión (preparado pero no activo)
@@ -34,20 +33,25 @@ class NoticiasCrud
 
                 if ($resultado) {
                     // Redirigimos al panel de administración con un mensaje de éxito
-                    header('Location: rutas.php?accion=adminNoticias&mensaje=noticia_creada');
+                    header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&mensaje=noticia_creada');
+                    exit();
                 } else {
                     // Si algo falla, mostramos un error
-                    header('Location: rutas.php?accion=adminNoticias&error=fallo_creacion');
+                    header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&error=fallo_creacion');
+                    exit();
                 }
             } else {
                 // Redirigimos con los errores si la validación falla
-                header('Location: rutas.php?accion=adminNoticias&error=errores_validacion&detalles=' . json_encode($errores));
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&error=errores_validacion&detalles=' . json_encode($errores));
+                exit();
             }
         } else {
             // Si faltan datos, redirigimos con un error
-            header('Location: rutas.php?accion=adminNoticias&error=faltan_datos');
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&error=faltan_datos');
+            exit();
         }
     }
+
     public function eliminarNoticia()
     {
         if (isset($_POST['id_noticia'])) {
@@ -59,16 +63,20 @@ class NoticiasCrud
 
             if ($resultado) {
                 // Redirigimos con un mensaje de éxito
-                header('Location: rutas.php?accion=adminNoticias&mensaje=noticia_eliminada');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&mensaje=noticia_eliminada');
+                exit();
             } else {
                 // Si algo falla, mostramos un error
-                header('Location: rutas.php?accion=adminNoticias&error=fallo_eliminacion');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&error=fallo_eliminacion');
+                exit();
             }
         } else {
             // Si no se recibe el id, mostramos un error
-            header('Location: rutas.php?accion=adminNoticias&error=faltan_datos');
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&error=faltan_datos');
+            exit();
         }
     }
+
     public function editarNoticia()
     {
         if (isset($_POST['id_noticia']) && isset($_POST['titulo']) && isset($_POST['texto'])) {
@@ -84,14 +92,18 @@ class NoticiasCrud
             $resultado = $noticiasModelo->editarNoticia($id_noticia, $titulo, $texto, $imagen);
 
             if ($resultado) {
-                header('Location: rutas.php?accion=adminNoticias&mensaje=noticia_actualizada');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&mensaje=noticia_actualizada');
+                exit();
             } else {
-                header('Location: rutas.php?accion=adminNoticias&error=fallo_actualizacion');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&error=fallo_actualizacion');
+                exit();
             }
         } else {
-            header('Location: rutas.php?accion=adminNoticias&error=faltan_datos');
+            header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminNoticias&error=faltan_datos');
+            exit();
         }
     }
+
     // Método para validar los datos de una noticia
     private function validarDatosNoticia($titulo, $texto, $imagen)
     {

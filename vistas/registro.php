@@ -1,9 +1,10 @@
 <?php
-
 // Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+require_once __DIR__ . '/../config/base_config.php'; // Incluyendo base_config.php
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,26 +13,21 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro</title>
-    <link rel="stylesheet" href="../publico/css/registro_formulario.css">
-
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/registro_formulario.css">
 
     <!-- estilos globales encabezado y pie de pagina-->
-    <link rel="stylesheet" href="../publico/css/globales_encabezado.css">
-    <link rel="stylesheet" href="../publico/css/globales_pie_de_pagina.css">
-
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_encabezado.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_pie_de_pagina.css">
 </head>
 
 <body>
 
     <!-- encabezado dinamico  -->
-
     <main class="contenedor-formulario">
         <h1 class="titulo-formulario">Registro de Usuario</h1>
 
+        <?php include __DIR__ . '/../vistas/parciales/encabezado.php'; ?>
 
-        
-        <?php include '../vistas/parciales/encabezado.php'; ?>
-        
         <!-- Sección de mensajes de éxito o error -->
         <?php if (isset($_GET['mensaje'])): ?>
             <?php if ($_GET['mensaje'] == 'usuario_duplicado'): ?>
@@ -41,7 +37,7 @@ if (session_status() === PHP_SESSION_NONE) {
             <?php endif; ?>
         <?php endif; ?>
 
-        <form action="../rutas/rutas.php" method="POST" class="formulario-registro" novalidate>
+        <form action="<?= BASE_URL ?>rutas/rutas.php" method="POST" class="formulario-registro" novalidate>
             <div class="campo-formulario">
                 <label for="nombre" class="etiqueta-campo">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" class="entrada-campo" required aria-describedby="error-nombre" placeholder="Ingrese su nombre" autocomplete="given-name">
@@ -90,34 +86,30 @@ if (session_status() === PHP_SESSION_NONE) {
             <div class="campo-formulario">
                 <label for="contrasena" class="etiqueta-campo">Contraseña:</label>
                 <input type="password" id="contrasena-registro" name="contrasena" class="entrada-campo" required aria-describedby="error-contrasena" placeholder="Ingrese su contraseña" autocomplete="new-password">
-                <span class="mensaje-error" id="error-contrasena"></span> <!-- ID correcto -->
+                <span class="mensaje-error" id="error-contrasena"></span>
             </div>
             <div class="campo-formulario">
                 <input type="checkbox" id="mostrar-contrasena-registro" class="mostrar-contrasena">
-                <label for="mostrar-contrasena" class="etiqueta-campo">Mostrar Contraseña</label>
+                <label for="mostrar-contrasena-registro" class="etiqueta-campo">Mostrar Contraseña</label>
             </div>
             <div class="grupo-boton">
                 <button type="submit" name="registrarse" class="boton-formulario">Registrarse</button>
             </div>
-            <a href="/vistas/login.php">Iniciar Sesión</a>
+            <a href="<?= BASE_URL ?>vistas/login.php">Iniciar Sesión</a>
         </form>
-
-        
     </main>
-
 
     <div class="contenido">
         <!-- pie de pagina global.  -->
-        <?php include '../vistas/parciales/pieDePagina.php'; ?>
+        <?php include __DIR__ . '/../vistas/parciales/pieDePagina.php'; ?>
     </div>
 
-
     <!-- Vinculación con el script de mostrar/ocultar contraseña -->
-    <script src="../publico/js/mostrar_contrasena.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/mostrar_contrasena.js"></script>
     <!-- Vinculación con la validación JavaScript -->
-    <script src="../publico/js/validacion_registro.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/validacion_registro.js"></script>
     <!-- script para ocultar los mensajes  -->
-    <script src="../publico/js/ocultar_mensaje.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

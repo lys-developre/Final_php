@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Estilos del panel de administración -->
-    <link rel="stylesheet" href="../publico/css/noticias-administracion.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/noticias-administracion.css">
 
     <!-- estilos modal editar noticias -->
-    <link rel="stylesheet" href="../publico/css/modal_editar_noticias.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/modal_editar_noticias.css">
 
     <!-- estilos globales encabezado y pie de pagina-->
-    <link rel="stylesheet" href="../publico/css/globales_encabezado.css">
-    <link rel="stylesheet" href="../publico/css/globales_pie_de_pagina.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_encabezado.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_pie_de_pagina.css">
 
     <title>Administración de Noticias</title>
 </head>
@@ -29,42 +29,41 @@
         <!-- Sección de mensajes de éxito o error -->
         <?php if (isset($_GET['mensaje'])): ?>
             <div class="mensaje-exito">
-        <?php if ($_GET['mensaje'] == 'noticia_creada'): ?>
-            ¡La noticia se ha creado exitosamente!
-        <?php elseif ($_GET['mensaje'] == 'noticia_eliminada'): ?>
-            ¡La noticia ha sido eliminada exitosamente!
-        <?php elseif ($_GET['mensaje'] == 'noticia_actualizada'): ?>
-            ¡La noticia ha sido actualizada exitosamente!
-        <?php endif; ?>
-    </div>
-<?php elseif (isset($_GET['error'])): ?>
-    <div class="mensaje-error">
-        <?php if ($_GET['error'] == 'fallo_creacion'): ?>
-            Ocurrió un error al crear la noticia. Por favor, intenta nuevamente.
-        <?php elseif ($_GET['error'] == 'fallo_eliminacion'): ?>
-            Ocurrió un error al eliminar la noticia. Por favor, intenta nuevamente.
-        <?php elseif ($_GET['error'] == 'fallo_actualizacion'): ?>
-            Ocurrió un error al actualizar la noticia. Por favor, intenta nuevamente.
-        <?php elseif ($_GET['error'] == 'errores_validacion'): ?>
-            Ocurrieron los siguientes errores en la validación:
-            <ul>
-                <?php
-                // Decodificar los detalles de los errores en la validación
-                $detalles = json_decode($_GET['detalles'], true);
-                foreach ($detalles as $error): ?>
-                    <li><?php echo htmlspecialchars($error); ?></li>
-                <?php endforeach; ?>
-            </ul>
-        <?php elseif ($_GET['error'] == 'faltan_datos'): ?>
-            Faltan datos para realizar la operación. Por favor, completa todos los campos.
-        <?php endif; ?>
-    </div>
+                <?php if ($_GET['mensaje'] == 'noticia_creada'): ?>
+                    ¡La noticia se ha creado exitosamente!
+                <?php elseif ($_GET['mensaje'] == 'noticia_eliminada'): ?>
+                    ¡La noticia ha sido eliminada exitosamente!
+                <?php elseif ($_GET['mensaje'] == 'noticia_actualizada'): ?>
+                    ¡La noticia ha sido actualizada exitosamente!
+                <?php endif; ?>
+            </div>
+        <?php elseif (isset($_GET['error'])): ?>
+            <div class="mensaje-error">
+                <?php if ($_GET['error'] == 'fallo_creacion'): ?>
+                    Ocurrió un error al crear la noticia. Por favor, intenta nuevamente.
+                <?php elseif ($_GET['error'] == 'fallo_eliminacion'): ?>
+                    Ocurrió un error al eliminar la noticia. Por favor, intenta nuevamente.
+                <?php elseif ($_GET['error'] == 'fallo_actualizacion'): ?>
+                    Ocurrió un error al actualizar la noticia. Por favor, intenta nuevamente.
+                <?php elseif ($_GET['error'] == 'errores_validacion'): ?>
+                    Ocurrieron los siguientes errores en la validación:
+                    <ul>
+                        <?php
+                        // Decodificar los detalles de los errores en la validación
+                        $detalles = json_decode($_GET['detalles'], true);
+                        foreach ($detalles as $error): ?>
+                            <li><?php echo htmlspecialchars($error); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php elseif ($_GET['error'] == 'faltan_datos'): ?>
+                    Faltan datos para realizar la operación. Por favor, completa todos los campos.
+                <?php endif; ?>
+            </div>
         <?php endif; ?>
 
         <!-- Formulario para añadir noticias -->
         <section id="formulario-noticia-admin" class="formulario-noticia">
-
-            <form id="form" action="rutas.php?accion=crearNoticia" method="POST" enctype="multipart/form-data" novalidate>
+            <form id="form" action="<?= BASE_URL ?>rutas/rutas.php?accion=crearNoticia" method="POST" enctype="multipart/form-data" novalidate>
                 <label for="titulo">Título:</label>
                 <input type="text" id="titulo" name="titulo" required>
                 <p class="mensaje-error" style="visibility: hidden;"></p>
@@ -79,8 +78,8 @@
 
                 <button type="submit" name="crear_noticia">Crear Noticia</button>
             </form>
-
         </section>
+
         <!-- Tabla de noticias publicadas -->
         <section id="tabla-noticias-admin" class="tabla-noticias">
             <h2>Noticias Publicadas</h2>
@@ -106,7 +105,7 @@
                                         data-texto="<?php echo htmlspecialchars($noticia['texto']); ?>">
                                         Editar
                                     </button>
-                                    <form action="rutas.php?accion=eliminarNoticia" method="POST" style="display:inline;">
+                                    <form action="<?= BASE_URL ?>rutas/rutas.php?accion=eliminarNoticia" method="POST" style="display:inline;">
                                         <input type="hidden" name="id_noticia" value="<?php echo $noticia['id_noticia']; ?>">
                                         <button type="submit" class="btn-eliminar" name="eliminar_noticia" onclick="return confirm('¿Estás seguro de eliminar esta noticia?')">Eliminar</button>
                                     </form>
@@ -121,9 +120,6 @@
                 </tbody>
             </table>
         </section>
-
-
-
     </main>
 
     <!-- Modal para editar noticia -->
@@ -131,7 +127,7 @@
         <div class="modal-contenido">
             <span id="cerrar-modal">&times;</span>
             <h2>Editar Noticia</h2>
-            <form id="form-editar" action="rutas.php?accion=editarNoticia" method="POST" enctype="multipart/form-data">
+            <form id="form-editar" action="<?= BASE_URL ?>rutas/rutas.php?accion=editarNoticia" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="id_noticia" id="id_noticia_editar">
 
                 <label for="titulo-editar">Título:</label>
@@ -144,19 +140,19 @@
                 <input type="file" name="imagen" id="imagen-editar" accept="image/*">
 
                 <button type="submit" name="editar_noticia">Guardar Cambios</button>
-
             </form>
         </div>
     </div>
+
     <!-- Pie de página global -->
     <div class="contenido">
         <?php include __DIR__ . '/../../vistas/parciales/pieDePagina.php'; ?>
     </div>
 
-    <script src="/publico/js/validacion_noticias.js"></script>
-    <script src="/publico/js/modal_editar_noticias.js"></script>
-     <!-- script para ocultar mensaje -->
-     <script src="/publico/js/ocultar_mensaje.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/validacion_noticias.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/modal_editar_noticias.js"></script>
+    <!-- script para ocultar mensaje -->
+    <script src="<?= BASE_URL ?>publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

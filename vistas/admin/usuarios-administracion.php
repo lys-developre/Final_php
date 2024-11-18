@@ -16,14 +16,14 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- estilos para encabezado y pie de pagina  -->
-    <link rel="stylesheet" href="/publico/css/globales_encabezado.css">
-    <link rel="stylesheet" href="/publico/css/globales_pie_de_pagina.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>publico/css/globales_encabezado.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>publico/css/globales_pie_de_pagina.css">
 
     <!-- Estilos específicos de usuarios administracion-->
-    <link rel="stylesheet" href="/publico/css/usuarios_administracion.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>publico/css/usuarios_administracion.css">
 
     <!-- estilos para el modal editar usuarios -->
-    <link rel="stylesheet" href="/publico/css/modal_editar_usuarios.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>publico/css/modal_editar_usuarios.css">
     <title>Administración de Usuarios</title>
 </head>
 
@@ -60,13 +60,10 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
             <?php endif; ?>
         <?php endif; ?>
 
-
-
-
         <!-- Formulario para crear nuevo usuario -->
         <section id="formulario-usuario-admin">
             <h2>Crear Usuario</h2>
-            <form action="/rutas/rutas.php" method="POST" class="formulario-registro" novalidate>
+            <form action="<?php echo BASE_URL; ?>rutas/rutas.php" method="POST" class="formulario-registro" novalidate>
 
                 <div class="campo-formulario">
                     <label for="nombre" class="etiqueta-campo">Nombre:</label>
@@ -82,7 +79,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
 
                 <div class="campo-formulario">
                     <label for="correo" class="etiqueta-campo">Correo Electrónico:</label>
-                    <input type="email" id="correo" name="email" class="entrada-campo" required aria-describedby="error-correo" placeholder="ejemplo@correo.com" autocomplete="email">
+                    <input type="email" id="correo" name="email" class="entrada-campo" required aria-describedby="error-correo" placeholder="ejemplo@correo.com" autocomplete ="email">
                     <span class="mensaje-error" id="error-correo"></span>
                 </div>
 
@@ -113,7 +110,6 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                 <div class="campo-formulario">
                     <label for="sexo" class="etiqueta-campo">Sexo:</label>
                     <select id="sexo" name="sexo" class="seleccion-campo" required aria-describedby="error-sexo">
-                    
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
                         <option value="Otro">Otro</option>
@@ -136,7 +132,6 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                 <div class="campo-formulario">
                     <label for="rol" class="etiqueta-campo">Rol:</label>
                     <select id="rol" name="rol" class="seleccion-campo" required aria-describedby="error-rol">
-                        
                         <option value="user">Usuario</option>
                         <option value="admin">Administrador</option>
                     </select>
@@ -147,7 +142,6 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                     <button type="submit" name="registrar_desde_admin" class="boton-formulario">Crear Usuario</button>
                 </div>
             </form>
-        </section>
         </section>
 
         <!-- Tabla de usuarios -->
@@ -188,7 +182,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                                     </button>
 
                                     <!-- Formulario para Eliminar Usuario -->
-                                    <form action="/rutas/rutas.php" method="POST" style="display:inline;">
+                                    <form action="<?php echo BASE_URL; ?>rutas/rutas.php" method="POST" style="display:inline;">
                                         <input type="hidden" name="id_user" value="<?php echo $usuario['id_user']; ?>">
                                         <button type="submit" class="btn-eliminar-usuario" name="eliminar_usuario" onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</button>
                                     </form>
@@ -210,7 +204,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                 <span id="cerrar-modal-usuario" class="cerrar-modal">&times;</span>
                 <h2>Editar Usuario</h2>
 
-                <form id="form-editar-usuario" action="/rutas/rutas.php" method="POST">
+                <form id="form-editar-usuario" action="<?php echo BASE_URL; ?>rutas/rutas.php" method="POST">
                     <input type="hidden" name="id_user" id="id_usuario_editar">
 
                     <label for="nombre-editar">Nombre:</label>
@@ -234,9 +228,6 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                     <label for="direccion-editar">Dirección:</label>
                     <input type="text" name="direccion" id="direccion-editar" required>
 
-
-
-
                     <label for="sexo-editar">Sexo:</label>
                     <select name="sexo" id="sexo-editar" required>
                         <option value="Masculino">Masculino</option>
@@ -244,10 +235,6 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                         <option value="Otro">Otro</option>
                     </select>
 
-
-
-
-                    
                     <label for="rol-editar">Rol:</label>
                     <select name="rol" id="rol-editar" required>
                         <option value="user">Usuario</option>
@@ -260,29 +247,24 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
 
                     <button type="submit" name="editar_usuario">Guardar Cambios</button>
                 </form>
-
-
             </div>
         </div>
-
-
-
     </main>
 
     <!-- Pie de página -->
     <?php include __DIR__ . '/../../vistas/parciales/pieDePagina.php'; ?>
 
-    <!-- script modal editar usuarioMODAL PENDIENTE PARA EDITAR USUARIOS -->
-    <script src="/publico/js/modal_editar_usuario.js"></script>
+    <!-- script modal editar usuario -->
+    <script src="<?php echo BASE_URL; ?>publico/js/modal_editar_usuario.js"></script>
 
-    <!-- script validacion de formulario -->
-    <script src="/publico/js/validacion_registro.js"></script>
+ <!-- script validacion de formulario -->
+    <script src="<?php echo BASE_URL; ?>publico/js/validacion_registro.js"></script>
 
     <!-- Vinculación con el script de mostrar/ocultar contraseña -->
-    <script src="/publico/js/mostrar_contrasena.js"></script>
+    <script src="<?php echo BASE_URL; ?>publico/js/mostrar_contrasena.js"></script>
 
     <!-- Vinculación con el script de ocultar mensajes de exito y error -->
-    <script src="/publico/js/ocultar_mensaje.js"></script>
+    <script src="<?php echo BASE_URL; ?>publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

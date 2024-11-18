@@ -6,9 +6,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // Verificar si la sesión contiene el nombre de usuario
 $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_data']['usuario'] : 'Usuario Desconocido';
+
+require_once __DIR__ . '../../../config/base_config.php'; // Incluyendo base_config.php
 ?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,14 +17,14 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Estilos del panel de administración -->
-    <link rel="stylesheet" href="/publico/css/citaciones.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/citaciones.css">
 
     <!-- Estilos para el modal de edición -->
-    <link rel="stylesheet" href="../publico/css/modal_editar_citas.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/modal_editar_citas.css">
 
     <!-- Estilos globales encabezado y pie de página-->
-    <link rel="stylesheet" href="/publico/css/globales_encabezado.css">
-    <link rel="stylesheet" href="/publico/css/globales_pie_de_pagina.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_encabezado.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>publico/css/globales_pie_de_pagina.css">
 
     <title>Administración de Citas</title>
 </head>
@@ -38,8 +38,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
         <h1>Administración de Citas</h1>
 
         <!-- Mostrar el nombre del usuario autenticado -->
-        <h2>Bienvenido,  <span class="nombre-usuario"><?php echo htmlspecialchars($nombre_usuario); ?></span></h2>
-
+        <h2>Bienvenido, <span class="nombre-usuario"><?php echo htmlspecialchars($nombre_usuario); ?></span></h2>
 
         <!-- Sección de mensajes de éxito o error -->
         <?php if (isset($_GET['mensaje'])): ?>
@@ -67,14 +66,11 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
             </div>
         <?php endif; ?>
 
-
         <!-- Formulario para añadir citas -->
         <section id="formulario-cita-admin" class="formulario-cita">
             <h2>Nueva cita</h2>
 
-
-
-            <form id="form" action="/rutas/rutas.php" method="POST" novalidate>
+            <form id="form" action="<?= BASE_URL ?>rutas/rutas.php" method="POST" novalidate>
                 <label for="fecha">Fecha de la cita:</label>
                 <input type="date" id="fecha" name="fecha" required min="<?php echo date('Y-m-d'); ?>">
                 <p class="mensaje-error" style="visibility: hidden;"></p>
@@ -85,10 +81,6 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
 
                 <button type="submit" name="crear_cita_usuario">Crear Cita</button>
             </form>
-
-
-
-
         </section>
 
         <!-- Tabla de citas asignadas al usuario -->
@@ -103,7 +95,6 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                     </tr>
                 </thead>
                 <tbody>
-                    
                     <?php if (isset($citas) && !empty($citas)): ?>
                         <?php foreach ($citas as $cita): ?>
                             <tr>
@@ -119,7 +110,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
                                     </button>
 
                                     <!-- Formulario para Eliminar Cita -->
-                                    <form action="/rutas/rutas.php" method="POST" style="display:inline;">
+                                    <form action="<?= BASE_URL ?>rutas/rutas.php" method="POST" style="display:inline;">
                                         <input type="hidden" name="id_cita" value="<?php echo $cita['id_cita']; ?>">
                                         <button type="submit" class="btn-eliminar" name="eliminar_cita_usuario" onclick="return confirm('¿Estás seguro de eliminar esta cita?')">Eliminar</button>
                                     </form>
@@ -140,7 +131,7 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
             <div class="modal-contenido">
                 <span id="cerrar-modal">&times;</span>
                 <h2>Editar Cita</h2>
-                <form id="form-editar" action="/rutas/rutas.php" method="POST">
+                <form id="form-editar" action="<?= BASE_URL ?>rutas/rutas.php" method="POST">
                     <input type="hidden" name="id_cita" id="id_cita_editar">
 
                     <label for="fecha-editar">Fecha de la cita:</label>
@@ -161,12 +152,11 @@ $nombre_usuario = isset($_SESSION['user_data']['usuario']) ? $_SESSION['user_dat
     </div>
 
     <!-- script para el modal citas -->
-    <script src="/publico/js/modal_editar_citas.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/modal_editar_citas.js"></script>
     <!-- script para la validación de citas -->
-    <script src="/publico/js/validacion_citas_usuario.js"></script>
+    <script src="<?= BASE_URL ?>publico/js/validacion_citas_usuario.js"></script>
     <!-- script para ocultar mensajes de éxito/error -->
-    <script src="/publico/js/ocultar_mensaje.js"></script>
-
+    <script src="<?= BASE_URL ?>publico/js/ocultar_mensaje.js"></script>
 </body>
 
 </html>

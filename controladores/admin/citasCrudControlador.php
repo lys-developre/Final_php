@@ -1,4 +1,7 @@
 <?php
+
+// Incluir el modelo para las citas y la configuración base
+require_once __DIR__ . '/../../config/base_config.php'; // Incluyendo base_config.php
 require_once __DIR__ . '/../../modelos/citasModelo.php';
 
 class CitasCrudControlador
@@ -15,12 +18,15 @@ class CitasCrudControlador
             $resultado = $citasModelo->crearCita($id_user, $fecha, $descripcion);
 
             if ($resultado) {
-                header('Location: rutas.php?accion=adminCitas&mensaje=cita_creada');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminCitas&mensaje=cita_creada');
+                exit();
             } else {
-                header('Location: rutas.php?accion=adminCitas&error=fallo_creacion');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminCitas&error=fallo_creacion');
+                exit();
             }
         }
     }
+
     // Método para eliminar una cita
     public function eliminarCita()
     {
@@ -31,12 +37,15 @@ class CitasCrudControlador
             $resultado = $citasModelo->eliminarCita($id_cita);
 
             if ($resultado) {
-                header('Location: rutas.php?accion=adminCitas&mensaje=cita_eliminada');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminCitas&mensaje=cita_eliminada');
+                exit();
             } else {
-                header('Location: rutas.php?accion=adminCitas&error=fallo_eliminacion');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminCitas&error=fallo_eliminacion');
+                exit();
             }
         }
     }
+
     // Método para editar una cita
     public function editarCita()
     {
@@ -49,9 +58,11 @@ class CitasCrudControlador
             $resultado = $citasModelo->editarCita($id_cita, $fecha, $descripcion);
 
             if ($resultado) {
-                header('Location: rutas.php?accion=adminCitas&mensaje=cita_actualizada');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminCitas&mensaje=cita_actualizada');
+                exit();
             } else {
-                header('Location: rutas.php?accion=adminCitas&error=fallo_actualizacion');
+                header('Location: ' . BASE_URL . 'rutas/rutas.php?accion=adminCitas&error=fallo_actualizacion');
+                exit();
             }
         }
     }
