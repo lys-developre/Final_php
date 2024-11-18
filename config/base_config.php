@@ -1,3 +1,3 @@
 <?php
-define('BASE_URL', 'http://localhost/MisProyectos/app/');
+define('BASE_URL', 'https://final.free.zeabur.app/MisProyectos/app/');
 ?>
