@@ -1,10 +1,12 @@
 <?php
-require_once __DIR__ . '../../../config/base_config.php'; // Incluyendo base_config.php
 
 // Iniciar sesión si no está iniciada
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+require_once __DIR__ . '../../../config/base_config.php'; // Incluyendo base_config.php
+
 
 // Verificamos cuál es el rol del usuario y mostramos sus opciones de acceso dependiendo de su rol.
 // Nota: El rol se almacena en $_SESSION['user_data']['rol'] según lo que vimos antes.
