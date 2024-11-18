@@ -8,25 +8,5 @@ Este proyecto consiste en la creación de un sitio web utilizando las tecnologí
 XAMPP for Windows 8.2.12
 ## vercion PHP
 Versión : 8.2.12
-Requisitos del Proyecto
-Este proyecto está configurado para funcionar utilizando un servidor PHP local en lugar de un servidor Apache tradicional. A continuación, se describe el entorno necesario y los pasos para ejecutar el proyecto correctamente.
-
-Herramientas necesarias:
-Visual Studio Code – Editor de código.
-Extensión PHP Server – Para iniciar un servidor PHP integrado.
-PHP – Lenguaje de programación utilizado para el backend. Asegúrate de tener instalado PHP (8.2.12).
-Instalación y ejecución del servidor PHP
-Este proyecto está optimizado para funcionar utilizando la extensión PHP Server de Visual Studio Code. Esto permite una rápida ejecución del entorno de desarrollo sin depender de un servidor Apache o Nginx. A continuación se explican los pasos para ejecutar el servidor PHP de forma profesional:
-
-Instalación de la extensión PHP Server:
-
-Abre Visual Studio Code.
-Ve a la pestaña de Extensiones y busca PHP Server (desarrollado por brapifra).
-Haz clic en Instalar.
-Ejecución del servidor PHP:
-
-Abre el proyecto en Visual Studio Code.
-Haz clic derecho en el archivo index.php o en la raíz del proyecto y selecciona PHP Server: Serve project.
-Esto iniciará el servidor en la dirección localhost en el puerto por defecto, que normalmente es localhost:3000. Si deseas cambiar el puerto, puedes hacerlo desde la configuración de la extensión.
 
 
